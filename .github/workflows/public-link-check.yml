@@ -1,0 +1,28 @@
+name: Public Link Check
+
+# PUB-D-03: this repo and sisyphusdev.com are public.
+# Fail if any tracked file links to a Sisyphusmfg GitHub repository
+# other than MFGDevOps_Pub.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Block links to private repositories
+        run: |
+          hits=$(git grep -nIiP 'github\.com/Sisyphusmfg/(?!MFGDevOps_Pub\b)[A-Za-z0-9_.-]+' -- . || true)
+          if [ -n "$hits" ]; then
+            echo "Links to repositories other than MFGDevOps_Pub found (PUB-D-03):"
+            echo "$hits"
+            exit 1
+          fi
+          echo "No private repository links."

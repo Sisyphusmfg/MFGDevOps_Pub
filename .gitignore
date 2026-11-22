@@ -1,0 +1,20 @@
+# MFGDevOps_Pub — git ignore rules
+
+# Inbox is a drop zone; only its README is tracked
+Inbox/*
+!Inbox/README.md
+
+# Large files never go in this repo
+**/_files/
+*.zip
+
+# Cloudflare / Node local state
+node_modules/
+.wrangler/
+.dev.vars
+.env*
+
+# Editor / OS junk
+*~
+*.swp
+.DS_Store
