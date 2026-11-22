@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sisyphusdev — app directory</title>
+<meta name="description" content="Manufacturing tools built in the open by Sisyphus Manufacturing. One card per app.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground: #F4F5F2; --ink: #15181C; --ink-2: #3B4148; --ink-3: #4A5058;
+    --line: #D5D8D2; --chip: #EDEFEA; --accent: #C2410C; --hover: #B23C0A;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --head: "Space Grotesk", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: Inter, system-ui, sans-serif; }
+  a { color: var(--ink); } a:hover { color: var(--hover); }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; padding-top: 18px; padding-bottom: 18px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--head); font-weight: 700; font-size: 19px; }
+  nav { display: flex; flex-wrap: wrap; gap: 4px; }
+  nav a { padding: 12px 14px; font-size: 15px; font-weight: 500; text-decoration: none; }
+  .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .hero { padding-top: 88px; padding-bottom: 56px; }
+  h1 { margin: 20px 0 0; font-family: var(--head); font-weight: 700; font-size: clamp(40px, 6vw, 72px); line-height: 1.02; letter-spacing: -.03em; max-width: 880px; }
+  .lede { margin: 24px 0 0; font-size: 19px; line-height: 1.55; color: var(--ink-2); max-width: 640px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border-radius: 8px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid var(--ink); }
+  .btn.solid { background: var(--ink); color: var(--ground); }
+  .btn.solid:hover { background: #2A2F35; color: var(--ground); }
+  #apps { padding-top: 24px; padding-bottom: 72px; }
+  .apps-head { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between; border-top: 2px solid var(--ink); padding-top: 20px; margin-bottom: 28px; }
+  h2 { margin: 0; font-family: var(--head); font-weight: 700; font-size: 32px; letter-spacing: -.02em; }
+  .count { margin: 6px 0 0; font-size: 15px; color: var(--ink-3); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+  .filters button { min-height: 44px; padding: 0 16px; border-radius: 999px; font: 500 14px Inter, system-ui, sans-serif; cursor: pointer; background: transparent; color: var(--ink); border: 1px solid #B9BDB5; }
+  .filters button[aria-pressed="true"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  .card { display: flex; flex-direction: column; gap: 14px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+  .card .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .host { font-family: var(--mono); font-size: 12px; color: var(--ink-3); overflow-wrap: anywhere; }
+  .status { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .status.Live { background: #DCF2E3; color: #14532D; }
+  .status.Building { background: #FDE9D9; color: #8A2C07; }
+  .status.Planned { background: #E6E8EB; color: var(--ink-2); }
+  h3 { margin: 0; font-family: var(--head); font-weight: 700; font-size: 22px; letter-spacing: -.01em; }
+  .desc { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); flex-grow: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+  .tags li { font-family: var(--mono); font-size: 12px; padding: 4px 8px; border-radius: 4px; background: var(--chip); color: var(--ink-2); }
+  .card .btn { min-height: 44px; font-size: 14px; }
+  .card .btn.off { border-color: #B9BDB5; color: var(--ink-3); cursor: default; }
+  #status { background: var(--ink); color: var(--ground); }
+  #status .wrap.main { padding-top: 56px; padding-bottom: 56px; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; }
+  #status .eyebrow { color: #A9B0B8; }
+  #status h2 { font-size: 28px; margin-top: 12px; }
+  #status p { margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: #C9CED4; max-width: 460px; }
+  dl { flex: 1 1 420px; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  dl div { border-top: 1px solid #3B4148; padding-top: 14px; }
+  dt { font-size: 13px; color: #A9B0B8; }
+  dd { margin: 6px 0 0; font-family: var(--head); font-size: 40px; font-weight: 700; }
+  footer { border-top: 1px solid #2A2F35; }
+  footer .wrap { padding-top: 20px; padding-bottom: 20px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 13px; color: #A9B0B8; }
+  footer a { color: #C9CED4; } footer a:hover { color: #fff; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="6" fill="#15181C"/><circle cx="17" cy="11" r="4.5" fill="none" stroke="#C2410C" stroke-width="2.4"/><path d="M6 22 L13 15" stroke="#F4F5F2" stroke-width="2.4" stroke-linecap="round"/></svg>
+      sisyphusdev
+    </a>
+    <nav aria-label="Main">
+      <a href="#apps">Apps</a>
+      <a href="#status">Status</a>
+      <a href="https://github.com/Sisyphusmfg/MFGDevOps_Pub">GitHub</a>
+      <a href="https://sisyphusmfg.com">sisyphusmfg.com</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div class="eyebrow">Sisyphus Manufacturing · Dev floor</div>
+    <h1>Tools for manufacturing, built in the open and used here.</h1>
+    <p class="lede">Every app I build lives on its own subdomain and gets a card below. Open one, try it, and see what state it's in.</p>
+    <div class="ctas">
+      <a class="btn solid" href="#apps">Browse the apps</a>
+      <a class="btn" href="#status">System status</a>
+    </div>
+  </section>
+
+  <section id="apps" class="wrap">
+    <div class="apps-head">
+      <div>
+        <h2>App directory</h2>
+        <p class="count" id="count" aria-live="polite">Loading…</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter by status">
+        <button type="button" data-f="All" aria-pressed="true">All</button>
+        <button type="button" data-f="Live" aria-pressed="false">Live</button>
+        <button type="button" data-f="Building" aria-pressed="false">Building</button>
+        <button type="button" data-f="Planned" aria-pressed="false">Planned</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <noscript><p>The app list needs JavaScript. The raw list is at <a href="/apps.json">/apps.json</a>.</p></noscript>
+  </section>
+</main>
+
+<section id="status">
+  <div class="wrap main">
+    <div style="flex: 1 1 320px">
+      <div class="eyebrow">How this site works</div>
+      <h2>One domain, one card per app.</h2>
+      <p>Each app deploys to its own subdomain. This page reads one list, <a href="/apps.json" style="color:#fff">apps.json</a>, so shipping a new tool means adding one entry.</p>
+    </div>
+    <dl>
+      <div><dt>Apps live</dt><dd id="n-live">–</dd></div>
+      <div><dt>In progress</dt><dd id="n-build">–</dd></div>
+      <div><dt>Planned</dt><dd id="n-plan">–</dd></div>
+    </dl>
+  </div>
+  <footer>
+    <div class="wrap">
+      <span>© Sisyphus Manufacturing · Anderson, SC</span>
+      <span>Source: <a href="https://github.com/Sisyphusmfg/MFGDevOps_Pub/tree/main/sites/sisyphusdev">MFGDevOps_Pub/sites/sisyphusdev</a></span>
+    </div>
+  </footer>
+</section>
+
+<script>
+(function () {
+  var apps = [], filter = 'All';
+  var grid = document.getElementById('grid');
+  var count = document.getElementById('count');
+  var buttons = document.querySelectorAll('.filters button');
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function render() {
+    var shown = apps.filter(function (a) { return filter === 'All' || a.status === filter; });
+    grid.replaceChildren();
+    shown.forEach(function (a) {
+      var card = el('article', 'card');
+      var top = el('div', 'top');
+      top.append(el('span', 'host', a.host), el('span', 'status ' + a.status, a.status));
+      var tags = el('ul', 'tags');
+      (a.tags || []).forEach(function (t) { tags.append(el('li', null, t)); });
+      var link;
+      if (a.href) {
+        link = el('a', 'btn', a.cta || 'Open');
+        link.href = a.href;
+      } else {
+        link = el('span', 'btn off', a.cta || 'Coming soon');
+      }
+      card.append(top, el('h3', null, a.name), el('p', 'desc', a.desc), tags, link);
+      grid.append(card);
+    });
+    count.textContent = shown.length + (shown.length === 1 ? ' app' : ' apps') + (filter === 'All' ? '' : ' · ' + filter);
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      filter = b.dataset.f;
+      buttons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      render();
+    });
+  });
+
+  fetch('/apps.json').then(function (r) { return r.json(); }).then(function (data) {
+    apps = data;
+    var n = function (s) { return String(apps.filter(function (a) { return a.status === s; }).length); };
+    document.getElementById('n-live').textContent = n('Live');
+    document.getElementById('n-build').textContent = n('Building');
+    document.getElementById('n-plan').textContent = n('Planned');
+    render();
+  }).catch(function () {
+    count.textContent = 'Could not load the app list.';
+  });
+})();
+</script>
+</body>
+</html>

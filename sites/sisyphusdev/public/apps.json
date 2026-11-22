@@ -1,0 +1,47 @@
+[
+  {
+    "name": "MFGDevOps Public",
+    "host": "github.com/Sisyphusmfg/MFGDevOps_Pub",
+    "status": "Live",
+    "desc": "The public side of my machine-first work: the methods, skills and tools I share openly.",
+    "tags": ["Repo", "Open source"],
+    "href": "https://github.com/Sisyphusmfg/MFGDevOps_Pub",
+    "cta": "Open repository"
+  },
+  {
+    "name": "POSIWID Analysis",
+    "host": "posiwid.sisyphusdev.com",
+    "status": "Planned",
+    "desc": "Walk any system through doing, expected, gaps, changes and a measurable target, then save the result.",
+    "tags": ["AI agent", "Analysis"],
+    "href": "",
+    "cta": "Coming soon"
+  },
+  {
+    "name": "Goal Agent",
+    "host": "goals.sisyphusdev.com",
+    "status": "Planned",
+    "desc": "Set goals, break them into measurable steps and get check-ins against baseline, current and target.",
+    "tags": ["AI agent", "Planning"],
+    "href": "",
+    "cta": "Coming soon"
+  },
+  {
+    "name": "IOED Explainer",
+    "host": "ioed.sisyphusdev.com",
+    "status": "Planned",
+    "desc": "Ask how something really works and get it explained mechanism by mechanism, or be quizzed on it.",
+    "tags": ["AI agent", "Learning"],
+    "href": "",
+    "cta": "Coming soon"
+  },
+  {
+    "name": "AI Lab",
+    "host": "lab.sisyphusdev.com",
+    "status": "Planned",
+    "desc": "Self-hosted model experiments: what runs, on what hardware, at what cost per answer.",
+    "tags": ["Models", "Research"],
+    "href": "",
+    "cta": "Coming soon"
+  }
+]
