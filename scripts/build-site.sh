@@ -14,6 +14,7 @@ cp -R Workstreams/Sisyphusdev_Site/site/public/. dist/
 # Apps: "<source folder>:<path on the site>"
 apps=(
   "Workstreams/POSIWID_Analysis/app:posiwid"
+  "Workstreams/Goal_Agent/app:goals"
 )
 
 for entry in "${apps[@]}"; do

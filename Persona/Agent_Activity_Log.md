@@ -57,3 +57,17 @@ Add new entries at the end, below the last entry. Copy this block:
 - **Timestamp:** 2026-11-22T17:32:00-05:00 (America/New_York)
 - **Action:** Correction to the 17:20 entry. At Marc's request, PR #3 now uses his PNG (`logo.png`, plus `logo-small.png`, `favicon.png` and `apple-touch-icon.png` made from it) in place of the SVG redraw. `logo.svg` and `favicon.svg` were removed from the branch. Rollback: revert PR #3.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/3. Decision: SDEV-D-06 (updated).
+
+### 2026-11-22T18:05:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T18:05:00-05:00 (America/New_York)
+- **Action:** Added the Goal_Agent domain (method reference, status, goal form at `/goals/` with "Prompt for an AI" and "Goal record" outputs). Added the same "Prompt for an AI" output to the POSIWID form. Mounted `/goals` in `scripts/build-site.sh`, set the Goal Agent card to Live, and updated INDEX registers, root README and AGENTS. Rollback: revert this PR, and `npx wrangler rollback` if needed.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/4. Decision: GA-D-01 to GA-D-03.
+
+### 2026-11-22T18:15:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T18:15:00-05:00 (America/New_York)
+- **Action:** Added POSIWID-to-goal import to PR #4. There is a "Start a goal" button on the POSIWID form and an "Upload POSIWID file" control on the Goal form, and both use one parser. Updated Goal_Agent DECISIONS (GA-D-04), INDEX, status (GA-OI-03 closed) and method reference, and the POSIWID INDEX. Rollback: revert PR #4.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/4. Decision: GA-D-04.

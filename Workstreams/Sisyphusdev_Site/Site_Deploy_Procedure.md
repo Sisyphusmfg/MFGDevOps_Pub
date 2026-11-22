@@ -22,6 +22,7 @@ Cloudflare Workers Builds watches `main` on `Sisyphusmfg/MFGDevOps_Pub`. On ever
 |-----------|---------------|
 | `/` | `Workstreams/Sisyphusdev_Site/site/public/` |
 | `/posiwid/` | `Workstreams/POSIWID_Analysis/app/` |
+| `/goals/` | `Workstreams/Goal_Agent/app/` |
 
 **Merging to `main` publishes the site.** Treat every merge that touches these folders, `wrangler.jsonc` or `scripts/build-site.sh` as a publication (PUB-D-04).
 

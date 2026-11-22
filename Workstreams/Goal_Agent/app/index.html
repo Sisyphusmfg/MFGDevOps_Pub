@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goal Agent — sisyphusdev</title>
+<meta name="description" content="Write a goal an AI can pursue with you: source, measurable change, guardrails, milestones and limits, plus the method the AI should follow.">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground: #F4F5F2; --ink: #15181C; --ink-2: #3B4148; --ink-3: #4A5058;
+    --line: #D5D8D2; --chip: #EDEFEA; --hover: #B23C0A; --focus: #1D4ED8;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --head: "Space Grotesk", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: Inter, system-ui, sans-serif; }
+  a { color: var(--ink); } a:hover { color: var(--hover); }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding-top: 16px; padding-bottom: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--head); font-weight: 700; font-size: 18px; text-decoration: none; }
+  .brand span { color: var(--ink-3); font-weight: 500; }
+  .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .intro { padding-top: 48px; padding-bottom: 24px; }
+  h1 { margin: 12px 0 0; font-family: var(--head); font-size: clamp(32px, 4.5vw, 52px); line-height: 1.05; letter-spacing: -.03em; }
+  .lede { margin: 16px 0 0; font-size: 17px; line-height: 1.6; color: var(--ink-2); max-width: 760px; }
+  .note { margin-top: 12px; font-size: 14px; color: var(--ink-3); }
+  .gates { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; padding: 0; list-style: none; }
+  .gates li { font-family: var(--mono); font-size: 13px; padding: 6px 10px; border-radius: 6px; background: #fff; border: 1px solid var(--line); }
+  .gates li b { color: var(--ink); }
+  .layout { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; padding-bottom: 64px; }
+  form { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  aside { flex: 1 1 400px; min-width: 0; position: sticky; top: 16px; }
+  fieldset { margin: 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+  legend { padding: 0 8px; margin-left: -8px; font-family: var(--head); font-weight: 700; font-size: 22px; letter-spacing: -.01em; display: flex; align-items: center; gap: 10px; }
+  .num { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--ink); color: var(--ground); font-family: var(--mono); font-size: 15px; }
+  .guide { margin: 0; font-size: 14px; line-height: 1.55; color: var(--ink-2); background: var(--chip); border-radius: 8px; padding: 12px 14px; }
+  .guide b { color: var(--ink); }
+  label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .hint { display: block; font-weight: 400; font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+  input[type=text], input[type=date], input[type=number], textarea, select { width: 100%; font: 15px/1.5 Inter, system-ui, sans-serif; color: var(--ink); background: #fff; border: 1px solid #B9BDB5; border-radius: 8px; padding: 10px 12px; min-height: 44px; }
+  textarea { min-height: 88px; resize: vertical; }
+  input:focus, textarea:focus, select:focus, button:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+  .row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .row3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+  .item { border: 1px dashed #B9BDB5; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .item-head { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 13px; color: var(--ink-3); }
+  button { font: 600 14px Inter, system-ui, sans-serif; min-height: 44px; padding: 0 16px; border-radius: 8px; cursor: pointer; border: 1px solid var(--ink); background: transparent; color: var(--ink); }
+  button.solid { background: var(--ink); color: var(--ground); }
+  button.link { border: none; padding: 0 8px; color: var(--ink-3); text-decoration: underline; }
+  .toggle { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
+  .toggle input { width: 20px; height: 20px; margin-top: 2px; flex: none; }
+  .import { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin-top: 20px; }
+  .import p { margin: 0; flex: 1 1 320px; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+  .import p b { color: var(--ink); }
+  .filebtn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--ink); font-weight: 600; font-size: 14px; cursor: pointer; background: var(--ink); color: var(--ground); }
+  .filebtn:focus-within { outline: 3px solid var(--focus); outline-offset: 1px; }
+  .import-status { flex-basis: 100%; font-size: 13px; color: #14532D; min-height: 0; }
+  .import-status:empty { display: none; }
+  .card { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .card h2 { margin: 0; font-family: var(--head); font-size: 20px; }
+  .checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  .checks li { display: flex; gap: 8px; align-items: flex-start; }
+  .dot { flex: none; width: 18px; height: 18px; border-radius: 50%; border: 2px solid #B9BDB5; margin-top: 1px; }
+  .done .dot { background: #15803D; border-color: #15803D; }
+  .done { color: var(--ink-3); }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tabs button { border-color: #B9BDB5; font-weight: 500; }
+  .tabs button[aria-pressed="true"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+  .tabnote { margin: 0; font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+  pre { margin: 0; max-height: 46vh; overflow: auto; background: var(--ink); color: #E6E8EB; border-radius: 8px; padding: 14px; font: 12.5px/1.55 var(--mono); white-space: pre-wrap; word-break: break-word; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .status { font-size: 13px; color: #14532D; min-height: 18px; }
+  footer { border-top: 1px solid var(--line); }
+  footer .wrap { padding-top: 18px; padding-bottom: 18px; font-size: 13px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  @media (max-width: 960px) { aside { position: static; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/logo-small.png" alt="" width="40" height="35">sisyphusdev <span>/ goals</span></a>
+    <a href="/" style="font-size:15px;font-weight:500;padding:12px 0">All apps</a>
+  </div>
+</header>
+
+<main>
+  <section class="wrap intro">
+    <div class="eyebrow">Goal Agent · You approve, the AI pursues, you judge</div>
+    <h1>Set a goal an AI can work on with you</h1>
+    <p class="lede">Write the goal down the way a good charter would: where it came from, the one number that shows it worked, what must not get worse, and what the AI may and may not do. The page builds two things: a goal record to keep, and a prompt that hands the goal and the method to any AI assistant.</p>
+    <ul class="gates" aria-label="The three approval gates">
+      <li><b>1 APPROVE</b> you agree the goal is worth pursuing</li>
+      <li><b>2 CHARTER</b> you confirm scope, measure and limits</li>
+      <li><b>3 COMPLETE</b> you accept the evidence</li>
+    </ul>
+    <p class="note">Everything stays in this browser. Nothing is sent anywhere, including to any AI, until you paste it yourself.</p>
+    <div class="import">
+      <p><b>Start from a POSIWID analysis.</b> Upload a file saved from the <a href="/posiwid/">POSIWID form</a>, or use its "Start a goal" button. The source, expectation, gaps and measure are filled in for you.</p>
+      <label class="filebtn">Upload POSIWID file<input type="file" id="posiwid-file" accept=".md,.markdown,.txt,text/markdown,text/plain" class="sr"></label>
+      <div class="import-status" id="import-status" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <div class="wrap layout">
+    <form id="f" novalidate>
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">1</span> The goal</legend>
+        <p class="guide"><b>State the outcome, not the activity.</b> "Changeovers under 30 minutes" is a goal. "Run a SMED workshop" is an action.</p>
+        <div><label for="title">Goal<span class="hint">What will be true when you're done</span></label><input type="text" id="title" placeholder="Cut median changeover on line 2 to under 30 minutes"></div>
+        <div class="row2">
+          <div><label for="owner">Owner and judge<span class="hint">The person who approves and closes it</span></label><input type="text" id="owner" placeholder="Your name"></div>
+          <div><label for="start">Start date</label><input type="date" id="start"></div>
+        </div>
+        <div><label for="why">Why now<span class="hint">What it costs to leave it alone</span></label><textarea id="why" placeholder="Each changeover over target loses about 20 minutes of output, roughly 10 times a week."></textarea></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">2</span> Where it came from</legend>
+        <p class="guide"><b>Every goal needs a source.</b> A goal with no source is a guess. The strongest source is a POSIWID analysis, because it already has the expectation, the gap and the measure.</p>
+        <div><label for="srctype">Source type</label>
+          <select id="srctype">
+            <option value="POSIWID analysis">A POSIWID analysis</option>
+            <option value="Owner request">My own request</option>
+            <option value="Issue list">An issue or action list</option>
+          </select></div>
+        <div><label for="srcref">Reference<span class="hint">Document and gap number, issue ID, or the request in your words</span></label><input type="text" id="srcref" placeholder="2026-11-22_POSIWID_Line2_Changeover.md, gap G1"></div>
+        <div><label for="expected">The expectation it serves<span class="hint">From POSIWID question 2</span></label><textarea id="expected" placeholder="Changeover under 30 min, with first-article sign-off within 10 min of request."></textarea></div>
+        <div><label for="gaps">The gaps it closes<span class="hint">From POSIWID question 3, one per line</span></label><textarea id="gaps" placeholder="G1 Sign-off takes 25 min against a 10 min expectation&#10;G2 Tools not staged before the run ends"></textarea></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">3</span> The measurable change</legend>
+        <p class="guide"><b>One number, checked the same way every time.</b> The baseline and target don't change once you confirm the charter. If one turns out wrong, that's a decision for you, not the AI.</p>
+        <div class="row2">
+          <div><label for="metric">Measure</label><input type="text" id="metric" placeholder="Median changeover time"></div>
+          <div><label for="unit">Unit</label><input type="text" id="unit" placeholder="minutes"></div>
+        </div>
+        <div class="row3">
+          <div><label for="baseline">Baseline</label><input type="text" id="baseline" inputmode="decimal" placeholder="52"></div>
+          <div><label for="target">Target</label><input type="text" id="target" inputmode="decimal" placeholder="30"></div>
+          <div><label for="by">Target date</label><input type="date" id="by"></div>
+        </div>
+        <div class="row2">
+          <div><label for="basesrc">Baseline source and date</label><input type="text" id="basesrc" placeholder="MES log, Oct 2026"></div>
+          <div><label for="cadence">Check-in every</label>
+            <select id="cadence"><option>week</option><option>2 weeks</option><option>month</option></select></div>
+        </div>
+        <div><label for="check">How to check it<span class="hint">The query, report or observation anyone can repeat</span></label><textarea id="check" placeholder="Median of MES changeover events for line 2, Monday to Sunday."></textarea></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">4</span> Guardrails and stop rules</legend>
+        <p class="guide"><b>What must not get worse while you chase the target,</b> and when you'd stop altogether.</p>
+        <div id="guards" style="display:flex;flex-direction:column;gap:12px"></div>
+        <div><button type="button" id="add-guard">Add a guardrail</button></div>
+        <div><label for="kill">Kill criteria<span class="hint">Conditions under which you'd stop the goal</span></label><textarea id="kill" placeholder="First-pass yield drops below 97% for two weeks running."></textarea></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">5</span> Milestones</legend>
+        <p class="guide"><b>Checkpoints with a go or no-go test,</b> so a stalled goal shows up early instead of at the deadline.</p>
+        <div id="miles" style="display:flex;flex-direction:column;gap:12px"></div>
+        <div><button type="button" id="add-mile">Add a milestone</button></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">6</span> Scope and limits for the AI</legend>
+        <p class="guide"><b>The AI works only inside these lines.</b> Be concrete about tools, files, people and spend.</p>
+        <div class="row2">
+          <div><label for="inscope">In scope</label><textarea id="inscope" placeholder="Line 2 changeovers, day and second shift."></textarea></div>
+          <div><label for="outscope">Out of scope</label><textarea id="outscope" placeholder="Line 1. Capital spend. Staffing changes."></textarea></div>
+        </div>
+        <div class="row2">
+          <div><label for="may">The AI may</label><textarea id="may" placeholder="Analyse exported data I give it. Draft procedures and checklists. Prepare check-ins."></textarea></div>
+          <div><label for="maynot">The AI must not</label><textarea id="maynot" placeholder="Contact anyone. Change a target. Mark the goal complete."></textarea></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">7</span> Approval</legend>
+        <p class="guide"><b>Gates are yours.</b> Tick them as you decide. The AI is told not to act beyond planning until both are ticked.</p>
+        <label class="toggle"><input type="checkbox" id="g1"> <span><b>APPROVE:</b> I agree this goal is worth pursuing</span></label>
+        <label class="toggle"><input type="checkbox" id="g2"> <span><b>CHARTER:</b> I confirm the scope, the measurable change and the limits above</span></label>
+      </fieldset>
+    </form>
+
+    <aside aria-label="Progress and output">
+      <div class="card">
+        <h2>Progress</h2>
+        <ul class="checks" id="checks"></ul>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h2>Output</h2>
+        <div class="tabs" role="group" aria-label="Choose output">
+          <button type="button" id="tab-ai" aria-pressed="true">Prompt for an AI</button>
+          <button type="button" id="tab-rec" aria-pressed="false">Goal record</button>
+        </div>
+        <p class="tabnote" id="tabnote"></p>
+        <pre id="out" tabindex="0" aria-label="Output"></pre>
+        <div class="actions">
+          <button type="button" class="solid" id="copy">Copy</button>
+          <button type="button" id="download">Download .md</button>
+          <button type="button" class="link" id="clear">Clear form</button>
+        </div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Method: <a href="https://github.com/Sisyphusmfg/MFGDevOps_Pub/tree/main/Workstreams/Goal_Agent">Goal_Agent on GitHub</a> · Anchored in <a href="/posiwid/">POSIWID analysis</a></span>
+    <span>© Sisyphus Manufacturing</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var KEY = 'goal-draft-v1';
+  var form = document.getElementById('f');
+  var out = document.getElementById('out');
+  var statusEl = document.getElementById('status');
+  var guards = [], miles = [], tab = 'ai', gateDates = {};
+
+  function field(id) { return document.getElementById(id); }
+  function val(id) { return field(id).value.trim(); }
+  function esc(s) { return String(s || '').replace(/\|/g, '\\|').replace(/\n+/g, ' '); }
+  function today() { var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); }
+  function lines(s) { return s.split(/\n+/).map(function (x) { return x.trim(); }).filter(Boolean); }
+  function el(tag, attrs, text) {
+    var e = document.createElement(tag);
+    for (var k in (attrs || {})) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function inputBlock(labelText, id, value, type, placeholder, onInput) {
+    var wrap = el('div');
+    var inp = el('input', { type: type || 'text', id: id, placeholder: placeholder || '' });
+    inp.value = value || '';
+    inp.addEventListener('input', function () { onInput(inp.value); update(); });
+    wrap.append(el('label', { for: id }, labelText), inp);
+    return wrap;
+  }
+
+  function renderList(list, container, kind) {
+    container.replaceChildren();
+    list.forEach(function (it, i) {
+      var box = el('div', { class: 'item' });
+      var head = el('div', { class: 'item-head' });
+      var name = (kind === 'guard' ? 'Guardrail ' : 'M') + (i + 1);
+      head.append(el('span', null, name));
+      var rm = el('button', { type: 'button', class: 'link', 'aria-label': 'Remove ' + name }, 'Remove');
+      rm.addEventListener('click', function () { list.splice(i, 1); renderAll(); update(); });
+      head.append(rm);
+      box.append(head);
+      var p = 'x-' + kind + '-' + i + '-';
+      var row = el('div', { class: kind === 'guard' ? 'row3' : 'row2' });
+      if (kind === 'guard') {
+        row.append(
+          inputBlock('Measure', p + 'm', it.m, 'text', 'First-pass yield', function (v) { it.m = v; }),
+          inputBlock('Baseline', p + 'b', it.b, 'text', '98.5%', function (v) { it.b = v; }),
+          inputBlock('Limit', p + 'l', it.l, 'text', 'not below 97%', function (v) { it.l = v; })
+        );
+        box.append(row);
+      } else {
+        row.append(
+          inputBlock('Date', p + 'd', it.d, 'date', '', function (v) { it.d = v; }),
+          inputBlock('Expected value by then', p + 'v', it.v, 'text', '42', function (v) { it.v = v; })
+        );
+        box.append(row,
+          inputBlock('Go if', p + 'go', it.go, 'text', 'Sign-off under 15 min on 4 of 5 changeovers', function (v) { it.go = v; }),
+          inputBlock('No-go if', p + 'nogo', it.nogo, 'text', 'No change in sign-off time', function (v) { it.nogo = v; }));
+      }
+      container.append(box);
+    });
+  }
+  function renderAll() { renderList(guards, field('guards'), 'guard'); renderList(miles, field('miles'), 'mile'); }
+
+  function record() {
+    var title = val('title') || '[Goal]';
+    var u = val('unit') ? ' ' + val('unit') : '';
+    var L = [];
+    L.push('---');
+    L.push('Contributed By: ' + (val('owner') || '[Owner]'));
+    L.push('Last Updated: ' + today());
+    L.push('Document Type: Goal Charter');
+    L.push('Status: ' + (field('g1').checked && field('g2').checked ? 'Active' : field('g1').checked ? 'Approved' : 'Proposed'));
+    L.push('doc_type: record');
+    L.push('agent_grounding: false');
+    L.push('Topic: Goal — ' + title);
+    L.push('---', '');
+    L.push('# Goal: ' + title, '');
+    L.push('| Field | Value |', '|-------|-------|');
+    L.push('| Owner and judge | ' + esc(val('owner') || '—') + ' |');
+    L.push('| Start | ' + esc(val('start') || '—') + ' |');
+    L.push('| Gate 1 APPROVE | ' + (field('g1').checked ? 'Yes, ' + (gateDates.g1 || today()) : 'Not yet') + ' |');
+    L.push('| Gate 2 CHARTER | ' + (field('g2').checked ? 'Yes, ' + (gateDates.g2 || today()) : 'Not yet') + ' |');
+    L.push('| Gate 3 COMPLETE | Not yet |', '');
+    L.push('## Why now', '', val('why') || '_Not stated._', '');
+    L.push('## Source', '', '- **Type:** ' + val('srctype'), '- **Reference:** ' + (val('srcref') || '_None given. A goal needs a source._'), '');
+    L.push('**Expectation it serves:** ' + (val('expected') || '_Not stated._'), '');
+    var g = lines(val('gaps'));
+    L.push('**Gaps it closes:**', '');
+    if (g.length) g.forEach(function (x) { L.push('- ' + x); }); else L.push('- _None listed._');
+    L.push('', '## Measurable change', '');
+    L.push('| Measure | Baseline (source, date) | Target | By | How to check | Check-in |', '|---------|-------------------------|--------|----|--------------|----------|');
+    L.push('| ' + esc(val('metric') || '—') + ' | ' + esc((val('baseline') ? val('baseline') + u : '—') + (val('basesrc') ? ' (' + val('basesrc') + ')' : '')) + ' | ' + esc(val('target') ? val('target') + u : '—') + ' | ' + esc(val('by') || '—') + ' | ' + esc(val('check') || '—') + ' | every ' + val('cadence') + ' |', '');
+    L.push('## Guardrails', '');
+    var gr = guards.filter(function (x) { return (x.m || '').trim(); });
+    if (gr.length) { L.push('| Measure | Baseline | Limit |', '|---------|----------|-------|'); gr.forEach(function (x) { L.push('| ' + esc(x.m) + ' | ' + esc(x.b) + ' | ' + esc(x.l) + ' |'); }); }
+    else L.push('_None set._');
+    L.push('', '**Kill criteria:** ' + (val('kill') || '_None set._'), '');
+    L.push('## Milestones', '');
+    var ms = miles.filter(function (x) { return (x.d || x.go || '').trim(); });
+    if (ms.length) { L.push('| ID | Date | Expected value | Go if | No-go if |', '|----|------|----------------|-------|----------|'); miles.forEach(function (x, i) { if ((x.d || x.go || '').trim()) L.push('| M' + (i + 1) + ' | ' + esc(x.d) + ' | ' + esc(x.v) + ' | ' + esc(x.go) + ' | ' + esc(x.nogo) + ' |'); }); }
+    else L.push('_None set._');
+    L.push('', '## Scope and limits', '');
+    L.push('- **In scope:** ' + (esc(val('inscope')) || '—'));
+    L.push('- **Out of scope:** ' + (esc(val('outscope')) || '—'));
+    L.push('- **The AI may:** ' + (esc(val('may')) || '—'));
+    L.push('- **The AI must not:** ' + (esc(val('maynot')) || '—'), '');
+    L.push('## Check-ins', '', '_Append newest last._', '');
+    return L.join('\n');
+  }
+
+  function method() {
+    var approved = field('g1').checked, chartered = field('g2').checked;
+    var c = val('cadence');
+    var M = [];
+    M.push('# Instructions: goal method');
+    M.push('');
+    M.push('You are helping me pursue one goal, described under "The goal" below. Follow this method.');
+    M.push('');
+    M.push('## Roles');
+    M.push('- I am the owner and the judge. I approve the goal, confirm the charter, and decide when it is complete.');
+    M.push('- You check, plan, track and report. You never approve your own work.');
+    M.push('');
+    M.push('## Gates, in order');
+    M.push('1. APPROVE: I agree the goal is worth pursuing. Status: ' + (approved ? 'APPROVED.' : 'NOT YET APPROVED.'));
+    M.push('2. CHARTER: I confirm the scope, the measurable change and your limits. Status: ' + (chartered ? 'CONFIRMED.' : 'NOT YET CONFIRMED.'));
+    M.push('3. COMPLETE: I accept the evidence that the target is met. Only I can mark this.');
+    M.push('Until gates 1 and 2 are both confirmed, do nothing except review and plan.');
+    M.push('');
+    M.push('## Rules');
+    M.push('- Every action must close a listed gap or move the measure. No other work.');
+    M.push('- Take values only from the "How to check" source, with a date. Never estimate a value or present a guess as data.');
+    M.push('- Never change the baseline, target or target date. If you think one is wrong, ask me.');
+    M.push('- Stay inside "The AI may" and never do anything under "The AI must not".');
+    M.push('- If a guardrail gets worse, tell me straight away. If a kill criterion is met, stop and tell me.');
+    M.push('- Mark anything you assume as an assumption.');
+    M.push('');
+    M.push('## What to do first');
+    M.push('1. Review the goal. List anything missing or weak as short questions: no source, a measure that can\'t be repeated, a target with no date, limits that are vague.');
+    if (!approved) M.push('2. Recommend approve, revise or reject, with your reasons in two or three sentences.');
+    M.push((approved ? '2' : '3') + '. Draft a backlog of 3 to 7 actions. For each: the gap or measure it moves, the owner (you, me or someone else), and how we\'ll verify it. Mark exactly one row as active.');
+    M.push((approved ? '3' : '4') + '. ' + (chartered ? 'Start on the active row, inside your limits, and report back.' : 'Wait for me to confirm the charter before acting.'));
+    M.push('');
+    M.push('## Check-ins (every ' + c + ')');
+    M.push('Ask me for the current value from the "How to check" source, then reply in this format:');
+    M.push('');
+    M.push('### YYYY-MM-DD: check-in');
+    M.push('- Current: <measure> = <value> (source, date)');
+    M.push('- Pace: <arithmetic> -> Health: <state> (was <state>)');
+    M.push('- Facts: + learned / - no longer true / ? still to find out');
+    M.push('- Backlog: #n done or blocked (how verified); next active #m');
+    M.push('- Guardrails: <each one, OK or worse>');
+    M.push('- Questions for me: <none, or the decision you need>');
+    M.push('');
+    M.push('Pace, assuming steady progress from start to target date. Show the arithmetic:');
+    M.push('- elapsed = (today - start) / (target date - start)');
+    M.push('- expected = baseline + (target - baseline) x elapsed');
+    M.push('- pace = (current - baseline) / (expected - baseline). 1.0 means on plan.');
+    M.push('');
+    M.push('Health:');
+    M.push('- on-track: pace 0.9 or more');
+    M.push('- at-risk: pace from 0.7 to under 0.9, or a guardrail got worse');
+    M.push('- off-track: pace under 0.7, or a milestone no-go test is met');
+    M.push('- blocked: the active row is blocked and no other row can start');
+    M.push('- stale: no check-in for twice the check-in interval');
+    M.push('If health is at-risk or worse, give a one-line likely cause and propose a re-plan. Re-plan every 4 check-ins anyway. A re-plan changes the backlog, never the target.');
+    M.push('');
+    M.push('## Milestones and reviews');
+    M.push('On each milestone date, compare the measure with the go and no-go tests. Once a month, review the whole goal. Each time, recommend one of: continue, re-plan, change target (my decision), pause, stop, or present for COMPLETE.');
+    M.push('');
+    M.push('## Closing');
+    M.push('When the target is met, or I decide to stop:');
+    M.push('1. Final measurement, from the "How to check" source.');
+    M.push('2. A short POSIWID look back: what the system does now, compared with what it was expected to do.');
+    M.push('3. An evidence table: criterion | evidence | met or not met.');
+    M.push('4. Ask me whether to mark gate 3, COMPLETE. Don\'t mark it yourself.');
+    M.push('');
+    M.push('---');
+    M.push('');
+    M.push('# The goal');
+    M.push('');
+    return M.join('\n') + '\n' + record().replace(/^---[\s\S]*?---\n\n/, '');
+  }
+
+  // ---- POSIWID import (GA-D-04) ----
+  function unesc(s) { return String(s || '').replace(/\\\|/g, '|').trim(); }
+  function blank(s) { s = (s || '').trim(); return !s || s === '—' || /^_.*_$/.test(s); }
+  function section(md, n) {
+    var re = new RegExp('^##\\s*' + n + '\\.[^\\n]*\\n([\\s\\S]*?)(?=^##\\s|^#\\s|(?![\\s\\S]))', 'm');
+    var m = md.match(re); return m ? m[1] : '';
+  }
+  function tableRows(text) {
+    return text.split('\n').filter(function (l) { return /^\s*\|/.test(l) && !/^\s*\|\s*-/.test(l); })
+      .map(function (l) {
+        var cells = l.trim().replace(/^\|/, '').replace(/\|$/, '').split(/(?<!\\)\|/);
+        return cells.map(unesc);
+      });
+  }
+  function numUnit(s) {
+    var m = String(s || '').match(/^\s*([-+]?\d[\d.,]*%?)\s*(.*)$/);
+    return m ? { n: m[1], u: m[2].trim() } : { n: blank(s) ? '' : s, u: '' };
+  }
+  function parsePosiwid(md, fileName) {
+    var r = {};
+    var fm = md.match(/^---\n([\s\S]*?)\n---/m);
+    if (fm) {
+      var by = fm[1].match(/^Contributed By:\s*(.+)$/m); if (by && !/^\[/.test(by[1])) r.owner = by[1].trim();
+      var dt = fm[1].match(/^Last Updated:\s*(.+)$/m); if (dt) r.date = dt[1].trim();
+    }
+    var h = md.match(/^#\s*POSIWID analysis:\s*(.+)$/m); r.system = h ? h[1].trim() : '';
+    var s2 = section(md, 2);
+    var src = s2.match(/^\*\*Source:\*\*\s*(.+)$/m); r.expsource = src ? src[1].trim() : '';
+    r.expected = s2.split('\n').filter(function (l) { return l.trim() && !/^\*\*Source:/.test(l) && !/^>/.test(l) && !blank(l); }).join(' ').trim();
+    r.noExpectation = /No clear expectations yet/.test(s2);
+    r.gaps = tableRows(section(md, 3)).filter(function (c) { return /^G\d+/i.test(c[0]); })
+      .map(function (c) { return c[0] + ' ' + c[1] + (c[2] ? ' (evidence: ' + c[2] + ')' : ''); });
+    r.changes = tableRows(section(md, 4)).filter(function (c) { return /^C\d+/i.test(c[0]); })
+      .map(function (c) { return c[0] + ' ' + c[1] + (c[2] ? ' [closes ' + c[2] + ']' : ''); });
+    var m5 = tableRows(section(md, 5)).filter(function (c) { return !/^measure$/i.test(c[0]); })[0] || [];
+    r.metric = blank(m5[0]) ? '' : m5[0];
+    var b = numUnit(m5[1]), cur = numUnit(m5[2]), t = numUnit(m5[3]);
+    r.posiwidBaseline = b.n; r.current = cur.n; r.target = t.n;
+    r.unit = t.u || cur.u || b.u;
+    r.check = blank(m5[4]) ? '' : m5[4];
+    r.fileName = fileName || '';
+    r.ok = !!(r.system || r.gaps.length || r.metric);
+    return r;
+  }
+  function applyPosiwid(r) {
+    if (!r.ok) { field('import-status').textContent = 'That file doesn’t look like a POSIWID analysis from the form. Nothing was changed.'; return; }
+    var set = function (id, v) { if (v) field(id).value = v; };
+    field('srctype').value = 'POSIWID analysis';
+    set('srcref', (r.fileName ? r.fileName + ': ' : '') + 'POSIWID analysis of ' + (r.system || 'the system') + (r.date ? ' (' + r.date + ')' : ''));
+    set('expected', r.expected + (r.expsource ? (/[.!?]$/.test(r.expected) ? ' ' : '. ') + 'Source: ' + r.expsource + '.' : ''));
+    if (r.gaps.length) field('gaps').value = r.gaps.join('\n');
+    set('metric', r.metric); set('unit', r.unit); set('target', r.target); set('check', r.check);
+    // The goal starts from where the system is now: POSIWID "current", else its baseline.
+    set('baseline', r.current || r.posiwidBaseline);
+    set('basesrc', (r.current ? 'POSIWID current value' : 'POSIWID baseline') + (r.date ? ', ' + r.date : ''));
+    if (!val('owner')) set('owner', r.owner);
+    if (!val('title') && r.metric && r.target) field('title').value = r.metric + (r.system ? ' for ' + r.system : '') + ' to ' + r.target + (r.unit ? ' ' + r.unit : '');
+    if (r.changes.length && !val('inscope')) field('inscope').value = 'Changes proposed in the analysis:\n' + r.changes.join('\n');
+    var msg = 'Filled from the POSIWID analysis of ' + (r.system || 'the system') + ': source, expectation, ' + r.gaps.length + ' gap' + (r.gaps.length === 1 ? '' : 's') + ' and the measure. Check each field, then set a target date, guardrails and limits.';
+    if (r.noExpectation) msg += ' Note: the analysis says there are no clear expectations yet. Agree those before approving a goal.';
+    field('import-status').textContent = msg;
+    update();
+  }
+
+  function progress() {
+    var items = [
+      ['Goal stated, with an owner', val('title') && val('owner')],
+      ['Source and gaps named', val('srcref') && val('gaps')],
+      ['Baseline, target, date and check', val('baseline') && val('target') && val('by') && val('check')],
+      ['At least one guardrail', guards.some(function (x) { return (x.m || '').trim(); })],
+      ['At least one milestone', miles.some(function (x) { return (x.d || '').trim() && (x.go || '').trim(); })],
+      ['Limits for the AI', val('may') && val('maynot')],
+      ['Gates 1 and 2 ticked', field('g1').checked && field('g2').checked]
+    ];
+    var ul = field('checks'); ul.replaceChildren();
+    items.forEach(function (it) {
+      var li = el('li', { class: it[1] ? 'done' : '' });
+      li.append(el('span', { class: 'dot', 'aria-hidden': 'true' }), el('span', null, it[0]), el('span', { class: 'sr' }, it[1] ? ' (done)' : ' (to do)'));
+      ul.append(li);
+    });
+  }
+
+  function current() { return tab === 'ai' ? method() : record(); }
+
+  function save() {
+    var data = { guards: guards, miles: miles, tab: tab, gateDates: gateDates, fields: {} };
+    Array.prototype.forEach.call(form.elements, function (e) {
+      if (!e.id || e.id.indexOf('x-') === 0) return;
+      data.fields[e.id] = e.type === 'checkbox' ? e.checked : e.value;
+    });
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (err) {}
+  }
+  function load() {
+    var data = null;
+    try { data = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (err) {}
+    if (data) {
+      guards = data.guards || []; miles = data.miles || []; tab = data.tab || 'ai'; gateDates = data.gateDates || {};
+      Object.keys(data.fields || {}).forEach(function (id) {
+        var e = field(id); if (!e) return;
+        if (e.type === 'checkbox') e.checked = !!data.fields[id]; else e.value = data.fields[id];
+      });
+    }
+    if (!guards.length) guards.push({});
+    if (!miles.length) miles.push({});
+    if (!val('start')) field('start').value = today();
+  }
+
+  function update() {
+    field('tab-ai').setAttribute('aria-pressed', String(tab === 'ai'));
+    field('tab-rec').setAttribute('aria-pressed', String(tab === 'rec'));
+    field('tabnote').textContent = tab === 'ai'
+      ? 'Paste this into any AI assistant. It holds the method the AI should follow, then your goal.'
+      : 'Keep this as the goal’s record. Add check-ins to it as you go.';
+    out.textContent = current();
+    progress();
+    save();
+  }
+
+  function fileName() {
+    var s = (val('title') || 'Goal').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 60);
+    return today() + '_Goal_' + s + (tab === 'ai' ? '_AI_Prompt' : '') + '.md';
+  }
+
+  ['g1', 'g2'].forEach(function (id) {
+    field(id).addEventListener('change', function () { if (field(id).checked) gateDates[id] = today(); else delete gateDates[id]; });
+  });
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  field('tab-ai').addEventListener('click', function () { tab = 'ai'; update(); });
+  field('tab-rec').addEventListener('click', function () { tab = 'rec'; update(); });
+  field('add-guard').addEventListener('click', function () { guards.push({}); renderAll(); update(); });
+  field('add-mile').addEventListener('click', function () { miles.push({}); renderAll(); update(); });
+
+  field('copy').addEventListener('click', function () {
+    var text = current();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { statusEl.textContent = 'Copied to the clipboard.'; },
+        function () { statusEl.textContent = 'Copy failed. Select the text and copy it by hand.'; });
+    } else { statusEl.textContent = 'Copy is not available here. Select the text and copy it by hand.'; }
+  });
+  field('download').addEventListener('click', function () {
+    var blob = new Blob([current()], { type: 'text/markdown' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = fileName();
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    statusEl.textContent = 'Downloaded ' + fileName() + '.';
+  });
+  field('clear').addEventListener('click', function () {
+    form.reset(); guards = [{}]; miles = [{}]; gateDates = {};
+    try { localStorage.removeItem(KEY); } catch (err) {}
+    field('start').value = today();
+    renderAll(); update();
+    statusEl.textContent = 'Form cleared.';
+  });
+
+  field('posiwid-file').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0]; if (!file) return;
+    if (file.size > 1048576) { field('import-status').textContent = 'That file is over 1 MB, which is too large for a POSIWID analysis. Nothing was changed.'; return; }
+    var reader = new FileReader();
+    reader.onload = function () { applyPosiwid(parsePosiwid(String(reader.result), file.name)); e.target.value = ''; };
+    reader.onerror = function () { field('import-status').textContent = 'Couldn\u2019t read that file.'; };
+    reader.readAsText(file);
+  });
+
+  load(); renderAll(); update();
+
+  // Hand-off from the POSIWID form's "Start a goal" button (same site, this browser only).
+  var handoff = null;
+  try { handoff = localStorage.getItem('posiwid-to-goal'); localStorage.removeItem('posiwid-to-goal'); } catch (err) {}
+  if (handoff) applyPosiwid(parsePosiwid(handoff, ''));
+})();
+</script>
+</body>
+</html>
