@@ -14,9 +14,10 @@ Follow root [`../../AGENTS.md`](../../AGENTS.md). Read [`INDEX.md`](INDEX.md) be
 
 ## Domain rules
 
-- **No private links on the webpage (PUB-D-03).** Every link in `site/public/` points to `MFGDevOps_Pub`, a `*.sisyphusdev.com` subdomain, or a public site. CI checks this. Run the check in [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) step 2 before you deploy.
-- Add or change apps only in [`site/public/apps.json`](site/public/apps.json). Set an app to `Live` only when its public URL answers. Leave `href` empty until then.
-- A deploy is a publication. Deploy only when Marc asks, and record the live `wrangler deploy` and `curl -I` output, with the date, in [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md).
-- Never write a Cloudflare API token, account ID or other secret into any file. Wrangler keeps its login outside the repo.
-- Keep the Worker name `sisyphusdev-home`, so rollbacks and deploy history stay on one Worker.
+- **No private links on the webpage (PUB-D-03).** Every link in the built site points to `MFGDevOps_Pub`, a sisyphusdev.com path or subdomain, or a public site. CI checks this on every pull request.
+- **Merging to `main` publishes.** Cloudflare Workers Builds deploys on every push to `main` (SDEV-D-05). Say so in any pull request that touches `site/`, another domain's `app/`, root `wrangler.jsonc` or `scripts/build-site.sh`.
+- This domain owns root [`../../wrangler.jsonc`](../../wrangler.jsonc) and [`../../scripts/build-site.sh`](../../scripts/build-site.sh). Keep the Worker name `mfgdevops-pub`, because it must match the Worker connected to Workers Builds.
+- Add or change cards only in [`site/public/apps.json`](site/public/apps.json). Use `Live` only for an app whose files ship in the same deploy, or whose URL already answers.
+- After a deploy, record live `curl -I` output and the date in [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md).
+- Never write a Cloudflare API token, account ID or other secret into any file.
 - Marc merges every pull request (PUB-D-04).

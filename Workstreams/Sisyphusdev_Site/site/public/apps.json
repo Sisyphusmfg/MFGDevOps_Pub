@@ -1,5 +1,14 @@
 [
   {
+    "name": "POSIWID Analysis",
+    "host": "sisyphusdev.com/posiwid",
+    "status": "Live",
+    "desc": "A guided form for a POSIWID analysis: what the system is doing, what it should do, the gaps, the changes, and the measurable change. Runs in your browser; download the result as Markdown.",
+    "tags": ["Method", "Analysis"],
+    "href": "/posiwid/",
+    "cta": "Start an analysis"
+  },
+  {
     "name": "MFGDevOps Public",
     "host": "github.com/Sisyphusmfg/MFGDevOps_Pub",
     "status": "Live",
@@ -7,15 +16,6 @@
     "tags": ["Repo", "Open source"],
     "href": "https://github.com/Sisyphusmfg/MFGDevOps_Pub",
     "cta": "Open repository"
-  },
-  {
-    "name": "POSIWID Analysis",
-    "host": "posiwid.sisyphusdev.com",
-    "status": "Planned",
-    "desc": "Walk any system through doing, expected, gaps, changes and a measurable target, then save the result.",
-    "tags": ["AI agent", "Analysis"],
-    "href": "",
-    "cta": "Coming soon"
   },
   {
     "name": "Goal Agent",
