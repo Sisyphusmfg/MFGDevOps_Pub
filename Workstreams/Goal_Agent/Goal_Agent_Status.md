@@ -34,4 +34,4 @@ authority_rank: 1
 |----|----------|------|--------|
 | GA-OI-01 | High | First live check | After deploy: `curl -sI https://sisyphusdev.com/goals/` returns `200`. Record it here |
 | GA-OI-02 | Medium | Marc approves the method wording | Then set `agent_grounding: true` on the method reference |
-| GA-OI-03 | Low | Import from a POSIWID file | Fill source, expectation, gaps and measure from a downloaded POSIWID analysis |
+| GA-OI-03 | Closed 2026-11-22 | Import from a POSIWID file | Done in PR #4 (GA-D-04): upload on the Goal page, or "Start a goal" on the POSIWID page. Tested locally both ways |

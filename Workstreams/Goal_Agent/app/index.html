@@ -55,6 +55,13 @@
   button.link { border: none; padding: 0 8px; color: var(--ink-3); text-decoration: underline; }
   .toggle { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
   .toggle input { width: 20px; height: 20px; margin-top: 2px; flex: none; }
+  .import { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin-top: 20px; }
+  .import p { margin: 0; flex: 1 1 320px; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+  .import p b { color: var(--ink); }
+  .filebtn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--ink); font-weight: 600; font-size: 14px; cursor: pointer; background: var(--ink); color: var(--ground); }
+  .filebtn:focus-within { outline: 3px solid var(--focus); outline-offset: 1px; }
+  .import-status { flex-basis: 100%; font-size: 13px; color: #14532D; min-height: 0; }
+  .import-status:empty { display: none; }
   .card { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
   .card h2 { margin: 0; font-family: var(--head); font-size: 20px; }
   .checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
@@ -94,6 +101,11 @@
       <li><b>3 COMPLETE</b> you accept the evidence</li>
     </ul>
     <p class="note">Everything stays in this browser. Nothing is sent anywhere, including to any AI, until you paste it yourself.</p>
+    <div class="import">
+      <p><b>Start from a POSIWID analysis.</b> Upload a file saved from the <a href="/posiwid/">POSIWID form</a>, or use its "Start a goal" button. The source, expectation, gaps and measure are filled in for you.</p>
+      <label class="filebtn">Upload POSIWID file<input type="file" id="posiwid-file" accept=".md,.markdown,.txt,text/markdown,text/plain" class="sr"></label>
+      <div class="import-status" id="import-status" role="status" aria-live="polite"></div>
+    </div>
   </section>
 
   <div class="wrap layout">
@@ -392,6 +404,70 @@
     return M.join('\n') + '\n' + record().replace(/^---[\s\S]*?---\n\n/, '');
   }
 
+  // ---- POSIWID import (GA-D-04) ----
+  function unesc(s) { return String(s || '').replace(/\\\|/g, '|').trim(); }
+  function blank(s) { s = (s || '').trim(); return !s || s === '—' || /^_.*_$/.test(s); }
+  function section(md, n) {
+    var re = new RegExp('^##\\s*' + n + '\\.[^\\n]*\\n([\\s\\S]*?)(?=^##\\s|^#\\s|(?![\\s\\S]))', 'm');
+    var m = md.match(re); return m ? m[1] : '';
+  }
+  function tableRows(text) {
+    return text.split('\n').filter(function (l) { return /^\s*\|/.test(l) && !/^\s*\|\s*-/.test(l); })
+      .map(function (l) {
+        var cells = l.trim().replace(/^\|/, '').replace(/\|$/, '').split(/(?<!\\)\|/);
+        return cells.map(unesc);
+      });
+  }
+  function numUnit(s) {
+    var m = String(s || '').match(/^\s*([-+]?\d[\d.,]*%?)\s*(.*)$/);
+    return m ? { n: m[1], u: m[2].trim() } : { n: blank(s) ? '' : s, u: '' };
+  }
+  function parsePosiwid(md, fileName) {
+    var r = {};
+    var fm = md.match(/^---\n([\s\S]*?)\n---/m);
+    if (fm) {
+      var by = fm[1].match(/^Contributed By:\s*(.+)$/m); if (by && !/^\[/.test(by[1])) r.owner = by[1].trim();
+      var dt = fm[1].match(/^Last Updated:\s*(.+)$/m); if (dt) r.date = dt[1].trim();
+    }
+    var h = md.match(/^#\s*POSIWID analysis:\s*(.+)$/m); r.system = h ? h[1].trim() : '';
+    var s2 = section(md, 2);
+    var src = s2.match(/^\*\*Source:\*\*\s*(.+)$/m); r.expsource = src ? src[1].trim() : '';
+    r.expected = s2.split('\n').filter(function (l) { return l.trim() && !/^\*\*Source:/.test(l) && !/^>/.test(l) && !blank(l); }).join(' ').trim();
+    r.noExpectation = /No clear expectations yet/.test(s2);
+    r.gaps = tableRows(section(md, 3)).filter(function (c) { return /^G\d+/i.test(c[0]); })
+      .map(function (c) { return c[0] + ' ' + c[1] + (c[2] ? ' (evidence: ' + c[2] + ')' : ''); });
+    r.changes = tableRows(section(md, 4)).filter(function (c) { return /^C\d+/i.test(c[0]); })
+      .map(function (c) { return c[0] + ' ' + c[1] + (c[2] ? ' [closes ' + c[2] + ']' : ''); });
+    var m5 = tableRows(section(md, 5)).filter(function (c) { return !/^measure$/i.test(c[0]); })[0] || [];
+    r.metric = blank(m5[0]) ? '' : m5[0];
+    var b = numUnit(m5[1]), cur = numUnit(m5[2]), t = numUnit(m5[3]);
+    r.posiwidBaseline = b.n; r.current = cur.n; r.target = t.n;
+    r.unit = t.u || cur.u || b.u;
+    r.check = blank(m5[4]) ? '' : m5[4];
+    r.fileName = fileName || '';
+    r.ok = !!(r.system || r.gaps.length || r.metric);
+    return r;
+  }
+  function applyPosiwid(r) {
+    if (!r.ok) { field('import-status').textContent = 'That file doesn’t look like a POSIWID analysis from the form. Nothing was changed.'; return; }
+    var set = function (id, v) { if (v) field(id).value = v; };
+    field('srctype').value = 'POSIWID analysis';
+    set('srcref', (r.fileName ? r.fileName + ': ' : '') + 'POSIWID analysis of ' + (r.system || 'the system') + (r.date ? ' (' + r.date + ')' : ''));
+    set('expected', r.expected + (r.expsource ? (/[.!?]$/.test(r.expected) ? ' ' : '. ') + 'Source: ' + r.expsource + '.' : ''));
+    if (r.gaps.length) field('gaps').value = r.gaps.join('\n');
+    set('metric', r.metric); set('unit', r.unit); set('target', r.target); set('check', r.check);
+    // The goal starts from where the system is now: POSIWID "current", else its baseline.
+    set('baseline', r.current || r.posiwidBaseline);
+    set('basesrc', (r.current ? 'POSIWID current value' : 'POSIWID baseline') + (r.date ? ', ' + r.date : ''));
+    if (!val('owner')) set('owner', r.owner);
+    if (!val('title') && r.metric && r.target) field('title').value = r.metric + (r.system ? ' for ' + r.system : '') + ' to ' + r.target + (r.unit ? ' ' + r.unit : '');
+    if (r.changes.length && !val('inscope')) field('inscope').value = 'Changes proposed in the analysis:\n' + r.changes.join('\n');
+    var msg = 'Filled from the POSIWID analysis of ' + (r.system || 'the system') + ': source, expectation, ' + r.gaps.length + ' gap' + (r.gaps.length === 1 ? '' : 's') + ' and the measure. Check each field, then set a target date, guardrails and limits.';
+    if (r.noExpectation) msg += ' Note: the analysis says there are no clear expectations yet. Agree those before approving a goal.';
+    field('import-status').textContent = msg;
+    update();
+  }
+
   function progress() {
     var items = [
       ['Goal stated, with an owner', val('title') && val('owner')],
@@ -484,7 +560,21 @@
     statusEl.textContent = 'Form cleared.';
   });
 
+  field('posiwid-file').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0]; if (!file) return;
+    if (file.size > 1048576) { field('import-status').textContent = 'That file is over 1 MB, which is too large for a POSIWID analysis. Nothing was changed.'; return; }
+    var reader = new FileReader();
+    reader.onload = function () { applyPosiwid(parsePosiwid(String(reader.result), file.name)); e.target.value = ''; };
+    reader.onerror = function () { field('import-status').textContent = 'Couldn\u2019t read that file.'; };
+    reader.readAsText(file);
+  });
+
   load(); renderAll(); update();
+
+  // Hand-off from the POSIWID form's "Start a goal" button (same site, this browser only).
+  var handoff = null;
+  try { handoff = localStorage.getItem('posiwid-to-goal'); localStorage.removeItem('posiwid-to-goal'); } catch (err) {}
+  if (handoff) applyPosiwid(parsePosiwid(handoff, ''));
 })();
 </script>
 </body>

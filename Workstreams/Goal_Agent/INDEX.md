@@ -31,7 +31,8 @@ The public goal method (the owner approves, the AI pursues, the owner judges) an
 | How the goal method works: gates, what a goal needs, AI rules, pace and health, milestones, closing | [`Goal_Method_Reference.md`](Goal_Method_Reference.md) *(Draft; grounding waits on Marc)* | 1 |
 | The goal form, and the exact method text given to an AI | [`app/index.html`](app/index.html) (`method()` in the script) | 1 |
 | Whether the form is live, and open items | [`Goal_Agent_Status.md`](Goal_Agent_Status.md) | 1 |
-| Why the AI prompt carries the method, and why browser-only | [`DECISIONS.md`](DECISIONS.md) GA-D-01 to GA-D-03 *(HITL — not for grounding)* | — |
+| How a goal is filled from a POSIWID analysis (button or upload), and which fields map | [`app/index.html`](app/index.html) (`parsePosiwid()` and `applyPosiwid()`) | 1 |
+| Why the AI prompt carries the method, why browser-only, why POSIWID import | [`DECISIONS.md`](DECISIONS.md) GA-D-01 to GA-D-04 *(HITL — not for grounding)* | — |
 
 ## Document register (on-disk)
 
@@ -40,10 +41,10 @@ The public goal method (the owner approves, the AI pursues, the owner judges) an
 | [`INDEX.md`](INDEX.md) | 2026-11-22 | 1 | This file — domain router |
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
-| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. GA-D-01 public domain and form; GA-D-02 AI prompt = method + filled form; GA-D-03 browser-only |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. GA-D-01 public domain and form; GA-D-02 AI prompt = method + filled form; GA-D-03 browser-only; GA-D-04 start a goal from a POSIWID analysis |
 | [`Goal_Method_Reference.md`](Goal_Method_Reference.md) | 2026-11-22 | 1 | Public method: three gates, goal parts, AI rules, pace formula, health thresholds, milestones, reviews, closing. Draft, `agent_grounding: false` |
-| [`Goal_Agent_Status.md`](Goal_Agent_Status.md) | 2026-11-22 | 1 | Live state: form written, not deployed; open items GA-OI-01 to -03 |
-| [`app/index.html`](app/index.html) | 2026-11-22 | 1 | Goal form: goal, source, measurable change, guardrails and kill criteria, milestones, AI limits, gates. Two outputs: "Prompt for an AI" (method + goal) and "Goal record". Copy or download. Draft kept in local storage only |
+| [`Goal_Agent_Status.md`](Goal_Agent_Status.md) | 2026-11-22 | 1 | Live state: form written, not deployed; open items GA-OI-01 and -02; GA-OI-03 POSIWID import done |
+| [`app/index.html`](app/index.html) | 2026-11-22 | 1 | Goal form: goal, source, measurable change, guardrails and kill criteria, milestones, AI limits, gates. Two outputs: "Prompt for an AI" (method + goal) and "Goal record". Copy or download. Fills from a POSIWID analysis, by upload or by the POSIWID page's "Start a goal" button. Draft kept in local storage only |
 
 ## Cross-links
 

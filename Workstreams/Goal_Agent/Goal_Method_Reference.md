@@ -75,4 +75,4 @@ To close, take a final measurement, write a short POSIWID look back (what the sy
 
 ## Tool
 
-The form at [sisyphusdev.com/goals](https://sisyphusdev.com/goals/) builds the goal record and a prompt that gives an AI this method plus the goal. A POSIWID analysis from [sisyphusdev.com/posiwid](https://sisyphusdev.com/posiwid/) is the best source for a goal.
+The form at [sisyphusdev.com/goals](https://sisyphusdev.com/goals/) builds the goal record and a prompt that gives an AI this method plus the goal. A POSIWID analysis from [sisyphusdev.com/posiwid](https://sisyphusdev.com/posiwid/) is the best source for a goal. Press **Start a goal** on the POSIWID page, or upload a saved POSIWID file on the Goal page, and the source, expectation, gaps and measure are filled in. The goal's baseline is the analysis's current value.
