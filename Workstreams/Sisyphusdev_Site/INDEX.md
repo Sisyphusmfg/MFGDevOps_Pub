@@ -31,7 +31,7 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | How the site builds and deploys, preview, add an app, roll back | [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) *(Draft; first deploy pending)* | 1 |
 | Whether the site is live, what's deployed, build failures, open items | [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) | 1 |
 | Which apps the directory lists, and their status | [`site/public/apps.json`](site/public/apps.json) | 1 |
-| The site logo and icons, and which file to use where | [`site/public/logo.svg`](site/public/logo.svg) · [`site/public/favicon.svg`](site/public/favicon.svg) · [`site/public/apple-touch-icon.png`](site/public/apple-touch-icon.png) | 1 |
+| The site logo and icons, and which file to use where | [`site/public/logo.png`](site/public/logo.png) (master) · [`site/public/logo-small.png`](site/public/logo-small.png) · [`site/public/favicon.png`](site/public/favicon.png) · [`site/public/apple-touch-icon.png`](site/public/apple-touch-icon.png) | 1 |
 | Which folder is served at which path | [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 1 |
 | Worker name, custom domains, build command | [`../../wrangler.jsonc`](../../wrangler.jsonc) | 1 |
 | Why one Worker, why paths, why the config is at the root, where the logo lives | [`DECISIONS.md`](DECISIONS.md) SDEV-D-01 to SDEV-D-06 *(HITL — not for grounding)* | — |
@@ -43,12 +43,35 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | [`INDEX.md`](INDEX.md) | 2026-11-22 | 1 | This file — domain router |
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
-| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. SDEV-D-01 to -03 site basics; SDEV-D-04 one Worker, apps at paths, build step (proposed); SDEV-D-05 root config, Worker `mfgdevops-pub`; SDEV-D-06 logo as SVG in `site/public/` |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. SDEV-D-01 to -03 site basics; SDEV-D-04 one Worker, apps at paths, build step (proposed); SDEV-D-05 root config, Worker `mfgdevops-pub`; SDEV-D-06 logo in `site/public/`, PNG for now |
 | [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) | 2026-11-22 | 1 | Live state: first Workers Builds deploy failed (no root config); fix in PR #2. Open items SDEV-OI-01 to -03 |
 | [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) | 2026-11-22 | 1 | Procedure: how Workers Builds deploys, path map, preview, private-link check, verify, add an app, roll back. Draft |
 | [`../../wrangler.jsonc`](../../wrangler.jsonc) | 2026-11-22 | 1 | Worker config at repo root (owned here): name `mfgdevops-pub`, build `bash scripts/build-site.sh`, assets `./dist`, custom domains `sisyphusdev.com`, `www.sisyphusdev.com` |
 | [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 2026-11-22 | 1 | Build script (owned here): copies `site/public/` to `dist/` and each listed domain `app/` to `dist/<path>/` |
-| [`site/public/index.html`](site/public/index.html) | 2026-11-22 | 1 | Home page and app directory with status filters. Reads `apps.json`. Header uses `/logo.svg` |
+| [`site/public/index.html`](site/public/index.html) | 2026-11-22 | 1 | Home page and app directory with status filters. Reads `apps.json`. Header uses `/logo-small.png` |
+| [`site/public/logo.png`](site/public/logo.png) | 2026-11-22 | 1 | Master logo: Marc's `Sisyphus_MFG_DevOps_Push.png` (657×576, off-white background), same pixels, recompressed losslessly. Served at `/logo.png`. All other logo files are made from it |
+| [`site/public/logo-small.png`](site/public/logo-small.png) | 2026-11-22 | 1 | 120×105 copy for page headers (shown at 40 px, sharp on high-density screens). About 16 KB instead of 379 KB |
+| [`site/public/favicon.png`](site/public/favicon.png) | 2026-11-22 | 1 | 48×48 square copy for the browser tab |
+| [`site/public/apple-touch-icon.png`](site/public/apple-touch-icon.png) | 2026-11-22 | 1 | 180×180 square copy for phone home screens |
+| [`site/public/apps.json`](site/public/apps.json) | 1 |
+| The site logo and icons, and which file to use where | [`site/public/logo.png`](site/public/logo.png) (master) · [`site/public/logo-small.png`](site/public/logo-small.png) · [`site/public/favicon.png`](site/public/favicon.png) · [`site/public/apple-touch-icon.png`](site/public/apple-touch-icon.png) | 1 |
+| Which folder is served at which path | [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 1 |
+| Worker name, custom domains, build command | [`../../wrangler.jsonc`](../../wrangler.jsonc) | 1 |
+| Why one Worker, why paths, why the config is at the root, where the logo lives | [`DECISIONS.md`](DECISIONS.md) SDEV-D-01 to SDEV-D-06 *(HITL — not for grounding)* | — |
+
+## Document register (on-disk)
+
+| File | Date | authority_rank | Description |
+|------|------|----------------|-------------|
+| [`INDEX.md`](INDEX.md) | 2026-11-22 | 1 | This file — domain router |
+| [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
+| [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. SDEV-D-01 to -03 site basics; SDEV-D-04 one Worker, apps at paths, build step (proposed); SDEV-D-05 root config, Worker `mfgdevops-pub`; SDEV-D-06 logo in `site/public/`, PNG for now |
+| [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) | 2026-11-22 | 1 | Live state: first Workers Builds deploy failed (no root config); fix in PR #2. Open items SDEV-OI-01 to -03 |
+| [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) | 2026-11-22 | 1 | Procedure: how Workers Builds deploys, path map, preview, private-link check, verify, add an app, roll back. Draft |
+| [`../../wrangler.jsonc`](../../wrangler.jsonc) | 2026-11-22 | 1 | Worker config at repo root (owned here): name `mfgdevops-pub`, build `bash scripts/build-site.sh`, assets `./dist`, custom domains `sisyphusdev.com`, `www.sisyphusdev.com` |
+| [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 2026-11-22 | 1 | Build script (owned here): copies `site/public/` to `dist/` and each listed domain `app/` to `dist/<path>/` |
+| [`site/public/index.html`](site/public/index.html) | 2026-11-22 | 1 | Home page and app directory with status filters. Reads `apps.json`. Header uses `/logo-small.png` |
 | [`site/public/logo.svg`](site/public/logo.svg) | 2026-11-22 | 1 | Site logo (figure pushing a boulder up a slope), redrawn as SVG from Marc's PNG. Navy `#0C243C`. Served at `/logo.svg` for every app |
 | [`site/public/favicon.svg`](site/public/favicon.svg) | 2026-11-22 | 1 | Same artwork, square crop, for the browser tab. Served at `/favicon.svg` |
 | [`site/public/apple-touch-icon.png`](site/public/apple-touch-icon.png) | 2026-11-22 | 1 | 180×180 PNG of the favicon on white, for phone home screens. Rendered from `favicon.svg`; regenerate if the logo changes |

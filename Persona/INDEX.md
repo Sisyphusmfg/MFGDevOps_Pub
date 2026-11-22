@@ -41,7 +41,7 @@ Repo-wide rules for `MFGDevOps_Pub`: the metadata standard, decisions that apply
 | [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
 | [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. PUB-D-01 repo created; PUB-D-02 public versions, not copies; PUB-D-03 no private links (CI); PUB-D-04 same machine-first format, Marc merges |
 | [`Artifact_Metadata_Standard.md`](Artifact_Metadata_Standard.md) | 2026-11-22 | 1 | Public edition of the metadata standard: fields, naming, public-only content, never-stored list |
-| [`Agent_Activity_Log.md`](Agent_Activity_Log.md) | 2026-11-22 | — | Shared agent log. `agent_grounding: false`. Three entries (scaffold; deploy fix and POSIWID form; logo) |
+| [`Agent_Activity_Log.md`](Agent_Activity_Log.md) | 2026-11-22 | — | Shared agent log. `agent_grounding: false`. Four entries (scaffold; deploy fix and POSIWID form; logo; logo correction) |
 
 ## Cross-links
 
