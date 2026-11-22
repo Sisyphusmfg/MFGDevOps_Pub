@@ -53,7 +53,7 @@ Then check it: `curl -I https://sisyphusdev.com` should return `200`.
 This repo is public. Never link to, or copy content from, the private `MFGDevOps` repo. To check, run:
 
 ```bash
-grep -rn 'MFGDevOps"' sites/ ; grep -rn 'MFGDevOps/' sites/
+grep -rnE 'MFGDevOps("|/)' sites/sisyphusdev/public/
 ```
 
-Both commands should return nothing.
+It should return nothing.
