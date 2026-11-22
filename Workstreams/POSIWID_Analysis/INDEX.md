@@ -43,7 +43,7 @@ The public POSIWID method ("the purpose of a system is what it does") and the gu
 | [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. POS-D-01 public domain; POS-D-02 browser-only form; POS-D-03 served at `/posiwid` |
 | [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md) | 2026-11-22 | 1 | Public method, credited to Stafford Beer (*The Heart of Enterprise*, 1979): five questions, no-expectations rule, diagnostic vs design, feedback loop, common mistakes. Draft, `agent_grounding: false` |
 | [`POSIWID_Analysis_Status.md`](POSIWID_Analysis_Status.md) | 2026-11-22 | 1 | Live state: form written, not deployed; open items POS-OI-01 to -03 |
-| [`app/index.html`](app/index.html) | 2026-11-22 | 1 | Guided form, crediting Stafford Beer: system details, questions 1–5, repeatable gaps and changes, progress checklist, live Markdown output with front matter, copy and download. Draft kept in the browser's local storage only |
+| [`app/index.html`](app/index.html) | 2026-11-22 | 1 | Guided form, crediting Stafford Beer, with the site logo and tab icon: system details, questions 1–5, repeatable gaps and changes, progress checklist, live Markdown output with front matter, copy and download. Draft kept in the browser's local storage only |
 
 ## Cross-links
 
