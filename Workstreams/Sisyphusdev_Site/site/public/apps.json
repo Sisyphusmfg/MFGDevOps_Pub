@@ -19,12 +19,12 @@
   },
   {
     "name": "Goal Agent",
-    "host": "goals.sisyphusdev.com",
-    "status": "Planned",
-    "desc": "Set goals, break them into measurable steps and get check-ins against baseline, current and target.",
+    "host": "sisyphusdev.com/goals",
+    "status": "Live",
+    "desc": "Write a goal an AI can pursue with you: source, measurable change, guardrails, milestones and limits. Copy one prompt that gives any AI the method and your goal.",
     "tags": ["AI agent", "Planning"],
-    "href": "",
-    "cta": "Coming soon"
+    "href": "/goals/",
+    "cta": "Set a goal"
   },
   {
     "name": "IOED Explainer",

@@ -57,3 +57,10 @@ Add new entries at the end, below the last entry. Copy this block:
 - **Timestamp:** 2026-11-22T17:32:00-05:00 (America/New_York)
 - **Action:** Correction to the 17:20 entry. At Marc's request, PR #3 now uses his PNG (`logo.png`, plus `logo-small.png`, `favicon.png` and `apple-touch-icon.png` made from it) in place of the SVG redraw. `logo.svg` and `favicon.svg` were removed from the branch. Rollback: revert PR #3.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/3. Decision: SDEV-D-06 (updated).
+
+### 2026-11-22T18:05:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T18:05:00-05:00 (America/New_York)
+- **Action:** Added the Goal_Agent domain (method reference, status, goal form at `/goals/` with "Prompt for an AI" and "Goal record" outputs). Added the same "Prompt for an AI" output to the POSIWID form. Mounted `/goals` in `scripts/build-site.sh`, set the Goal Agent card to Live, and updated INDEX registers, root README and AGENTS. Rollback: revert this PR, and `npx wrangler rollback` if needed.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/4. Decision: GA-D-01 to GA-D-03.

@@ -59,6 +59,10 @@
   .dot { flex: none; width: 18px; height: 18px; border-radius: 50%; border: 2px solid #B9BDB5; margin-top: 1px; }
   .done .dot { background: #15803D; border-color: #15803D; }
   .done { color: var(--ink-3); }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tabs button { border-color: #B9BDB5; font-weight: 500; }
+  .tabs button[aria-pressed="true"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+  .tabnote { margin: 0; font-size: 13px; color: var(--ink-3); line-height: 1.5; }
   pre { margin: 0; max-height: 46vh; overflow: auto; background: var(--ink); color: #E6E8EB; border-radius: 8px; padding: 14px; font: 12.5px/1.55 var(--mono); white-space: pre-wrap; word-break: break-word; }
   .actions { display: flex; flex-wrap: wrap; gap: 8px; }
   .status { font-size: 13px; color: #14532D; min-height: 18px; }
@@ -81,7 +85,7 @@
   <section class="wrap intro">
     <div class="eyebrow">POSIWID · The purpose of a system is what it does</div>
     <h1>POSIWID analysis</h1>
-    <p class="lede">Judge a system by what it actually does, not by what it's meant to do. Work through the five questions below. The finished analysis builds itself on the right, and you can copy it or download it as a Markdown file.</p>
+    <p class="lede">Judge a system by what it actually does, not by what it's meant to do. Work through the five questions below. The finished analysis builds itself on the right. Copy or download it as a Markdown file, or as a prompt that hands the method and your analysis to any AI assistant.</p>
     <p class="note">POSIWID was described by the British cybernetician Stafford Beer in his 1979 book <cite>The Heart of Enterprise</cite>.</p>
     <p class="note">Everything stays in this browser. Nothing is sent anywhere. Your draft is kept on this device until you clear it.</p>
   </section>
@@ -158,10 +162,15 @@
         <ul class="checks" id="checks"></ul>
       </div>
       <div class="card" style="margin-top:16px">
-        <h2>Your analysis</h2>
-        <pre id="out" tabindex="0" aria-label="Markdown output"></pre>
+        <h2>Output</h2>
+        <div class="tabs" role="group" aria-label="Choose output">
+          <button type="button" id="tab-rec" aria-pressed="true">Analysis</button>
+          <button type="button" id="tab-ai" aria-pressed="false">Prompt for an AI</button>
+        </div>
+        <p class="tabnote" id="tabnote"></p>
+        <pre id="out" tabindex="0" aria-label="Output"></pre>
         <div class="actions">
-          <button type="button" class="solid" id="copy">Copy Markdown</button>
+          <button type="button" class="solid" id="copy">Copy</button>
           <button type="button" id="download">Download .md</button>
           <button type="button" class="link" id="clear">Clear form</button>
         </div>
@@ -186,7 +195,7 @@
   var statusEl = document.getElementById('status');
   var gapsEl = document.getElementById('gaps');
   var changesEl = document.getElementById('changes');
-  var gaps = [], changes = [];
+  var gaps = [], changes = [], tab = 'rec';
 
   function field(id) { return document.getElementById(id); }
   function val(id) { return field(id).value.trim(); }
@@ -292,6 +301,40 @@
     return L.join('\n');
   }
 
+  function method() {
+    var M = [];
+    M.push('# Instructions: POSIWID analysis');
+    M.push('');
+    M.push('You are helping me with a POSIWID analysis, given under "My analysis" below. POSIWID means "the purpose of a system is what it does". The British cybernetician Stafford Beer described the method in his 1979 book The Heart of Enterprise. Judge the system by what it actually does, not by what it is meant to do.');
+    M.push('');
+    M.push('## The five questions');
+    M.push('1. What is the system doing? Observed behavior with evidence, as a camera would record it. No explanations.');
+    M.push('2. What is the system expected to do? One agreed expectation, with its source.');
+    M.push('3. What are the gaps between the expectations and what the system is doing, if any? Each gap points back to question 1 and question 2, with evidence and impact.');
+    M.push('4. What could be done to close the gaps? Each change names the gap it closes, an owner, and how to roll it back.');
+    M.push('5. What is the measurable change to the system? One measure with a baseline, a current value and a target, plus how anyone can check it and when.');
+    M.push('');
+    M.push('## What to do');
+    M.push('1. Check each section against the question above. Point out explanations written as observations, expectations with no source, gaps that don\'t trace to an observation, changes with no gap or no rollback, and measures nobody else could repeat.');
+    M.push('2. If question 2 has no clear expectation, stop there. Help me define and agree the expectation before anything else.');
+    M.push('3. List what\'s missing as short questions for me.');
+    M.push('4. Suggest improvements, labelled as suggestions. Prefer changes that can be undone.');
+    M.push('5. Return the revised analysis in the same Markdown format, with my original front matter.');
+    M.push('');
+    M.push('## Rules');
+    M.push('- Never invent observations, numbers, sources or dates. If something is missing, ask.');
+    M.push('- Mark anything you assume as an assumption.');
+    M.push('- Keep my words where they are clear. Change only what improves the analysis.');
+    M.push('');
+    M.push('---');
+    M.push('');
+    M.push('# My analysis');
+    M.push('');
+    return M.join('\n') + '\n' + build();
+  }
+
+  function current() { return tab === 'ai' ? method() : build(); }
+
   function progress() {
     var items = [
       ['System named and scoped', val('system') && val('scope')],
@@ -337,14 +380,19 @@
 
   function update() {
     document.getElementById('noexp-note').hidden = !field('noexp').checked;
-    out.textContent = build();
+    field('tab-rec').setAttribute('aria-pressed', String(tab === 'rec'));
+    field('tab-ai').setAttribute('aria-pressed', String(tab === 'ai'));
+    document.getElementById('tabnote').textContent = tab === 'ai'
+      ? 'Paste this into any AI assistant. It holds the POSIWID method, then your analysis, and asks the AI to review and complete it.'
+      : 'Save this as the analysis record.';
+    out.textContent = current();
     progress();
     save();
   }
 
   function fileName() {
     var s = (val('system') || 'System').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '');
-    return (val('date') || today()) + '_POSIWID_' + s + '.md';
+    return (val('date') || today()) + '_POSIWID_' + s + (tab === 'ai' ? '_AI_Prompt' : '') + '.md';
   }
 
   form.addEventListener('input', update);
@@ -352,8 +400,11 @@
   document.getElementById('add-gap').addEventListener('click', function () { gaps.push({}); renderAll(); update(); });
   document.getElementById('add-change').addEventListener('click', function () { changes.push({}); renderAll(); update(); });
 
+  document.getElementById('tab-rec').addEventListener('click', function () { tab = 'rec'; update(); });
+  document.getElementById('tab-ai').addEventListener('click', function () { tab = 'ai'; update(); });
+
   document.getElementById('copy').addEventListener('click', function () {
-    var text = build();
+    var text = current();
     var done = function () { statusEl.textContent = 'Copied to the clipboard.'; };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(done, function () { statusEl.textContent = 'Copy failed. Select the text and copy it by hand.'; });
@@ -361,7 +412,7 @@
   });
 
   document.getElementById('download').addEventListener('click', function () {
-    var blob = new Blob([build()], { type: 'text/markdown' });
+    var blob = new Blob([current()], { type: 'text/markdown' });
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = fileName();
