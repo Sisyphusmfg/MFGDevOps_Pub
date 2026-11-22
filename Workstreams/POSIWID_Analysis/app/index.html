@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POSIWID Analysis — sisyphusdev</title>
+<meta name="description" content="A guided form for a POSIWID analysis: what the system is doing, what it should do, the gaps, the changes, and the measurable change.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground: #F4F5F2; --ink: #15181C; --ink-2: #3B4148; --ink-3: #4A5058;
+    --line: #D5D8D2; --chip: #EDEFEA; --accent: #C2410C; --hover: #B23C0A; --focus: #1D4ED8;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --head: "Space Grotesk", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: Inter, system-ui, sans-serif; }
+  a { color: var(--ink); } a:hover { color: var(--hover); }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding-top: 16px; padding-bottom: 16px; }
+  .brand { font-family: var(--head); font-weight: 700; font-size: 18px; text-decoration: none; }
+  .brand span { color: var(--ink-3); font-weight: 500; }
+  .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .intro { padding-top: 48px; padding-bottom: 24px; }
+  h1 { margin: 12px 0 0; font-family: var(--head); font-size: clamp(32px, 4.5vw, 52px); line-height: 1.05; letter-spacing: -.03em; }
+  .lede { margin: 16px 0 0; font-size: 17px; line-height: 1.6; color: var(--ink-2); max-width: 720px; }
+  .note { margin-top: 16px; font-size: 14px; color: var(--ink-3); }
+  .layout { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; padding-bottom: 64px; }
+  form { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  aside { flex: 1 1 380px; min-width: 0; position: sticky; top: 16px; }
+  fieldset { margin: 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+  legend { padding: 0 8px; margin-left: -8px; font-family: var(--head); font-weight: 700; font-size: 22px; letter-spacing: -.01em; display: flex; align-items: center; gap: 10px; }
+  .num { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--ink); color: var(--ground); font-family: var(--mono); font-size: 15px; }
+  .guide { margin: 0; font-size: 14px; line-height: 1.55; color: var(--ink-2); background: var(--chip); border-radius: 8px; padding: 12px 14px; }
+  .guide b { color: var(--ink); }
+  label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .hint { display: block; font-weight: 400; font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+  input[type=text], input[type=date], textarea, select { width: 100%; font: 15px/1.5 Inter, system-ui, sans-serif; color: var(--ink); background: #fff; border: 1px solid #B9BDB5; border-radius: 8px; padding: 10px 12px; min-height: 44px; }
+  textarea { min-height: 96px; resize: vertical; }
+  input:focus, textarea:focus, select:focus, button:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+  .row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .row3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+  .item { border: 1px dashed #B9BDB5; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .item-head { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 13px; color: var(--ink-3); }
+  button { font: 600 14px Inter, system-ui, sans-serif; min-height: 44px; padding: 0 16px; border-radius: 8px; cursor: pointer; border: 1px solid var(--ink); background: transparent; color: var(--ink); }
+  button.solid { background: var(--ink); color: var(--ground); }
+  button.link { border: none; min-height: 44px; padding: 0 8px; color: var(--ink-3); text-decoration: underline; }
+  .toggle { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
+  .toggle input { width: 20px; height: 20px; margin-top: 2px; }
+  .card { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .card h2 { margin: 0; font-family: var(--head); font-size: 20px; }
+  .checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  .checks li { display: flex; gap: 8px; align-items: flex-start; }
+  .dot { flex: none; width: 18px; height: 18px; border-radius: 50%; border: 2px solid #B9BDB5; margin-top: 1px; }
+  .done .dot { background: #15803D; border-color: #15803D; }
+  .done { color: var(--ink-3); }
+  pre { margin: 0; max-height: 46vh; overflow: auto; background: var(--ink); color: #E6E8EB; border-radius: 8px; padding: 14px; font: 12.5px/1.55 var(--mono); white-space: pre-wrap; word-break: break-word; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .status { font-size: 13px; color: #14532D; min-height: 18px; }
+  .callout { border-left: 0; background: #FDE9D9; color: #5A1D05; border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.5; }
+  footer { border-top: 1px solid var(--line); }
+  footer .wrap { padding-top: 18px; padding-bottom: 18px; font-size: 13px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  @media (max-width: 960px) { aside { position: static; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="/">sisyphusdev <span>/ posiwid</span></a>
+    <a href="/" style="font-size:15px;font-weight:500;padding:12px 0">All apps</a>
+  </div>
+</header>
+
+<main>
+  <section class="wrap intro">
+    <div class="eyebrow">POSIWID · The purpose of a system is what it does</div>
+    <h1>POSIWID analysis</h1>
+    <p class="lede">Judge a system by what it actually does, not by what it's meant to do. Work through the five questions below. The finished analysis builds itself on the right, and you can copy it or download it as a Markdown file.</p>
+    <p class="note">POSIWID was described by the British cybernetician Stafford Beer in his 1979 book <cite>The Heart of Enterprise</cite>.</p>
+    <p class="note">Everything stays in this browser. Nothing is sent anywhere. Your draft is kept on this device until you clear it.</p>
+  </section>
+
+  <div class="wrap layout">
+    <form id="f" novalidate>
+      <fieldset>
+        <legend>About the system</legend>
+        <div class="row2">
+          <div><label for="system">System name<span class="hint">The workflow, process, machine or tool</span></label><input type="text" id="system" name="system" placeholder="e.g. Second-shift changeover"></div>
+          <div><label for="owner">Analyst</label><input type="text" id="owner" name="owner" placeholder="Your name"></div>
+        </div>
+        <div class="row2">
+          <div><label for="date">Date</label><input type="date" id="date" name="date"></div>
+          <div><label for="mode">Type of analysis</label>
+            <select id="mode" name="mode">
+              <option value="diagnostic">Diagnostic: an existing system</option>
+              <option value="design">Design: a new system</option>
+            </select></div>
+        </div>
+        <div><label for="scope">Scope<span class="hint">Where the system starts and stops, and what's out of scope</span></label><textarea id="scope" name="scope" placeholder="From order release to first good part off line 2. Excludes material staging."></textarea></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">1</span> What is the system doing?</legend>
+        <p class="guide"><b>Observe, don't explain.</b> Write what actually happens, as a camera would see it, with the evidence. Leave intentions and reasons for question 2.</p>
+        <div><label for="doing">Observed behavior</label><textarea id="doing" name="doing" placeholder="Changeovers take 40–75 min. Operators wait for the first-article sign-off, which arrives 25 min after the request on average."></textarea></div>
+        <div><label for="evidence">Evidence<span class="hint">Data, logs, observations, dates</span></label><textarea id="evidence" name="evidence" placeholder="MES changeover log, 2026-10-01 to 2026-10-31 (42 events). Gemba walk 2026-11-04."></textarea></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">2</span> What is it expected to do?</legend>
+        <p class="guide"><b>State the expectation and where it comes from:</b> a spec, a standard, a customer, a target. If nobody can say what it should do, stop here and define that first.</p>
+        <label class="toggle"><input type="checkbox" id="noexp" name="noexp"> There are no clear expectations yet</label>
+        <div class="callout" id="noexp-note" hidden>Define the expectations before you look for gaps. Without them, a gap is only an opinion. Write down what each stakeholder thinks the system is for, and agree on one statement, then come back to questions 3–5.</div>
+        <div><label for="expected">Expected behavior</label><textarea id="expected" name="expected" placeholder="Changeover under 30 min, with first-article sign-off within 10 min of request."></textarea></div>
+        <div><label for="expsource">Source of the expectation</label><input type="text" id="expsource" name="expsource" placeholder="Plant SMED target, 2026 operating plan"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">3</span> What are the gaps?</legend>
+        <p class="guide"><b>Each gap is a difference between question 1 and question 2.</b> If a gap doesn't point back to an observation, it's a guess. Add the evidence.</p>
+        <div id="gaps" style="display:flex;flex-direction:column;gap:12px"></div>
+        <div><button type="button" id="add-gap">Add a gap</button></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">4</span> What could close the gaps?</legend>
+        <p class="guide"><b>Prefer changes you can undo.</b> For each change, name the gap it closes and how you'd roll it back if it doesn't work.</p>
+        <div id="changes" style="display:flex;flex-direction:column;gap:12px"></div>
+        <div><button type="button" id="add-change">Add a change</button></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="num" aria-hidden="true">5</span> What is the measurable change?</legend>
+        <p class="guide"><b>One number that tells you whether it worked:</b> a baseline, the current value, a target, and how anyone can check it.</p>
+        <div class="row2">
+          <div><label for="metric">Measure</label><input type="text" id="metric" name="metric" placeholder="Median changeover time"></div>
+          <div><label for="unit">Unit</label><input type="text" id="unit" name="unit" placeholder="minutes"></div>
+        </div>
+        <div class="row3">
+          <div><label for="baseline">Baseline</label><input type="text" id="baseline" name="baseline" placeholder="52"></div>
+          <div><label for="current">Current</label><input type="text" id="current" name="current" placeholder="52"></div>
+          <div><label for="target">Target</label><input type="text" id="target" name="target" placeholder="30"></div>
+        </div>
+        <div><label for="check">How to check it<span class="hint">The query, report or observation anyone can repeat</span></label><textarea id="check" name="check" placeholder="Median of MES changeover events for line 2, weekly."></textarea></div>
+        <div><label for="checkdate">Next check</label><input type="date" id="checkdate" name="checkdate"></div>
+      </fieldset>
+    </form>
+
+    <aside aria-label="Progress and output">
+      <div class="card">
+        <h2>Progress</h2>
+        <ul class="checks" id="checks"></ul>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h2>Your analysis</h2>
+        <pre id="out" tabindex="0" aria-label="Markdown output"></pre>
+        <div class="actions">
+          <button type="button" class="solid" id="copy">Copy Markdown</button>
+          <button type="button" id="download">Download .md</button>
+          <button type="button" class="link" id="clear">Clear form</button>
+        </div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Method: <a href="https://github.com/Sisyphusmfg/MFGDevOps_Pub/tree/main/Workstreams/POSIWID_Analysis">POSIWID_Analysis on GitHub</a></span>
+    <span>POSIWID: Stafford Beer, <cite>The Heart of Enterprise</cite> (1979) · © Sisyphus Manufacturing</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var KEY = 'posiwid-draft-v1';
+  var form = document.getElementById('f');
+  var out = document.getElementById('out');
+  var statusEl = document.getElementById('status');
+  var gapsEl = document.getElementById('gaps');
+  var changesEl = document.getElementById('changes');
+  var gaps = [], changes = [];
+
+  function field(id) { return document.getElementById(id); }
+  function val(id) { return field(id).value.trim(); }
+  function esc(s) { return String(s).replace(/\|/g, '\\|').replace(/\n+/g, ' '); }
+  function today() { var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); }
+
+  function el(tag, attrs, text) {
+    var e = document.createElement(tag);
+    for (var k in (attrs || {})) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function inputBlock(labelText, id, value, multi, placeholder, onInput) {
+    var wrap = el('div');
+    var lab = el('label', { for: id }, labelText);
+    var inp = multi ? el('textarea', { id: id, placeholder: placeholder || '' }) : el('input', { type: 'text', id: id, placeholder: placeholder || '' });
+    if (multi) inp.style.minHeight = '72px';
+    inp.value = value || '';
+    inp.addEventListener('input', function () { onInput(inp.value); update(); });
+    wrap.append(lab, inp);
+    return wrap;
+  }
+
+  function renderList(list, container, kind) {
+    container.replaceChildren();
+    list.forEach(function (it, i) {
+      var box = el('div', { class: 'item' });
+      var head = el('div', { class: 'item-head' });
+      var name = (kind === 'gap' ? 'G' : 'C') + (i + 1);
+      head.append(el('span', null, name));
+      var rm = el('button', { type: 'button', class: 'link', 'aria-label': 'Remove ' + name }, 'Remove');
+      rm.addEventListener('click', function () { list.splice(i, 1); renderAll(); update(); });
+      head.append(rm);
+      box.append(head);
+      var p = 'x-' + kind + '-' + i + '-';
+      if (kind === 'gap') {
+        box.append(
+          inputBlock('Gap: what differs between doing and expected', p + 'what', it.what, true, 'Sign-off takes 25 min against a 10 min expectation', function (v) { it.what = v; }),
+          inputBlock('Evidence', p + 'ev', it.ev, false, 'MES log, Oct 2026', function (v) { it.ev = v; }),
+          inputBlock('Impact', p + 'impact', it.impact, false, '~15 min lost per changeover, 10 changeovers a week', function (v) { it.impact = v; })
+        );
+      } else {
+        var row = el('div', { class: 'row2' });
+        row.append(
+          inputBlock('Closes gap', p + 'gap', it.gap, false, 'G1', function (v) { it.gap = v; }),
+          inputBlock('Owner', p + 'owner', it.owner, false, 'Quality lead', function (v) { it.owner = v; })
+        );
+        box.append(
+          inputBlock('Change', p + 'what', it.what, true, 'Page QA automatically when the last part of the previous run is scanned', function (v) { it.what = v; }),
+          row,
+          inputBlock('Rollback: how to undo it', p + 'rb', it.rb, false, 'Turn off the automatic page; return to radio call', function (v) { it.rb = v; })
+        );
+      }
+      container.append(box);
+    });
+  }
+
+  function renderAll() { renderList(gaps, gapsEl, 'gap'); renderList(changes, changesEl, 'change'); }
+
+  function build() {
+    var system = val('system') || '[System]';
+    var date = val('date') || today();
+    var mode = val('mode');
+    var noexp = field('noexp').checked;
+    var L = [];
+    L.push('---');
+    L.push('Contributed By: ' + (val('owner') || '[Analyst]'));
+    L.push('Last Updated: ' + date);
+    L.push('Document Type: ' + (mode === 'design' ? 'POSIWID Design' : 'Forensic Analysis'));
+    L.push('Status: Draft');
+    L.push('doc_type: ' + (mode === 'design' ? 'posiwid-design' : 'forensic-analysis'));
+    L.push('agent_grounding: false');
+    L.push('Topic: POSIWID analysis — ' + system);
+    L.push('---', '');
+    L.push('# POSIWID analysis: ' + system, '');
+    if (val('scope')) L.push('**Scope:** ' + val('scope'), '');
+    L.push('## 1. What is the system doing?', '', val('doing') || '_Not yet observed._', '');
+    if (val('evidence')) L.push('**Evidence:** ' + val('evidence'), '');
+    L.push('## 2. What is it expected to do?', '');
+    if (noexp) {
+      L.push('> **No clear expectations yet.** Define and agree the expectations before analysing gaps.', '');
+    }
+    L.push(val('expected') || '_Not yet defined._', '');
+    if (val('expsource')) L.push('**Source:** ' + val('expsource'), '');
+    L.push('## 3. Gaps', '');
+    var g = gaps.filter(function (x) { return (x.what || '').trim(); });
+    if (g.length) {
+      L.push('| ID | Gap | Evidence | Impact |', '|----|-----|----------|--------|');
+      gaps.forEach(function (x, i) { if ((x.what || '').trim()) L.push('| G' + (i + 1) + ' | ' + esc(x.what) + ' | ' + esc(x.ev || '') + ' | ' + esc(x.impact || '') + ' |'); });
+    } else L.push('_No gaps recorded yet._');
+    L.push('', '## 4. Changes to close the gaps', '');
+    var c = changes.filter(function (x) { return (x.what || '').trim(); });
+    if (c.length) {
+      L.push('| ID | Change | Closes | Owner | Rollback |', '|----|--------|--------|-------|----------|');
+      changes.forEach(function (x, i) { if ((x.what || '').trim()) L.push('| C' + (i + 1) + ' | ' + esc(x.what) + ' | ' + esc(x.gap || '') + ' | ' + esc(x.owner || '') + ' | ' + esc(x.rb || '') + ' |'); });
+    } else L.push('_No changes proposed yet._');
+    L.push('', '## 5. Measurable change', '');
+    var u = val('unit') ? ' ' + val('unit') : '';
+    L.push('| Measure | Baseline | Current | Target | How to check | Next check |', '|---------|----------|---------|--------|--------------|------------|');
+    L.push('| ' + esc(val('metric') || '—') + ' | ' + esc((val('baseline') || '—') + (val('baseline') ? u : '')) + ' | ' + esc((val('current') || '—') + (val('current') ? u : '')) + ' | ' + esc((val('target') || '—') + (val('target') ? u : '')) + ' | ' + esc(val('check') || '—') + ' | ' + esc(val('checkdate') || '—') + ' |');
+    L.push('');
+    return L.join('\n');
+  }
+
+  function progress() {
+    var items = [
+      ['System named and scoped', val('system') && val('scope')],
+      ['1 · Observed behavior with evidence', val('doing') && val('evidence')],
+      ['2 · Expectation with a source', val('expected') && val('expsource') && !field('noexp').checked],
+      ['3 · At least one gap', gaps.some(function (x) { return (x.what || '').trim(); })],
+      ['4 · A change with a rollback', changes.some(function (x) { return (x.what || '').trim() && (x.rb || '').trim(); })],
+      ['5 · Baseline, current, target and check', val('baseline') && val('current') && val('target') && val('check')]
+    ];
+    var ul = document.getElementById('checks');
+    ul.replaceChildren();
+    items.forEach(function (it) {
+      var li = el('li', { class: it[1] ? 'done' : '' });
+      li.append(el('span', { class: 'dot', 'aria-hidden': 'true' }), el('span', null, it[0]));
+      li.append(el('span', { class: 'sr' }, it[1] ? ' (done)' : ' (to do)'));
+      ul.append(li);
+    });
+  }
+
+  function save() {
+    var data = { gaps: gaps, changes: changes, fields: {} };
+    Array.prototype.forEach.call(form.elements, function (e) {
+      if (!e.id || e.id.indexOf('x-') === 0) return;
+      data.fields[e.id] = e.type === 'checkbox' ? e.checked : e.value;
+    });
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (err) {}
+  }
+
+  function load() {
+    var data = null;
+    try { data = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (err) {}
+    if (data) {
+      gaps = data.gaps || []; changes = data.changes || [];
+      Object.keys(data.fields || {}).forEach(function (id) {
+        var e = field(id); if (!e) return;
+        if (e.type === 'checkbox') e.checked = !!data.fields[id]; else e.value = data.fields[id];
+      });
+    }
+    if (!gaps.length) gaps.push({});
+    if (!changes.length) changes.push({});
+    if (!val('date')) field('date').value = today();
+  }
+
+  function update() {
+    document.getElementById('noexp-note').hidden = !field('noexp').checked;
+    out.textContent = build();
+    progress();
+    save();
+  }
+
+  function fileName() {
+    var s = (val('system') || 'System').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '');
+    return (val('date') || today()) + '_POSIWID_' + s + '.md';
+  }
+
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  document.getElementById('add-gap').addEventListener('click', function () { gaps.push({}); renderAll(); update(); });
+  document.getElementById('add-change').addEventListener('click', function () { changes.push({}); renderAll(); update(); });
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var text = build();
+    var done = function () { statusEl.textContent = 'Copied to the clipboard.'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { statusEl.textContent = 'Copy failed. Select the text and copy it by hand.'; });
+    } else { statusEl.textContent = 'Copy is not available here. Select the text and copy it by hand.'; }
+  });
+
+  document.getElementById('download').addEventListener('click', function () {
+    var blob = new Blob([build()], { type: 'text/markdown' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName();
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    statusEl.textContent = 'Downloaded ' + fileName() + '.';
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    form.reset();
+    gaps = [{}]; changes = [{}];
+    try { localStorage.removeItem(KEY); } catch (err) {}
+    field('date').value = today();
+    renderAll(); update();
+    statusEl.textContent = 'Form cleared.';
+  });
+
+  load();
+  renderAll();
+  update();
+})();
+</script>
+</body>
+</html>

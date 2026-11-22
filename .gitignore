@@ -9,6 +9,7 @@ Inbox/*
 *.zip
 
 # Cloudflare / Node local state
+dist/
 node_modules/
 .wrangler/
 .dev.vars

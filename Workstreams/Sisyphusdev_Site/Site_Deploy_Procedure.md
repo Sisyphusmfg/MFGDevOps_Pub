@@ -3,7 +3,7 @@ Contributed By: Marc Dugas
 Last Updated: 2026-11-22
 Document Type: Procedure
 doc_type: procedure
-Topic: Preview, deploy, add an app, and roll back sisyphusdev.com
+Topic: Build, preview, deploy, add an app, and roll back sisyphusdev.com
 Status: Draft
 agent_grounding: false
 agent_maintenance: true
@@ -12,74 +12,72 @@ authority_rank: 1
 
 # Site Deploy Procedure — sisyphusdev.com
 
-Draft. It hasn't been run yet. Once step 3 has been run once and its output is recorded in [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md), set `agent_grounding: true`.
+Draft. Set `agent_grounding: true` after the first successful deploy is recorded in [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md).
 
-All commands run from a clone of `MFGDevOps_Pub` on either Ubuntu machine. They need Node.js, so check that `node -v` prints v20 or newer.
+## How it deploys (SDEV-D-04, SDEV-D-05)
+
+Cloudflare Workers Builds watches `main` on `Sisyphusmfg/MFGDevOps_Pub`. On every push it runs `npx wrangler deploy` from the **repo root**. Wrangler reads [`../../wrangler.jsonc`](../../wrangler.jsonc) and runs its build command, `bash scripts/build-site.sh`. That script assembles `dist/` from each domain's web files, then Wrangler uploads `dist/` to the Worker `mfgdevops-pub`.
+
+| Site path | Source folder |
+|-----------|---------------|
+| `/` | `Workstreams/Sisyphusdev_Site/site/public/` |
+| `/posiwid/` | `Workstreams/POSIWID_Analysis/app/` |
+
+**Merging to `main` publishes the site.** Treat every merge that touches these folders, `wrangler.jsonc` or `scripts/build-site.sh` as a publication (PUB-D-04).
 
 ## 1. Preview locally
 
+From the repo root (Node.js v20 or newer):
+
 ```bash
-cd Workstreams/Sisyphusdev_Site/site
+bash scripts/build-site.sh
 npx wrangler dev
 ```
 
-Open http://localhost:8787. You should see the home page with the app cards.
+Open http://localhost:8787 and http://localhost:8787/posiwid/.
 
 ## 2. Check for private links (PUB-D-03)
-
-From the repo root:
 
 ```bash
 git grep -nIiP 'github\.com/Sisyphusmfg/(?!MFGDevOps_Pub\b)[A-Za-z0-9_.-]+' -- . && echo "STOP: private link found" || echo "OK: no private links"
 ```
 
-Deploy only on `OK`.
+CI runs the same check on every pull request.
 
 ## 3. Deploy
 
+Normally you merge the pull request, and Workers Builds deploys. Watch it in Cloudflare › Workers & Pages › `mfgdevops-pub` › Deployments.
+
+To deploy by hand from the repo root:
+
 ```bash
-cd Workstreams/Sisyphusdev_Site/site
-npx wrangler login      # first time only; opens a browser
+npx wrangler login      # first time only
 npx wrangler deploy
 ```
-
-Wrangler creates the Worker `sisyphusdev-home` and attaches `sisyphusdev.com` and `www.sisyphusdev.com`. Copy the `Current Version ID` line it prints.
 
 ## 4. Verify and record
 
 ```bash
 curl -sI https://sisyphusdev.com | head -1
-curl -s https://sisyphusdev.com/apps.json | python3 -m json.tool | head -5
+curl -sI https://sisyphusdev.com/posiwid/ | head -1
 ```
 
-Expected: `HTTP/2 200`, then the start of the app list. Add a row to the deploy log in [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) with the date, the version ID and the first `curl` line.
+Expected: `HTTP/2 200` for both. Add a deploy-log row to [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) with the date, the version ID and both `curl` lines.
 
-## Add or update an app
+## Add an app
 
-Edit [`site/public/apps.json`](site/public/apps.json):
+1. Put its web files in `Workstreams/<Domain>/app/` with an `index.html`.
+2. Add `"Workstreams/<Domain>/app:<path>"` to the `apps` list in [`../../scripts/build-site.sh`](../../scripts/build-site.sh).
+3. Add its card to [`site/public/apps.json`](site/public/apps.json), with `href` set to `/<path>/`.
+4. Update both domains' INDEX registers, then open a pull request.
 
-```json
-{
-  "name": "Goal Agent",
-  "host": "goals.sisyphusdev.com",
-  "status": "Live",
-  "desc": "One sentence on what it does.",
-  "tags": ["AI agent", "Planning"],
-  "href": "https://goals.sisyphusdev.com",
-  "cta": "Open app"
-}
-```
-
-- `status` is `Live`, `Building` or `Planned`. Use `Live` only when the URL answers.
-- If `href` is empty, the card shows a disabled button.
-- Update the `apps.json` row in [`INDEX.md`](INDEX.md), open a pull request, and after merge repeat steps 2–4.
+`status` in `apps.json` is `Live`, `Building` or `Planned`. If `href` is empty, the card shows a disabled button.
 
 ## Roll back
 
 ```bash
-cd Workstreams/Sisyphusdev_Site/site
 npx wrangler deployments list
 npx wrangler rollback <version-id>
 ```
 
-That restores the previous version in seconds. Record the rollback in the status file. To take the site down completely, remove the custom domains in the Cloudflare dashboard (Workers & Pages › `sisyphusdev-home` › Settings › Domains & Routes).
+That restores the previous version in seconds. Also revert the pull request, or the next push redeploys the change. Record the rollback in the status file.

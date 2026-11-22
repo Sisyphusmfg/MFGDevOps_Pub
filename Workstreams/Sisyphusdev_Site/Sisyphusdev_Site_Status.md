@@ -15,37 +15,40 @@ Source: Cloudflare API output, 2026-11-22
 
 | Field | Value |
 |-------|-------|
-| Scope | sisyphusdev.com home page and app directory |
-| Overall status | Source written and in review (PR #1). Nothing deployed. The domain serves a blank page |
-| Next action | Marc merges PR #1, then runs [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) steps 1–4 |
+| Scope | sisyphusdev.com home page, app directory, and the build that mounts each app |
+| Overall status | First Workers Builds deploy failed (no Wrangler config at repo root). Fix is in PR #2. The domain still serves a blank page |
+| Next action | Marc merges PR #2. Workers Builds deploys. Record the result below |
 
 ## POSIWID snapshot
 
 | Question | Answer |
 |----------|--------|
-| What is it doing? | The DNS zone answers, but no Worker or origin serves the domain |
-| What is it expected to do? | Serve a home page with one card per app, each linking to its live subdomain |
-| Gap | Nothing is deployed |
-| Change | Deploy the `sisyphusdev-home` Worker with custom domains |
-| Measurable change | Public apps reachable from the directory. Baseline 0 (2026-11-22). Current 0. Target 1 after first deploy (MFGDevOps_Pub card), then +1 for each public app. Check: `curl -sI https://sisyphusdev.com` returns `200`, and the Live count on the page matches `apps.json` |
+| What is it doing? | The DNS zone answers. Workers Builds runs on push to `main` but fails, so nothing is served |
+| What is it expected to do? | Serve a home page with one card per app, plus each app at its path |
+| Gap | `wrangler.jsonc` was in `Workstreams/Sisyphusdev_Site/site/`, but Workers Builds runs from the repo root, and the Worker name didn't match (`sisyphusdev-home` vs `mfgdevops-pub`) |
+| Change | Root `wrangler.jsonc` named `mfgdevops-pub`, with a build step that assembles `dist/` (SDEV-D-04, SDEV-D-05) |
+| Measurable change | Public apps reachable from the directory. Baseline 0 (2026-11-22). Current 0. Target 2 after this deploy (POSIWID Analysis and the MFGDevOps_Pub card). Check: `curl -sI https://sisyphusdev.com/posiwid/` returns `200`, and the Live count on the home page is 2 |
 
 ## Live state (from command output)
 
 | Date | Check | Result |
 |------|-------|--------|
 | 2026-11-22 | Cloudflare API `GET /zones?name=sisyphusdev.com` | Zone `active`, Free plan, Cloudflare nameservers |
-| 2026-11-22 | Cloudflare API `GET /accounts/{id}/workers/scripts` | No Workers on the account |
+| 2026-11-22 | Cloudflare API `GET /accounts/{id}/workers/scripts` (16:58) | One Worker, `mfgdevops-pub`, created by Workers Builds. No static assets |
+| 2026-11-22 | Workers Builds trigger for `mfgdevops-pub` | Repo `MFGDevOps_Pub`, branch `main`, root `/`, deploy command `npx wrangler deploy`, no build command |
+| 2026-11-22 | Latest build (21:48 UTC) | `fail`. Wrangler: "Could not detect a directory containing static files" |
+| 2026-11-22 | Cloudflare API `GET /accounts/{id}/workers/domains` | No custom domains attached |
 
 ## Deploy log
 
 | Date | Version | Command output summary | `curl -I` |
 |------|---------|------------------------|-----------|
-| — | — | Not deployed yet | — |
+| 2026-11-22 | — | Workers Builds failed: no Wrangler config at repo root | — |
 
 ## Open items
 
 | ID | Priority | Item | Detail |
 |----|----------|------|--------|
-| SDEV-OI-01 | High | First deploy | After PR #1 merges. Record the output here |
-| SDEV-OI-02 | Medium | Deploy from CI or by hand | By hand for now. CI deploy needs a Cloudflare API token stored as a GitHub secret, never in a file |
-| SDEV-OI-03 | Low | Private apps behind Cloudflare Access | For work-in-progress apps on subdomains. Not started |
+| SDEV-OI-01 | High | First successful deploy | Fix in PR #2. Record output here |
+| SDEV-OI-02 | Closed 2026-11-22 | Deploy from CI or by hand | Marc connected Workers Builds to the repo. CI deploy on push to `main` |
+| SDEV-OI-03 | Low | Private apps behind Cloudflare Access | For work-in-progress apps. Not started |

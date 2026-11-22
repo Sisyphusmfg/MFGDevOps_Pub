@@ -76,6 +76,7 @@ Design artifacts use `doc_type: posiwid-design`. Diagnostics use `doc_type: fore
 | Persona | [`Persona/INDEX.md`](Persona/INDEX.md) |
 | Reference | [`Reference/INDEX.md`](Reference/INDEX.md) |
 | Sisyphusdev_Site | [`Workstreams/Sisyphusdev_Site/INDEX.md`](Workstreams/Sisyphusdev_Site/INDEX.md) |
+| POSIWID_Analysis | [`Workstreams/POSIWID_Analysis/INDEX.md`](Workstreams/POSIWID_Analysis/INDEX.md) |
 
 ## Hard rules
 
@@ -89,4 +90,6 @@ Design artifacts use `doc_type: posiwid-design`. Diagnostics use `doc_type: fore
 - Cite an artifact only when an INDEX row routes to it at `authority_rank: 1`. Do not cite `DECISIONS.md` or `Archive/`.
 - Run scripts as `bash script.sh`.
 
-Live write paths: `Persona/`, `Reference/`, `Workstreams/Sisyphusdev_Site/`, `.github/`, root `README.md`, root `AGENTS.md`.
+Live write paths: `Persona/`, `Reference/`, `Workstreams/Sisyphusdev_Site/`, `Workstreams/POSIWID_Analysis/`, `scripts/`, root `wrangler.jsonc`, `.github/`, root `README.md`, root `AGENTS.md`.
+
+**Merging to `main` deploys sisyphusdev.com** (Cloudflare Workers Builds, SDEV-D-05). A pull request that changes what the site serves says so in its description.

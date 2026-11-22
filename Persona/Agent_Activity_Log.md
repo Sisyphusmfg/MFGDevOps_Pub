@@ -36,3 +36,10 @@ Add new entries at the end, below the last entry. Copy this block:
 - **Timestamp:** 2026-11-22T16:45:00-05:00 (America/New_York)
 - **Action:** Scaffolded the repo in the machine-first format: root README, AGENTS, CLAUDE and GEMINI files; Persona, Reference and Sisyphusdev_Site domains; Inbox and Archive READMEs; public-link CI check. Added the sisyphusdev.com source under `Workstreams/Sisyphusdev_Site/site/`. Rollback: revert this PR. That restores the repo to `LICENSE` only.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/1. Decision: PUB-D-01 to PUB-D-04, SDEV-D-01 to SDEV-D-03.
+
+### 2026-11-22T17:10:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T17:10:00-05:00 (America/New_York)
+- **Action:** Fixed the failed Workers Builds deploy by moving `wrangler.jsonc` to the repo root (Worker `mfgdevops-pub`) with a build step `scripts/build-site.sh`. Added the POSIWID_Analysis domain (method reference, status, guided form at `/posiwid/`) and its card in `apps.json`. Updated Sisyphusdev_Site files and the root README and AGENTS. Rollback: revert this PR, then `npx wrangler rollback` to the previous version if a deploy went out.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/2. Decision: SDEV-D-04, SDEV-D-05, POS-D-01 to POS-D-03.
