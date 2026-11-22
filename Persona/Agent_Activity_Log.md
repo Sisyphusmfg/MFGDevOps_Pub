@@ -43,3 +43,17 @@ Add new entries at the end, below the last entry. Copy this block:
 - **Timestamp:** 2026-11-22T17:10:00-05:00 (America/New_York)
 - **Action:** Fixed the failed Workers Builds deploy by moving `wrangler.jsonc` to the repo root (Worker `mfgdevops-pub`) with a build step `scripts/build-site.sh`. Added the POSIWID_Analysis domain (method reference, status, guided form at `/posiwid/`) and its card in `apps.json`. Updated Sisyphusdev_Site files and the root README and AGENTS. Rollback: revert this PR, then `npx wrangler rollback` to the previous version if a deploy went out.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/2. Decision: SDEV-D-04, SDEV-D-05, POS-D-01 to POS-D-03.
+
+### 2026-11-22T17:20:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T17:20:00-05:00 (America/New_York)
+- **Action:** Redrew Marc's logo as SVG. Added `logo.svg`, `favicon.svg` and `apple-touch-icon.png` to `Workstreams/Sisyphusdev_Site/site/public/`. Wired the logo and tab icons into the home page, the 404 page and the POSIWID form. Updated both INDEX registers. Rollback: revert this PR. The next deploy restores the placeholder mark.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/3. Decision: SDEV-D-06.
+
+### 2026-11-22T17:32:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T17:32:00-05:00 (America/New_York)
+- **Action:** Correction to the 17:20 entry. At Marc's request, PR #3 now uses his PNG (`logo.png`, plus `logo-small.png`, `favicon.png` and `apple-touch-icon.png` made from it) in place of the SVG redraw. `logo.svg` and `favicon.svg` were removed from the branch. Rollback: revert PR #3.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/3. Decision: SDEV-D-06 (updated).
