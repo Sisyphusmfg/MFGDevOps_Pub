@@ -47,7 +47,7 @@ Repo-wide rules for `MFGDevOps_Pub`: the methods that agents follow (POSIWID and
 | [`POSIWID_Diagnostic_Grounding.md`](POSIWID_Diagnostic_Grounding.md) | 2026-11-22 | 1 | Which POSIWID files can be cited: diagnostics true by default, designs after approval, drafts and simulations never (PUB-D-06) |
 | [`POSIWID_Design_Goal_Agent.md`](POSIWID_Design_Goal_Agent.md) | 2026-11-22 | 1 | POSIWID design of the goal agent: expectations, outputs, gates, AI rules, limits and cadence, goal parts, pace and health, reviews, closing, measurable change, where it is carried out. Replaces Workstreams/Goal_Agent/Goal_Method_Reference.md (PUB-D-05). Draft, `agent_grounding: false` |
 | [`Artifact_Metadata_Standard.md`](Artifact_Metadata_Standard.md) | 2026-11-22 | 1 | Public edition of the metadata standard: fields, naming, public-only content, never-stored list |
-| [`Agent_Activity_Log.md`](Agent_Activity_Log.md) | 2026-11-22 | — | Shared agent log. `agent_grounding: false`. Twelve entries (scaffold; deploy fix and POSIWID form; logo; logo correction; Goal Agent; POSIWID-to-goal import; goal agent layer; methods moved to Persona; GA-D-07 active; POSIWID agent layer; POS-D-05 active; branch protection) |
+| [`Agent_Activity_Log.md`](Agent_Activity_Log.md) | 2026-11-22 | — | Shared agent log. `agent_grounding: false`. 14 entries (scaffold; deploy fix and POSIWID form; logo; logo correction; Goal Agent; POSIWID-to-goal import; goal agent layer; methods moved to Persona; GA-D-07 active; POSIWID agent layer; POS-D-05 active; branch protection; preview builds; preview URLs) |
 
 ## Cross-links
 

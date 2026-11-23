@@ -124,3 +124,17 @@ Add new entries at the end, below the last entry. Copy this block:
   - Recorded PUB-D-07 and an AGENTS.md note.
   - Rollback: delete or disable each ruleset under Settings → Rules → Rulesets, and turn the toggles back off.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: PUB-D-07.
+
+### 2026-11-22T20:55:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T20:55:00-05:00 (America/New_York)
+- **Action:** Added an empty `"previews": {}` block to `wrangler.jsonc`, so Cloudflare preview builds on PR branches stop failing. Recorded SDEV-D-07, and updated the Sisyphusdev_Site INDEX and status (SDEV-OI-04). Rollback: revert this PR. PR-branch preview builds would fail again, and production is unaffected either way.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/7. Decision: SDEV-D-07.
+
+### 2026-11-22T21:00:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T21:00:00-05:00 (America/New_York)
+- **Action:** The PR #7 preview build passed but reported "No Preview URL". Added `"preview_urls": true` to `wrangler.jsonc`, which applies from the next production deploy, and updated SDEV-D-07, the Sisyphusdev_Site INDEX and SDEV-OI-04. Rollback: revert PR #7.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/7. Decision: SDEV-D-07.
