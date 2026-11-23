@@ -51,5 +51,5 @@ Source: Cloudflare API output, 2026-11-22
 |----|----------|------|--------|
 | SDEV-OI-01 | High | First successful deploy | Fix in PR #2. Record output here |
 | SDEV-OI-02 | Closed 2026-11-22 | Deploy from CI or by hand | Marc connected Workers Builds to the repo. CI deploy on push to `main` |
-| SDEV-OI-04 | Medium | PR preview builds failing | Every pull-request branch build failed: `wrangler preview` needs a `previews` block. Fixed by SDEV-D-07 (PR #7). Check: the Workers Builds check is green on PR #7. If it says "No Preview URL", turn on preview URLs under the Worker's Settings → Domains & Routes |
+| SDEV-OI-04 | Medium | PR preview builds failing | Every pull-request branch build failed: `wrangler preview` needs a `previews` block. Fixed by SDEV-D-07 (PR #7). 2026-11-22: the PR #7 preview build passed (was failing on every PR branch), but its comment said "No Preview URL". `preview_urls: true` was added to PR #7, and applies from the first production deploy after merge. Check: the next PR's Cloudflare comment shows a `…workers.dev` Preview URL |
 | SDEV-OI-03 | Low | Private apps behind Cloudflare Access | For work-in-progress apps. Not started |

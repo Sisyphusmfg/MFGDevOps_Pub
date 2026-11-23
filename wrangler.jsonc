@@ -18,6 +18,9 @@
     { "pattern": "sisyphusdev.com", "custom_domain": true },
     { "pattern": "www.sisyphusdev.com", "custom_domain": true }
   ],
+  // Turns on workers.dev Preview URLs, so each PR gets a link. It takes effect on the next production deploy.
+  // workers.dev Preview URLs are public, and Cloudflare adds X-Robots-Tag: noindex.
+  "preview_urls": true,
   // Previews reuse the top-level settings. Production routes are never added here.
   "previews": {}
 }
