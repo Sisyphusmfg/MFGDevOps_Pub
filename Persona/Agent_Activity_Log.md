@@ -105,3 +105,10 @@ Add new entries at the end, below the last entry. Copy this block:
   - Decisions POS-D-04, POS-D-05 (proposed) and PUB-D-06.
   - Rollback: revert PR #5.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: POS-D-04, POS-D-05, PUB-D-06.
+
+### 2026-11-22T20:16:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T20:16:00-05:00 (America/New_York)
+- **Action:** Set POS-D-05 (only analyses fine to publish are filed in this repo) from proposed to active, at Marc's instruction. Updated the POSIWID_Analysis INDEX register line. Rollback: revert this commit.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: POS-D-05.

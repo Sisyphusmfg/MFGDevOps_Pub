@@ -46,7 +46,7 @@ POSIWID work in public: the agent layer (posiwid-facilitator, posiwid-analyst an
 | [`INDEX.md`](INDEX.md) | 2026-11-22 | 1 | This file — domain router |
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
-| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. POS-D-01 public domain; POS-D-02 browser-only form; POS-D-03 served at `/posiwid`; POS-D-04 agent layer; POS-D-05 public analyses only (proposed) |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. POS-D-01 public domain; POS-D-02 browser-only form; POS-D-03 served at `/posiwid`; POS-D-04 agent layer; POS-D-05 public analyses only (active) |
 | [`POSIWID_Facilitation_Session_Template.md`](POSIWID_Facilitation_Session_Template.md) | 2026-11-22 | 1 | Template for `Sessions/POSIW-FAC-*` drafts: intake, problem container, de-facto definition (C1), expectations, gap table (C2), outputs, mechanism check (C-MECH), controls, handoff (C3), concerns |
 | [`POSIWID_Analysis_Status.md`](POSIWID_Analysis_Status.md) | 2026-11-22 | 1 | Live state: form written, not deployed; open items POS-OI-01 to -03 |
 | [`app/index.html`](app/index.html) | 2026-11-22 | 1 | Guided form, crediting Stafford Beer, with the site logo (`/logo-small.png`) and tab icon: system details, questions 1–5, repeatable gaps and changes, progress checklist, live output with two tabs, "Analysis" (Markdown with front matter) and "Prompt for an AI" (method + analysis, GA-D-02), copy and download, and a "Start a goal" button that opens the Goal form filled from this analysis (GA-D-04). Draft kept in the browser's local storage only |
