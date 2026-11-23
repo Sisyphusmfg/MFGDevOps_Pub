@@ -10,6 +10,7 @@ These are behavioral instructions for agents working in `MFGDevOps_Pub`. This fi
 
 - Commit messages are one line saying what changed and why. Reference decision IDs (e.g. `PUB-D-03`). Pull before you start (`git pull --rebase`). Never force-push `main`.
 - Marc merges every pull request (PUB-D-04).
+- **`main` is protected** by the GitHub ruleset "Protect main" (PUB-D-07): no deletion, no force push, changes only through a pull request, and the `check` status (public-link check) must pass. A direct push to `main` is refused. Work on a branch and open a pull request.
 
 ## Public-only rule (PUB-D-03)
 

@@ -112,3 +112,15 @@ Add new entries at the end, below the last entry. Copy this block:
 - **Timestamp:** 2026-11-22T20:16:00-05:00 (America/New_York)
 - **Action:** Set POS-D-05 (only analyses fine to publish are filed in this repo) from proposed to active, at Marc's instruction. Updated the POSIWID_Analysis INDEX register line. Rollback: revert this commit.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: POS-D-05.
+
+### 2026-11-22T20:50:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T20:50:00-05:00 (America/New_York)
+- **Action:** At Marc's request, applied GitHub settings through the browser pane, signed in as Marc:
+  - MFGDevOps_Pub: ruleset "Protect main" (ID 27867792) with deletion, force-push, pull-request (0 approvals, conversations resolved) and required `check` rules, no bypass. Auto-delete head branches on. Dependabot alerts and dependency graph on.
+  - MFGDevOps (private): ruleset "Protect main" (ID 27867869) with deletion and force-push rules only, so its direct-push workflow still works. Auto-delete on. Dependabot alerts and dependency graph on.
+  - Verified with `GET /repos/{repo}/rules/branches/main`.
+  - Recorded PUB-D-07 and an AGENTS.md note.
+  - Rollback: delete or disable each ruleset under Settings → Rules → Rulesets, and turn the toggles back off.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: PUB-D-07.
