@@ -92,3 +92,16 @@ Add new entries at the end, below the last entry. Copy this block:
 - **Timestamp:** 2026-11-22T20:07:00-05:00 (America/New_York)
 - **Action:** Set GA-D-07 (only goals fine to publish are filed in this repo) from proposed to active, at Marc's instruction. Updated the Goal_Agent INDEX register line. Rollback: revert this commit.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: GA-D-07.
+
+### 2026-11-22T20:45:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T20:45:00-05:00 (America/New_York)
+- **Action:** Brought the POSIWID agent layer across as public versions:
+  - Agents `posiwid-facilitator` and `posiwid-analyst`, and skills `posiwid-analysis` (with workflow, design, diagnostic and checklist references) and `posiwid-measurement-simulator` (with template), in `.agents/`, with pointers in `.claude/` and `.cursor/`.
+  - The facilitation session template and an analysis register in Workstreams/POSIWID_Analysis.
+  - `Persona/POSIWID_Method_Reference.md` expanded to cover the private method's content, and `Persona/POSIWID_Diagnostic_Grounding.md` added.
+  - Goal-agent and goal-execution now hand off to the POSIWID agents.
+  - Decisions POS-D-04, POS-D-05 (proposed) and PUB-D-06.
+  - Rollback: revert PR #5.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: POS-D-04, POS-D-05, PUB-D-06.

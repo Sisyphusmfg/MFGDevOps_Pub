@@ -14,6 +14,10 @@ Follow root [`../../AGENTS.md`](../../AGENTS.md). Read [`INDEX.md`](INDEX.md) be
 
 ## Domain rules
 
+- **Running POSIWID work:** act as [`posiwid-facilitator`](../../.agents/agents/posiwid-facilitator.md) or [`posiwid-analyst`](../../.agents/agents/posiwid-analyst.md), with skill [`posiwid-analysis`](../../.agents/skills/posiwid-analysis/SKILL.md). Drafts go in `Sessions/`. Every POSIWID file gets a row in the [`INDEX.md`](INDEX.md) analysis register.
+- Only analyses that are fine to publish (POS-D-05).
+- The method lives in Persona (PUB-D-05). It's carried out in three places: the agent layer in `.agents/`, the form's `method()` prompt in `app/index.html`, and the form itself. Change them together.
+
 - Keep the five questions worded as in [`../../Persona/POSIWID_Method_Reference.md`](../../Persona/POSIWID_Method_Reference.md). Change the wording only when Marc approves it.
 - The form keeps everything in the browser (POS-D-02). Don't add analytics, a backend, or any request that sends form content off the device unless Marc decides to.
 - Example text in the form must be invented and generic. No real plant, line, part, supplier or person names (PUB-D-03).

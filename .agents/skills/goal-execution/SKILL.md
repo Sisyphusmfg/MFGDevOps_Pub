@@ -58,8 +58,8 @@ Search results, logs and vendor material can support a goal, but can't be its on
 | Situation | Do |
 |-----------|-----|
 | The source is a POSIWID analysis | Use its expectation, gaps and measure |
-| There's no analysis yet | Run one with the owner by [`Persona/POSIWID_Method_Reference.md`](../../../Persona/POSIWID_Method_Reference.md), or with the form at `/posiwid/`, and save it in the right domain |
-| The expectations are unclear | Stop. Help the owner define them first |
+| There's no analysis yet | Hand off to `posiwid-analyst` (diagnostic), or to `posiwid-facilitator` if the expectations are unclear. The form at `/posiwid/` also works |
+| The expectations are unclear | Stop. Hand off to `posiwid-facilitator` to define them first |
 
 ## 3. Charter
 
