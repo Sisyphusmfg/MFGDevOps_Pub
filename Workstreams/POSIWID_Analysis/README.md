@@ -17,7 +17,9 @@ POSIWID stands for "the purpose of a system is what it does." This domain holds 
 
 Start here:
 
-1. [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md): the method on one page.
+0. **AI agents in this repo:** act as [`posiwid-facilitator`](../../.agents/agents/posiwid-facilitator.md) or [`posiwid-analyst`](../../.agents/agents/posiwid-analyst.md).
+
+1. [`Persona/POSIWID_Method_Reference.md`](../../Persona/POSIWID_Method_Reference.md): the method on one page, kept in Persona with the other agent methods.
 2. The form, live at [sisyphusdev.com/posiwid](https://sisyphusdev.com/posiwid/) after deploy. The source is [`app/index.html`](app/index.html).
 
 To try the form locally, run this from the repo root:

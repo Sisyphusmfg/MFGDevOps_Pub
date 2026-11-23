@@ -34,4 +34,5 @@ authority_rank: 1
 |----|----------|------|--------|
 | POS-OI-01 | High | First live check | After deploy: `curl -sI https://sisyphusdev.com/posiwid/` should return `200`. Record it here |
 | POS-OI-02 | Medium | Marc approves the method wording | Then set `agent_grounding: true` on the method reference |
+| POS-OI-04 | Medium | First analysis run by an agent in this repo | A facilitation draft through C3 and promotion, with register rows |
 | POS-OI-03 | Low | Subdomain | Point `posiwid.sisyphusdev.com` at the same Worker, if wanted (POS-D-03) |

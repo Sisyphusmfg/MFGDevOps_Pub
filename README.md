@@ -23,11 +23,12 @@ The public, machine-first workspace for Sisyphus Manufacturing: tools, methods a
 
 | Domain | Purpose | INDEX |
 |--------|---------|-------|
-| `Persona/` | Metadata standard, decisions that apply to the whole repo, and the shared agent activity log | [`Persona/INDEX.md`](Persona/INDEX.md) |
+| `Persona/` | The methods agents follow (POSIWID, goal agent), metadata standard, repo-wide decisions, shared agent activity log | [`Persona/INDEX.md`](Persona/INDEX.md) |
 | `Reference/` | Public method references. Empty until the first reference is published | [`Reference/INDEX.md`](Reference/INDEX.md) |
 | `Workstreams/Sisyphusdev_Site/` | sisyphusdev.com: home page and app directory, deploy procedure, live status. Owns root `wrangler.jsonc` and `scripts/build-site.sh` | [`Workstreams/Sisyphusdev_Site/INDEX.md`](Workstreams/Sisyphusdev_Site/INDEX.md) |
-| `Workstreams/POSIWID_Analysis/` | Public POSIWID method and the guided form at sisyphusdev.com/posiwid | [`Workstreams/POSIWID_Analysis/INDEX.md`](Workstreams/POSIWID_Analysis/INDEX.md) |
-| `Workstreams/Goal_Agent/` | Public goal method and the goal form at sisyphusdev.com/goals, with a prompt that gives an AI the method plus the goal | [`Workstreams/Goal_Agent/INDEX.md`](Workstreams/Goal_Agent/INDEX.md) |
+| `Workstreams/POSIWID_Analysis/` | POSIWID work: agent layer routing, facilitation template, analysis register, and the guided form at sisyphusdev.com/posiwid | [`Workstreams/POSIWID_Analysis/INDEX.md`](Workstreams/POSIWID_Analysis/INDEX.md) |
+| `Workstreams/Goal_Agent/` | How AI manages goals: method, goal-agent and skills, templates, engagement register, and the goal form at sisyphusdev.com/goals | [`Workstreams/Goal_Agent/INDEX.md`](Workstreams/Goal_Agent/INDEX.md) |
+| `.agents/` (`.claude/`, `.cursor/` point to it) | AI agent layer: `goal-agent` and five goal skills; `posiwid-facilitator`, `posiwid-analyst` and two POSIWID skills | [`Workstreams/Goal_Agent/INDEX.md`](Workstreams/Goal_Agent/INDEX.md) |
 | `wrangler.jsonc` · `scripts/` | Cloudflare Worker config and the build that assembles the site. Merging to `main` deploys (SDEV-D-05) | [`Workstreams/Sisyphusdev_Site/INDEX.md`](Workstreams/Sisyphusdev_Site/INDEX.md) |
 | `.github/workflows/` | CI: the check that blocks links to private repositories (PUB-D-03) | [`public-link-check.yml`](.github/workflows/public-link-check.yml) |
 | `Inbox/` | Unsorted drops waiting to be filed (not grounding) | [`Inbox/README.md`](Inbox/README.md) |

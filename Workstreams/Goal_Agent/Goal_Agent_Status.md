@@ -15,8 +15,8 @@ authority_rank: 1
 | Field | Value |
 |-------|-------|
 | Scope | Public goal method and the goal form at `/goals` |
-| Overall status | Form and method written, in review (PR #4). Not deployed |
-| Next action | Marc reviews and merges PR #4. Workers Builds deploys |
+| Overall status | Form and method merged in PR #4 (2026-11-22, deploy not yet checked live). Agent layer (goal-agent, five skills, templates, register) in review in PR #5 |
+| Next action | Marc reviews and merges PR #5. Then run a first public goal through goal-agent |
 
 ## POSIWID snapshot
 
@@ -34,4 +34,5 @@ authority_rank: 1
 |----|----------|------|--------|
 | GA-OI-01 | High | First live check | After deploy: `curl -sI https://sisyphusdev.com/goals/` returns `200`. Record it here |
 | GA-OI-02 | Medium | Marc approves the method wording | Then set `agent_grounding: true` on the method reference |
+| GA-OI-04 | Medium | First goal run by an agent in this repo | Propose, APPROVE, CHARTER and one check-in, with an engagement file and register row |
 | GA-OI-03 | Closed 2026-11-22 | Import from a POSIWID file | Done in PR #4 (GA-D-04): upload on the Goal page, or "Start a goal" on the POSIWID page. Tested locally both ways |
