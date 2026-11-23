@@ -112,3 +112,10 @@ Add new entries at the end, below the last entry. Copy this block:
 - **Timestamp:** 2026-11-22T20:16:00-05:00 (America/New_York)
 - **Action:** Set POS-D-05 (only analyses fine to publish are filed in this repo) from proposed to active, at Marc's instruction. Updated the POSIWID_Analysis INDEX register line. Rollback: revert this commit.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: POS-D-05.
+
+### 2026-11-22T20:55:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T20:55:00-05:00 (America/New_York)
+- **Action:** Added an empty `"previews": {}` block to `wrangler.jsonc`, so Cloudflare preview builds on PR branches stop failing. Recorded SDEV-D-07, and updated the Sisyphusdev_Site INDEX and status (SDEV-OI-04). Rollback: revert this PR. PR-branch preview builds would fail again, and production is unaffected either way.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/7. Decision: SDEV-D-07.

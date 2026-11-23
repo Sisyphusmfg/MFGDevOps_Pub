@@ -34,7 +34,7 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | The site logo and icons, and which file to use where | [`site/public/logo.png`](site/public/logo.png) (master) · [`site/public/logo-small.png`](site/public/logo-small.png) · [`site/public/favicon.png`](site/public/favicon.png) · [`site/public/apple-touch-icon.png`](site/public/apple-touch-icon.png) | 1 |
 | Which folder is served at which path | [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 1 |
 | Worker name, custom domains, build command | [`../../wrangler.jsonc`](../../wrangler.jsonc) | 1 |
-| Why one Worker, why paths, why the config is at the root, where the logo lives | [`DECISIONS.md`](DECISIONS.md) SDEV-D-01 to SDEV-D-06 *(HITL — not for grounding)* | — |
+| Why one Worker, why paths, why the config is at the root, where the logo lives | [`DECISIONS.md`](DECISIONS.md) SDEV-D-01 to SDEV-D-07 *(HITL — not for grounding)* | — |
 
 ## Document register (on-disk)
 
@@ -43,10 +43,10 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | [`INDEX.md`](INDEX.md) | 2026-11-22 | 1 | This file — domain router |
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
-| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. SDEV-D-01 to -03 site basics; SDEV-D-04 one Worker, apps at paths, build step (proposed); SDEV-D-05 root config, Worker `mfgdevops-pub`; SDEV-D-06 logo in `site/public/`, PNG for now |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. SDEV-D-01 to -03 site basics; SDEV-D-04 one Worker, apps at paths, build step (proposed); SDEV-D-05 root config, Worker `mfgdevops-pub`; SDEV-D-06 logo in `site/public/`, PNG for now; SDEV-D-07 PR preview builds |
 | [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) | 2026-11-22 | 1 | Live state: first Workers Builds deploy failed (no root config); fix in PR #2. Open items SDEV-OI-01 to -03 |
 | [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) | 2026-11-22 | 1 | Procedure: how Workers Builds deploys, path map, preview, private-link check, verify, add an app, roll back. Draft |
-| [`../../wrangler.jsonc`](../../wrangler.jsonc) | 2026-11-22 | 1 | Worker config at repo root (owned here): name `mfgdevops-pub`, build `bash scripts/build-site.sh`, assets `./dist`, custom domains `sisyphusdev.com`, `www.sisyphusdev.com` |
+| [`../../wrangler.jsonc`](../../wrangler.jsonc) | 2026-11-22 | 1 | Worker config at repo root (owned here): name `mfgdevops-pub`, build `bash scripts/build-site.sh`, assets `./dist`, custom domains `sisyphusdev.com`, `www.sisyphusdev.com`, empty `previews` block for PR preview builds (SDEV-D-07) |
 | [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 2026-11-22 | 1 | Build script (owned here): copies `site/public/` to `dist/` and each listed domain `app/` to `dist/<path>/` (`/posiwid`, `/goals`) |
 | [`site/public/index.html`](site/public/index.html) | 2026-11-22 | 1 | Home page and app directory with status filters. Reads `apps.json`. Header uses `/logo-small.png` |
 | [`site/public/logo.png`](site/public/logo.png) | 2026-11-22 | 1 | Master logo: Marc's `Sisyphus_MFG_DevOps_Push.png` (657×576, off-white background), same pixels, recompressed losslessly. Served at `/logo.png`. All other logo files are made from it |

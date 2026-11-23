@@ -2,6 +2,7 @@
   // Cloudflare Worker that serves sisyphusdev.com and its apps.
   // Workers Builds runs `npx wrangler deploy` from the repo root on every push to main.
   // The build step assembles dist/ from each domain that owns web files (SDEV-D-04).
+  // Pull-request branches run `npx wrangler preview`, which needs the `previews` block below (SDEV-D-07).
   // Owner domain: Workstreams/Sisyphusdev_Site/ (see its INDEX.md).
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "mfgdevops-pub",
@@ -16,5 +17,7 @@
   "routes": [
     { "pattern": "sisyphusdev.com", "custom_domain": true },
     { "pattern": "www.sisyphusdev.com", "custom_domain": true }
-  ]
+  ],
+  // Previews reuse the top-level settings. Production routes are never added here.
+  "previews": {}
 }
