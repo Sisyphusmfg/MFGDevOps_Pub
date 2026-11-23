@@ -46,6 +46,15 @@ This repository and sisyphusdev.com are public. Marc's private MFGDevOps reposit
 | Gemini CLI | Root `GEMINI.md`, which imports root `AGENTS.md` |
 | Cursor, Antigravity, others | Root `AGENTS.md` |
 
+Skills and agents: `.agents/` is canonical (`.agents/skills/<name>/SKILL.md`, `.agents/agents/<name>.md`). `.claude/` and `.cursor/` hold short pointers to those files, never copies. Edit only `.agents/`.
+
+| Agent or skill | Use for |
+|----------------|---------|
+| `goal-agent` | Running a goal: propose, charter, plan, check in, review, close |
+| `goal-execution` · `goal-plan` · `goal-checkin` · `goal-review` · `goal-close` | Each step of a goal. Route: [`Workstreams/Goal_Agent/INDEX.md`](Workstreams/Goal_Agent/INDEX.md) |
+
+Methods agents follow live in Persona (PUB-D-05): [`Persona/POSIWID_Method_Reference.md`](Persona/POSIWID_Method_Reference.md) and [`Persona/POSIWID_Design_Goal_Agent.md`](Persona/POSIWID_Design_Goal_Agent.md). If a skill and its Persona method disagree, the Persona method wins.
+
 ## Agent activity log
 
 Before you start, read the newest 20 entries in [`Persona/Agent_Activity_Log.md`](Persona/Agent_Activity_Log.md). After acting, append one entry in the same pull request as the change it describes. Newest entries go last. Do not edit an entry. If one is wrong, append a correction. The log is `agent_grounding: false`.
@@ -91,6 +100,6 @@ Design artifacts use `doc_type: posiwid-design`. Diagnostics use `doc_type: fore
 - Cite an artifact only when an INDEX row routes to it at `authority_rank: 1`. Do not cite `DECISIONS.md` or `Archive/`.
 - Run scripts as `bash script.sh`.
 
-Live write paths: `Persona/`, `Reference/`, `Workstreams/Sisyphusdev_Site/`, `Workstreams/POSIWID_Analysis/`, `Workstreams/Goal_Agent/`, `scripts/`, root `wrangler.jsonc`, `.github/`, root `README.md`, root `AGENTS.md`.
+Live write paths: `Persona/`, `Reference/`, `Workstreams/Sisyphusdev_Site/`, `Workstreams/POSIWID_Analysis/`, `Workstreams/Goal_Agent/`, `.agents/`, `.claude/`, `.cursor/`, `scripts/`, root `wrangler.jsonc`, `.github/`, root `README.md`, root `AGENTS.md`.
 
 **Merging to `main` deploys sisyphusdev.com** (Cloudflare Workers Builds, SDEV-D-05). A pull request that changes what the site serves says so in its description.

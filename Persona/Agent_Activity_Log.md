@@ -71,3 +71,17 @@ Add new entries at the end, below the last entry. Copy this block:
 - **Timestamp:** 2026-11-22T18:15:00-05:00 (America/New_York)
 - **Action:** Added POSIWID-to-goal import to PR #4. There is a "Start a goal" button on the POSIWID form and an "Upload POSIWID file" control on the Goal form, and both use one parser. Updated Goal_Agent DECISIONS (GA-D-04), INDEX, status (GA-OI-03 closed) and method reference, and the POSIWID INDEX. Rollback: revert PR #4.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/4. Decision: GA-D-04.
+
+### 2026-11-22T20:10:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T20:10:00-05:00 (America/New_York)
+- **Action:** Added the goal agent layer to the public repo: `.agents/agents/goal-agent.md` and five skills in `.agents/skills/goal-*`, pointer files in `.claude/` and `.cursor/`, proposal and engagement templates, and an engagement register in Workstreams/Goal_Agent. Rewritten for the public from the private goal layer: no private paths, agents or IDs. Updated Goal_Agent INDEX, AGENTS, README, DECISIONS (GA-D-05 to GA-D-07), method reference and status, and the root README and AGENTS. Rollback: revert this PR. It adds files only, and the site is unchanged.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: GA-D-05, GA-D-06, GA-D-07.
+
+### 2026-11-22T20:20:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai, MFGDevOps project)
+- **Timestamp:** 2026-11-22T20:20:00-05:00 (America/New_York)
+- **Action:** At Marc's direction, moved the agent methods into Persona as in the private repo. `Workstreams/POSIWID_Analysis/POSIWID_Method_Reference.md` became `Persona/POSIWID_Method_Reference.md`. `Workstreams/Goal_Agent/Goal_Method_Reference.md` was rewritten as `Persona/POSIWID_Design_Goal_Agent.md`, a POSIWID design. Goal-agent, all five skills, both domain INDEX/AGENTS/README files, the Persona files, and the root README and AGENTS now route to Persona. Rollback: revert PR #5.
+- **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/5. Decision: PUB-D-05.

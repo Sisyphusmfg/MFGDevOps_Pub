@@ -28,7 +28,7 @@ The public POSIWID method ("the purpose of a system is what it does") and the gu
 
 | If the question is about… | Authoritative document | Rank |
 |---------------------------|------------------------|------|
-| How to do a POSIWID analysis: the five questions, missing expectations, diagnostic vs design, the feedback loop | [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md) *(Draft; grounding waits on Marc)* | 1 |
+| How to do a POSIWID analysis: the five questions, missing expectations, diagnostic vs design, the feedback loop | [`../../Persona/POSIWID_Method_Reference.md`](../../Persona/POSIWID_Method_Reference.md) *(method authority in Persona, PUB-D-05; Draft, grounding waits on Marc)* | 1 |
 | The guided entry form: what it asks and what it outputs | [`app/index.html`](app/index.html) | 1 |
 | Whether the form is live, and open items | [`POSIWID_Analysis_Status.md`](POSIWID_Analysis_Status.md) | 1 |
 | Why the form runs in the browser only, and why it's at a path, not a subdomain | [`DECISIONS.md`](DECISIONS.md) POS-D-01 to POS-D-03 *(HITL — not for grounding)* | — |
@@ -41,7 +41,6 @@ The public POSIWID method ("the purpose of a system is what it does") and the gu
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
 | [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. POS-D-01 public domain; POS-D-02 browser-only form; POS-D-03 served at `/posiwid` |
-| [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md) | 2026-11-22 | 1 | Public method, credited to Stafford Beer (*The Heart of Enterprise*, 1979): five questions, no-expectations rule, diagnostic vs design, feedback loop, common mistakes. Draft, `agent_grounding: false` |
 | [`POSIWID_Analysis_Status.md`](POSIWID_Analysis_Status.md) | 2026-11-22 | 1 | Live state: form written, not deployed; open items POS-OI-01 to -03 |
 | [`app/index.html`](app/index.html) | 2026-11-22 | 1 | Guided form, crediting Stafford Beer, with the site logo (`/logo-small.png`) and tab icon: system details, questions 1–5, repeatable gaps and changes, progress checklist, live output with two tabs, "Analysis" (Markdown with front matter) and "Prompt for an AI" (method + analysis, GA-D-02), copy and download, and a "Start a goal" button that opens the Goal form filled from this analysis (GA-D-04). Draft kept in the browser's local storage only |
 

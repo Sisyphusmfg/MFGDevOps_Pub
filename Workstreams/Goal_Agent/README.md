@@ -17,7 +17,9 @@ A way to pursue a goal with an AI assistant without handing it the steering whee
 
 Start here:
 
-1. [`Goal_Method_Reference.md`](Goal_Method_Reference.md): the method on one page.
+0. **AI agents in this repo:** act as [`.agents/agents/goal-agent.md`](../../.agents/agents/goal-agent.md). It names the skill for each step.
+
+1. [`Persona/POSIWID_Design_Goal_Agent.md`](../../Persona/POSIWID_Design_Goal_Agent.md): the method, kept in Persona with the other agent methods.
 2. The form at [sisyphusdev.com/goals](https://sisyphusdev.com/goals/) (source: [`app/index.html`](app/index.html)). Fill it in, then copy **Prompt for an AI** into any assistant, and keep the **Goal record**.
 
 The best source for a goal is a POSIWID analysis from [sisyphusdev.com/posiwid](https://sisyphusdev.com/posiwid/).

@@ -14,7 +14,7 @@ Follow root [`../../AGENTS.md`](../../AGENTS.md). Read [`INDEX.md`](INDEX.md) be
 
 ## Domain rules
 
-- Keep the five questions worded as in [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md). Change the wording only when Marc approves it.
+- Keep the five questions worded as in [`../../Persona/POSIWID_Method_Reference.md`](../../Persona/POSIWID_Method_Reference.md). Change the wording only when Marc approves it.
 - The form keeps everything in the browser (POS-D-02). Don't add analytics, a backend, or any request that sends form content off the device unless Marc decides to.
 - Example text in the form must be invented and generic. No real plant, line, part, supplier or person names (PUB-D-03).
 - The form's output front matter follows [`../../Persona/Artifact_Metadata_Standard.md`](../../Persona/Artifact_Metadata_Standard.md). Keep the two in step.
