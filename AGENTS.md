@@ -58,8 +58,9 @@ Skills and agents: `.agents/` is canonical (`.agents/skills/<name>/SKILL.md`, `.
 | `posiwid-facilitator` | Interactive POSIWID facilitation: problems to de-facto definition, expectations and gaps |
 | `posiwid-analyst` | POSIWID designs, diagnostics, promotion of drafts, simulations |
 | `posiwid-analysis` · `posiwid-measurement-simulator` | POSIWID modes, and predicting the result of a change. Route: [`Workstreams/POSIWID_Analysis/INDEX.md`](Workstreams/POSIWID_Analysis/INDEX.md) |
+| `machine-first-scaffold` | Scaffolding a new domain, following [`Persona/Machine_First_Method.md`](Persona/Machine_First_Method.md) (PUB-D-12). Route: [`Persona/INDEX.md`](Persona/INDEX.md) |
 
-Methods agents follow live in Persona (PUB-D-05): [`Persona/POSIWID_Method_Reference.md`](Persona/POSIWID_Method_Reference.md), [`Persona/POSIWID_Diagnostic_Grounding.md`](Persona/POSIWID_Diagnostic_Grounding.md) and [`Persona/POSIWID_Design_Goal_Agent.md`](Persona/POSIWID_Design_Goal_Agent.md). If a skill and its Persona method disagree, the Persona method wins.
+Methods agents follow live in Persona (PUB-D-05): [`Persona/Machine_First_Method.md`](Persona/Machine_First_Method.md), [`Persona/POSIWID_Method_Reference.md`](Persona/POSIWID_Method_Reference.md), [`Persona/POSIWID_Diagnostic_Grounding.md`](Persona/POSIWID_Diagnostic_Grounding.md) and [`Persona/POSIWID_Design_Goal_Agent.md`](Persona/POSIWID_Design_Goal_Agent.md). If a skill and its Persona method disagree, the Persona method wins.
 
 ## Agent activity log
 
