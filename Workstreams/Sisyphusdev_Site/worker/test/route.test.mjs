@@ -9,6 +9,7 @@ test("apex app paths move to the purpose subdomain", () => {
   assert.deepEqual(r("https://sisyphusdev.com/posiwid/"), { redirect: "https://purpose.sisyphusdev.com/posiwid/", status: 301 });
   assert.deepEqual(r("https://www.sisyphusdev.com/goals/?x=1"), { redirect: "https://purpose.sisyphusdev.com/goals/?x=1", status: 301 });
   assert.deepEqual(r("https://sisyphusdev.com/goals"), { redirect: "https://purpose.sisyphusdev.com/goals", status: 301 });
+  assert.deepEqual(r("https://sisyphusdev.com/design/"), { redirect: "https://purpose.sisyphusdev.com/design/", status: 301 });
 });
 
 test("purpose root opens the first tool", () => {
@@ -22,6 +23,7 @@ test("everything else is served as-is", () => {
     "https://sisyphusdev.com/posiwidx",
     "https://purpose.sisyphusdev.com/posiwid/",
     "https://purpose.sisyphusdev.com/goals/",
+    "https://purpose.sisyphusdev.com/design/",
     "https://purpose.sisyphusdev.com/logo-small.png",
     "https://abc-mfgdevops-pub.example.workers.dev/posiwid/",
   ]) assert.equal(r(u), null, u);

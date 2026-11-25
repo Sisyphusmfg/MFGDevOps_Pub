@@ -7,7 +7,7 @@
 export const APPS = {
   "purpose.sisyphusdev.com": {
     name: "System Design and Analysis",
-    paths: ["/posiwid/", "/goals/"],
+    paths: ["/posiwid/", "/design/", "/goals/"],
     home: "/posiwid/",
   },
 };

@@ -3,10 +3,11 @@
     "name": "System Design and Analysis",
     "host": "purpose.sisyphusdev.com",
     "status": "Live",
-    "desc": "Two tools in one app. POSIWID: work out what a system actually does, what it should do, the gaps and the measurable change. Goal: turn a gap into a goal an AI can pursue with you. Switch between them from the menu. Runs in your browser.",
+    "desc": "Three tools in one app. POSIWID: work out what an existing system actually does, what it should do, the gaps and the measurable change. POSIWID Design: set a new system's expectations, expected outputs and the controls on them. Goal: turn a gap into a goal an AI can pursue with you. Switch between them from the menu. Runs in your browser.",
     "tags": [
       "Method",
       "Analysis",
+      "Design",
       "Planning"
     ],
     "href": "https://purpose.sisyphusdev.com/",

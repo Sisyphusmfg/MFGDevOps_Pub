@@ -47,7 +47,7 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) | 2026-11-24 | 1 | Live state: site serves home page and apps at paths (checked 2026-11-24); subdomain move (SDEV-D-09, -11, -12) pending merge. Open items SDEV-OI-01 to -03 |
 | [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) | 2026-11-24 | 1 | Procedure: how Workers Builds deploys, path and subdomain map, routing Worker, preview, private-link check, verify, add an app, roll back. Draft |
 | [`../../wrangler.jsonc`](../../wrangler.jsonc) | 2026-11-24 | 1 | Worker config at repo root (owned here): name `mfgdevops-pub`, script `Workstreams/Sisyphusdev_Site/worker/index.mjs`, build `bash scripts/build-site.sh`, assets `./dist` (binding `ASSETS`, Worker runs first), custom domains `sisyphusdev.com`, `www.sisyphusdev.com`, `purpose.sisyphusdev.com`, previews |
-| [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 2026-11-22 | 1 | Build script (owned here): copies `site/public/` to `dist/` and each listed domain `app/` to `dist/<path>/` (`/posiwid`, `/goals`) |
+| [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 2026-11-24 | 1 | Build script (owned here): copies `site/public/` to `dist/` and each listed app folder to `dist/<path>/` (`/posiwid`, `/design`, `/goals`) |
 | [`site/public/index.html`](site/public/index.html) | 2026-11-24 | 1 | Home page and app directory with status filters. Reads `apps.json`. Header uses `/logo-small.png` |
 | [`site/public/logo.png`](site/public/logo.png) | 2026-11-22 | 1 | Master logo: Marc's `Sisyphus_MFG_DevOps_Push.png` (657×576, off-white background), same pixels, recompressed losslessly. Served at `/logo.png`. All other logo files are made from it |
 | [`site/public/logo-small.png`](site/public/logo-small.png) | 2026-11-22 | 1 | 120×105 copy for page headers (shown at 40 px, sharp on high-density screens). About 16 KB instead of 379 KB |
@@ -55,7 +55,7 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | [`site/public/apple-touch-icon.png`](site/public/apple-touch-icon.png) | 2026-11-22 | 1 | 180×180 square copy for phone home screens |
 | [`site/public/apps.json`](site/public/apps.json) | 2026-11-24 | 1 | App list: 2 Live (System Design and Analysis at `purpose.sisyphusdev.com`, MFGDevOps_Pub), 2 Planned (IOED, AI Lab) |
 | [`site/public/404.html`](site/public/404.html) | 2026-11-22 | — | Not-found page, with the logo |
-| [`worker/index.mjs`](worker/index.mjs) | 2026-11-24 | 1 | Routing Worker (SDEV-D-12): redirects `/posiwid/` and `/goals/` on sisyphusdev.com to `purpose.sisyphusdev.com`, opens `/` there at POSIWID, serves everything else from `dist/` |
+| [`worker/index.mjs`](worker/index.mjs) | 2026-11-24 | 1 | Routing Worker (SDEV-D-12): redirects `/posiwid/`, `/design/` and `/goals/` on sisyphusdev.com to `purpose.sisyphusdev.com`, opens `/` there at POSIWID, serves everything else from `dist/` |
 | [`worker/test/route.test.mjs`](worker/test/route.test.mjs) | 2026-11-24 | — | Tests for the routing Worker. Run `node --test Workstreams/Sisyphusdev_Site/worker/test/route.test.mjs` |
 
 ## Cross-links
