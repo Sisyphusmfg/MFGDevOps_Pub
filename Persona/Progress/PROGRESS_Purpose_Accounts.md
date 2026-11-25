@@ -22,20 +22,22 @@ Design: [`../../Workstreams/Sisyphusdev_Site/POSIWID_Design_Purpose_Accounts.md`
 
 ## Current step
 
-P0: Marc decides D1–D5 (design § 5).
+P1: create the new Neon project and enable Neon Auth. Waiting on Marc's go-ahead to create the resource and his choice of project name.
 
 ## Done
 
+- 2026-11-25 — Marc decided D1 (own tables), D2 (email code), D3 (admins see all teams), D5 (new Neon project, Hyperdrive): SDEV-D-15 to SDEV-D-18
 - 2026-11-25 — POSIWID design, this file, SDEV-D-14 (proposed) and SDEV-OI-06 (https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/18)
 
 ## Blocked on
 
-- D1–D5, Marc, since 2026-11-25.
+- D4 (organization-wide space) is open; the first version builds without one.
+- P1 resource creation needs Marc's go-ahead.
 - Package installs are refused in the claude.ai cloud session (shell network is off). P3 and P4 need `@neondatabase/auth` and a JWT library such as `jose`. Workers Builds installs them at deploy, but local tests in that session can't. Run those phases on the Surface or in a session with installs allowed.
 
 ## Next step
 
-Record Marc's D1–D5 answers in `Workstreams/Sisyphusdev_Site/DECISIONS.md`. Then P1: create the Neon project and enable Neon Auth, with his approval for creating the resource.
+P1: create the Neon project (AWS us-east), enable Neon Auth with email OTP, add trusted domains `https://purpose.sisyphusdev.com` and the workers.dev preview origin, and create a Hyperdrive config. Record the outputs in the site status file, without connection strings.
 
 ## Dead ends
 

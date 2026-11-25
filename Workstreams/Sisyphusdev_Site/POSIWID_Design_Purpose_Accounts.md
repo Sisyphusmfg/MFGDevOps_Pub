@@ -14,7 +14,7 @@ authority_rank: 1
 
 Sign-in for `purpose.sisyphusdev.com` (POSIWID, POSIWID Design, Goal) that saves a person's input to a Neon Postgres database. An account is either an individual or an organization with teams. Saved work is split the same way: what a person saves belongs to their personal space or to one team, and nobody outside that space can read it. Method: [`../../Persona/POSIWID_Method_Reference.md`](../../Persona/POSIWID_Method_Reference.md).
 
-Status: Draft. Decisions D1–D5 below are Marc's to make before any build step starts.
+Status: Draft. Marc decided D1, D2, D3 and D5 on 2026-11-25 (SDEV-D-15 to SDEV-D-18). D4 stays open.
 
 ## 0. What the system does today
 
@@ -36,7 +36,7 @@ Status: Draft. Decisions D1–D5 below are Marc's to make before any build step 
 
 | # | Output (observable) | Required execution artifact |
 |---|---------------------|-----------------------------|
-| O1 | A **Sign in** control on each tool. It offers email code and, optionally, Google or GitHub. Signing out returns to local-only mode | Neon Auth enabled on the project, with `purpose.sisyphusdev.com` as a trusted domain; sign-in UI in the shared app menu |
+| O1 | A **Sign in** control on each tool, using a one-time email code (D2). Signing out returns to local-only mode | Neon Auth enabled on the project, with `purpose.sisyphusdev.com` as a trusted domain; sign-in UI in the shared app menu |
 | O2 | A **space picker** showing "Personal" plus each team the person belongs to, grouped by organization | API route `GET /api/spaces`; membership tables |
 | O3 | **Save**, **Open** and **Delete** in each tool. They act on the space chosen in the picker, and show who saved what and when | API routes `/api/records`; the `record` table |
 | O4 | **Organization admin page**: create an organization, add or remove members by email, set roles, create teams and assign members | API routes `/api/orgs/*`; an admin page at `purpose.sisyphusdev.com/account/` |
@@ -90,7 +90,8 @@ Neon Postgres: row-level security on every app table checks app.user_id against 
 
 The access rule, written once as a SQL function `can_access(space_id)`, is true when either:
 - the space is personal and `space.user_id = app.user_id`, or
-- the space is a team and `app.user_id` is in `team_member` for that team, and is still a member of the team's organization.
+- the space is a team and `app.user_id` is in `team_member` for that team, and is still a member of the team's organization, or
+- the space is a team and `app.user_id` is an owner or admin of that team's organization (D3: admins see every team's records).
 
 Row-level security on `record` uses it for select, insert, update and delete. `space`, `team` and the membership tables get matching policies: you see your own memberships, and owners and admins see their organization's.
 
@@ -106,11 +107,11 @@ Row-level security on `record` uses it for select, insert, update and delete. `s
 
 | # | Decision | Options | Recommendation |
 |---|----------|---------|----------------|
-| D1 | Where organizations and teams live | **A.** Neon Auth for sign-in only; organizations, teams and invitations in our own tables (above). **B.** Neon Auth's Organization plugin for organizations, members and emailed invitations, with teams in our own tables. The plugin is Beta and has no teams. **C.** Self-managed Better Auth inside the Worker, whose organization plugin has teams. We would then run the auth server ourselves | **A.** One model, all of it under row-level security, and nothing Beta in the security path. Cost: invitations are "add by email, active at first sign-in" with no invitation email until we add a mailer |
-| D2 | Sign-in methods | Email code (works on Neon's shared mail for testing) · Google · GitHub · email and password | Email code plus Google. Production needs our own mail server and our own Google OAuth app (Neon production checklist) |
-| D3 | Can organization owners and admins read every team's records? | Yes (admin oversight) · No (team members only) | Your call. It changes the `can_access` rule |
+| D1 *(decided: A, SDEV-D-15)* | Where organizations and teams live | **A.** Neon Auth for sign-in only; organizations, teams and invitations in our own tables (above). **B.** Neon Auth's Organization plugin for organizations, members and emailed invitations, with teams in our own tables. The plugin is Beta and has no teams. **C.** Self-managed Better Auth inside the Worker, whose organization plugin has teams. We would then run the auth server ourselves | **A.** One model, all of it under row-level security, and nothing Beta in the security path. Cost: invitations are "add by email, active at first sign-in" with no invitation email until we add a mailer |
+| D2 *(decided: email code only, SDEV-D-16)* | Sign-in methods | Email code (works on Neon's shared mail for testing) · Google · GitHub · email and password | Email code plus Google. Production needs our own mail server and our own Google OAuth app (Neon production checklist) |
+| D3 *(decided: yes, SDEV-D-17)* | Can organization owners and admins read every team's records? | Yes (admin oversight) · No (team members only) | Your call. It changes the `can_access` rule |
 | D4 | Is there an organization-wide space, besides teams? | Yes · No (organizations work only through teams) | No for the first version. Add later as a third space kind |
-| D5 | Database home and connection | A new Neon project (e.g. `sisyphusdev-apps`, AWS us-east region; Neon Auth needs AWS and no IP allowlist) or a new database in an existing project · Hyperdrive or the serverless HTTP driver | New project, kept apart from `MFGDevOps_DB` (that one holds the repository index). Hyperdrive |
+| D5 *(decided: new project, Hyperdrive, SDEV-D-18)* | Database home and connection | A new Neon project (e.g. `sisyphusdev-apps`, AWS us-east region; Neon Auth needs AWS and no IP allowlist) or a new database in an existing project · Hyperdrive or the serverless HTTP driver | New project, kept apart from `MFGDevOps_DB` (that one holds the repository index). Hyperdrive |
 
 ## 6. Build order
 
