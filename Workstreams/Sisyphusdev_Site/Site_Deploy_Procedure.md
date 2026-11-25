@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Procedure
 doc_type: procedure
 Topic: Build, preview, deploy, add an app, and roll back sisyphusdev.com
@@ -41,10 +41,10 @@ npx wrangler dev
 
 Open http://localhost:8787 and http://localhost:8787/posiwid/.
 
-## 2. Check for private links (PUB-D-03)
+## 2. Check for GitHub links outside this repository (PUB-D-03)
 
 ```bash
-git grep -nIiP 'github\.com/Sisyphusmfg/(?!MFGDevOps_Pub\b)[A-Za-z0-9_.-]+' -- . && echo "STOP: private link found" || echo "OK: no private links"
+git grep -nIiP 'github\.com/Sisyphusmfg/(?!MFGDevOps_Pub\b)[A-Za-z0-9_.-]+' -- . && echo "STOP: GitHub link outside MFGDevOps_Pub found" || echo "OK: GitHub links stay in MFGDevOps_Pub"
 ```
 
 CI runs the same check on every pull request.

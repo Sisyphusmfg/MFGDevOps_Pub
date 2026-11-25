@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Status Report
 doc_type: record
 Topic: POSIWID_Analysis — live status
@@ -22,7 +22,7 @@ authority_rank: 1
 
 | Question | Answer |
 |----------|--------|
-| What is it doing? | Nothing public yet. The method exists only in the private repo |
+| What is it doing? | Nothing on the site yet. The method and form are in this repo and not yet deployed |
 | What is it expected to do? | Let anyone work through a five-question POSIWID analysis and leave with a file they can use |
 | Gap | No public method page and no tool |
 | Change | Publish the method reference and the guided form |

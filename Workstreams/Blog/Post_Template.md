@@ -11,7 +11,7 @@ authority_rank: 1
 
 # How to write a blog post
 
-Drafts are written and kept in Marc's private repository, not here (BLOG-D-06). This page is the post format for both places. A post comes to this repository only when it is ready: `Status: Published`. A post here with `Status: Draft` stops the build.
+A draft is not filed in this repository (BLOG-D-06). This page is the post format. A post comes here only when it is ready: `Status: Published`. A post here with `Status: Draft` stops the build.
 
 1. Copy the block below into a new file in `posts/`, named `YYYY-MM-DD_Blog_Short_Title.md`. The page address comes from the name: `2026-11-24_Blog_Short_Title.md` becomes `blog.sisyphusdev.com/blog/short-title/`. Set `slug:` to choose a different one.
 2. Fill in the front matter and write the post below it.
@@ -50,7 +50,7 @@ More text, with **bold**, *italic*, `code` and [a link](https://example.com).
 | `title` | Yes | Quote it if it contains `: ` |
 | `category` | Yes | Shown as the flag on the card. Keep a short list (e.g. Systems, Manufacturing, AI, Tools) |
 | `date` | Yes | `YYYY-MM-DD`, New York time. Newest post is featured at the top. A Published post with a later date is scheduled and appears on that date |
-| `Status` | Yes | `Published` in this repository. `Draft` is used only while the post is kept privately; a Draft here stops the build |
+| `Status` | Yes | `Published` in this repository. A `Draft` is not filed here; a Draft in this folder stops the build |
 | `summary` | No | Used in the page description |
 | `slug` | No | Lowercase words joined by hyphens |
 

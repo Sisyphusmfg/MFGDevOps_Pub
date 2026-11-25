@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-25
 Document Type: Governance Standard
 Status: Active
 doc_type: canonical-spec
@@ -9,9 +9,9 @@ agent_maintenance: true
 authority_rank: 1
 ---
 
-# Artifact Metadata Standard — Public Edition
+# Artifact Metadata Standard
 
-This is the public edition of Marc's machine-first metadata standard, and it uses the same fields as the private edition. Every `.md` file starts with YAML front matter. Non-markdown files (code, configs, scripts, images, JSON) get a register row in their domain `INDEX.md`.
+This is Marc's machine-first metadata standard. Every `.md` file starts with YAML front matter. Non-markdown files (code, configs, scripts, images, JSON) get a register row in their domain `INDEX.md`.
 
 | Field | Required | Values |
 |-------|----------|--------|
@@ -35,7 +35,7 @@ Machine-first routing files (`AGENTS.md`, `INDEX.md`, `DECISIONS.md`, `README.md
 
 ## Public-only content (PUB-D-03)
 
-- No links to private repositories.
+- No GitHub link to a `Sisyphusmfg` repository other than `MFGDevOps_Pub`.
 - No internal names, people, suppliers, customer or part numbers, or business figures.
 - `Source:` may name public sources only.
 

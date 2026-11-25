@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-25
 Document Type: Governance Standard
 Topic: POSIWID diagnostic grounding
 Status: Active
@@ -8,12 +8,12 @@ doc_type: canonical-spec
 agent_grounding: true
 agent_maintenance: true
 authority_rank: 1
-Source: Public version of Marc's POSIWID grounding rule
+Source: Marc's POSIWID grounding rule (PUB-D-06)
 ---
 
 # POSIWID Diagnostic Grounding
 
-Which POSIWID files an answering agent may cite, and for what. Same rule as Marc's private repo (PUB-D-06).
+Which POSIWID files an answering agent may cite, and for what (PUB-D-06).
 
 | File | `agent_grounding` | May be cited for |
 |------|-------------------|------------------|

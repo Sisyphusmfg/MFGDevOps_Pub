@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-25
 Document Type: Agent Operating Instructions
 Topic: Reference
 Status: Active
@@ -14,5 +14,5 @@ Follow root [`../AGENTS.md`](../AGENTS.md). Read [`INDEX.md`](INDEX.md) before s
 
 ## Domain rules
 
-- A reference published here is a public version, written for an outside reader (PUB-D-02). Cite public sources in `Source:`.
+- A reference published here is written for an outside reader (PUB-D-02). Cite public sources in `Source:`.
 - Register every new reference in [`INDEX.md`](INDEX.md), with a question row and a register row.

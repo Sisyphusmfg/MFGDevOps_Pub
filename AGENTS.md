@@ -15,10 +15,10 @@ These are behavioral instructions for agents working in `MFGDevOps_Pub`. This fi
 
 ## Public-only rule (PUB-D-03)
 
-This repository and sisyphusdev.com are public. Marc's private MFGDevOps repository is separate.
+This repository and sisyphusdev.com are public. The repo uses a machine-first Markdown format.
 
-- Never link to a private repository, from any file in this tree or from the website.
-- Never copy private content here as-is. A project comes here as an **accessible public version**: rewritten for a public reader, with internal names, people, suppliers, part numbers and business figures removed (PUB-D-02).
+- Never add a GitHub link to a `Sisyphusmfg` repository other than `MFGDevOps_Pub`, from any file in this tree or from the website.
+- Write for a public reader. Internal names, people, suppliers, part numbers and business figures stay out (PUB-D-02).
 - CI enforces the link rule. [`.github/workflows/public-link-check.yml`](.github/workflows/public-link-check.yml) fails any pull request that adds a GitHub link to a `Sisyphusmfg` repository other than `MFGDevOps_Pub`. Don't weaken or bypass it.
 - If you are unsure whether something is public, leave it out and ask Marc.
 

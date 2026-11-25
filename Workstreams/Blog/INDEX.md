@@ -21,14 +21,14 @@ The sisyphusdev blog at `blog.sisyphusdev.com`: one Markdown file per post in `p
 |-------|-------|
 | Domain | blog |
 | Owner | Marc Dugas |
-| Last Updated | 2026-11-24 |
+| Last Updated | 2026-11-25 |
 | Parent | Root [`README.md`](../../README.md) |
 
 ## Question → authoritative document
 
 | If the question is about… | Authoritative document | Rank |
 |---|---|---|
-| How to write, publish and schedule a post, and where drafts are kept | [`Post_Template.md`](Post_Template.md) | 1 |
+| How to write, publish and schedule a post, and why a draft is not filed here | [`Post_Template.md`](Post_Template.md) | 1 |
 | What a post page and the post list look like, and how posts are built | [`../../scripts/build-blog.mjs`](../../scripts/build-blog.mjs) | 1 |
 | Which posts exist | Post register, below | 1 |
 | Whether the blog is live | [`../Sisyphusdev_Site/Sisyphusdev_Site_Status.md`](../Sisyphusdev_Site/Sisyphusdev_Site_Status.md) | 1 |
@@ -41,11 +41,11 @@ The sisyphusdev blog at `blog.sisyphusdev.com`: one Markdown file per post in `p
 | [`README.md`](README.md) | 2026-11-25 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-25 | — | Agent instructions for this domain |
 | [`DECISIONS.md`](DECISIONS.md) | 2026-11-25 | — | Decision log: BLOG-D-01 to BLOG-D-06 |
-| [`Post_Template.md`](Post_Template.md) | 2026-11-25 | 1 | Post front matter, file naming, the Markdown the build supports, how to publish and how to schedule a post (BLOG-D-05); drafts are kept privately (BLOG-D-06) |
+| [`Post_Template.md`](Post_Template.md) | 2026-11-25 | 1 | Post front matter, file naming, the Markdown the build supports, how to publish and how to schedule a post (BLOG-D-05); a draft is not filed here (BLOG-D-06) |
 
 ## Post register
 
-Published posts appear on the blog from their date. Drafts are kept privately until ready (BLOG-D-06). One row per file in `posts/`.
+Published posts appear on the blog from their date. A draft is not filed in this repository (BLOG-D-06). One row per file in `posts/`.
 
 | File | Date | Category | Status | Title |
 |------|------|----------|--------|-------|

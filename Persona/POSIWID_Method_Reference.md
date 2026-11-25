@@ -1,16 +1,16 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Method Reference
 Status: Draft
 doc_type: canonical-spec
 agent_grounding: false
 agent_maintenance: true
 authority_rank: 1
-Source: Stafford Beer, The Heart of Enterprise (1979), Diagnosing the System for Organizations (1985), "What is cybernetics?" (2002); public version of Marc's POSIWID method
+Source: Stafford Beer, The Heart of Enterprise (1979), Diagnosing the System for Organizations (1985), "What is cybernetics?" (2002)
 ---
 
-# POSIWID Method Reference — Public Edition
+# POSIWID Method Reference
 
 **POSIWID: the purpose of a system is what it does.** Judge a system by what it reliably does, not by what it was designed, said or meant to do. When a system keeps producing an outcome, that outcome is, in practice, what the system is for, until something changes it.
 

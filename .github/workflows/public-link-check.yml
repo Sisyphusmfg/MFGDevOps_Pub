@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Block links to private repositories
+      - name: Block GitHub links outside this repository
         run: |
           hits=$(git grep -nIiP 'github\.com/Sisyphusmfg/(?!MFGDevOps_Pub\b)[A-Za-z0-9_.-]+' -- . || true)
           if [ -n "$hits" ]; then
@@ -25,4 +25,4 @@ jobs:
             echo "$hits"
             exit 1
           fi
-          echo "No private repository links."
+          echo "No GitHub links outside MFGDevOps_Pub."

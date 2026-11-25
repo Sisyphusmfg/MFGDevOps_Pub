@@ -22,7 +22,7 @@ Repo-wide rules for `MFGDevOps_Pub`: the methods that agents follow (POSIWID and
 |-------|-------|
 | Authority | Domain INDEX — canonical routing |
 | Owner | Marc Dugas |
-| Last Updated | 2026-11-22 |
+| Last Updated | 2026-11-25 |
 
 ## Question → authoritative document
 
@@ -45,13 +45,13 @@ Repo-wide rules for `MFGDevOps_Pub`: the methods that agents follow (POSIWID and
 | [`INDEX.md`](INDEX.md) | 2026-11-22 | 1 | This file — domain router |
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-24 | — | Domain agent instructions |
-| [`DECISIONS.md`](DECISIONS.md) | 2026-11-25 | — | HITL *(not for grounding)*. PUB-D-01 repo created; PUB-D-02 public versions, not copies; PUB-D-03 no private links (CI); PUB-D-04 same machine-first format, Marc merges; PUB-D-05 agent methods live in Persona; PUB-D-06 POSIWID grounding rule; PUB-D-07 `main` protected by ruleset |
-| [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md) | 2026-11-24 | 1 | POSIWID method, credited to Stafford Beer (*The Heart of Enterprise*, 1979): background, five questions, design executable with mechanism check, two-container facilitation, root expectations, prompt swaps, diagnostic executable and loop, constant-failure test, diagnostic sequence, adoption, simulations, common mistakes, sources. Moved from Workstreams/POSIWID_Analysis and expanded (PUB-D-05). Draft, `agent_grounding: false` |
-| [`POSIWID_Diagnostic_Grounding.md`](POSIWID_Diagnostic_Grounding.md) | 2026-11-22 | 1 | Which POSIWID files can be cited: diagnostics true by default, designs after approval, drafts and simulations never (PUB-D-06) |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-25 | — | HITL *(not for grounding)*. PUB-D-01 repo created; PUB-D-02 written for a public reader, not copied; PUB-D-03 links stay in this repo (CI); PUB-D-04 machine-first Markdown format, Marc merges; PUB-D-05 agent methods live in Persona; PUB-D-06 POSIWID grounding rule; PUB-D-07 `main` protected by ruleset |
+| [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md) | 2026-11-25 | 1 | POSIWID method, credited to Stafford Beer (*The Heart of Enterprise*, 1979): background, five questions, design executable with mechanism check, two-container facilitation, root expectations, prompt swaps, diagnostic executable and loop, constant-failure test, diagnostic sequence, adoption, simulations, common mistakes, sources. Moved from Workstreams/POSIWID_Analysis and expanded (PUB-D-05). Draft, `agent_grounding: false` |
+| [`POSIWID_Diagnostic_Grounding.md`](POSIWID_Diagnostic_Grounding.md) | 2026-11-25 | 1 | Which POSIWID files can be cited: diagnostics true by default, designs after approval, drafts and simulations never (PUB-D-06) |
 | [`POSIWID_Design_Goal_Agent.md`](POSIWID_Design_Goal_Agent.md) | 2026-11-24 | 1 | POSIWID design of the goal agent: expectations, outputs, gates, AI rules, limits and cadence, goal parts, pace and health, reviews, closing, measurable change, where it is carried out. Replaces Workstreams/Goal_Agent/Goal_Method_Reference.md (PUB-D-05). Draft, `agent_grounding: false` |
 | [`Machine_First_Method.md`](Machine_First_Method.md) | 2026-11-25 | 1 | Machine-first method: domains, four files, two-hop routing, front matter, authority, decision table, keeping it true (PUB-D-12) |
-| [`Artifact_Metadata_Standard.md`](Artifact_Metadata_Standard.md) | 2026-11-22 | 1 | Public edition of the metadata standard: fields, naming, public-only content, never-stored list |
-| [`Agent_Activity_Log.md`](Agent_Activity_Log.md) | 2026-11-24 | — | Agent log format and the 15 entries written before 2026-11-24 (PUB-D-09). New entries are one file each in `Agent_Activity_Log/` (PUB-D-08). `agent_grounding: false`. |
+| [`Artifact_Metadata_Standard.md`](Artifact_Metadata_Standard.md) | 2026-11-25 | 1 | Metadata standard: fields, naming, what may be published, never-stored list |
+| [`Agent_Activity_Log.md`](Agent_Activity_Log.md) | 2026-11-25 | — | Agent log format and the 15 entries written before 2026-11-24 (PUB-D-09). Wording of those entries speaks only about this repository. New entries are one file each in `Agent_Activity_Log/` (PUB-D-08). `agent_grounding: false`. |
 | [`Progress_Template.md`](Progress_Template.md) | 2026-11-25 | 1 | Progress file template and rules for work that spans sessions (PUB-D-16). Active files in `Progress/` are registered here when created |
 
 ## Agent layer register (outside this folder, owned here)
