@@ -2,7 +2,7 @@
 title: Sisyphusdev_Site — Decisions Log
 doc_type: decisions-log
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Record
 Status: Active
 agent_grounding: false
@@ -27,3 +27,4 @@ Human-in-the-loop rationale. **Not** for answering-agent grounding.
 | 2026-11-24 | SDEV-D-09 — Each app has its own subdomain of sisyphusdev.com | Marc, 2026-11-24: "Yes, go with sub domains." Subdomains let an app get its own backend, sign-in or host later without touching the others. | adopted |  |
 | 2026-11-24 | SDEV-D-11 — POSIWID and Goal are one app, "System Design and Analysis", at `purpose.sisyphusdev.com`, with a menu to switch between "POSIWID" and "Goal" | Marc, 2026-11-24: "Put POSIWID and Goals under one sub domain called “Purpose”. With a menu to switch between the different apps “Goal” and “POSIWID” they are one app called “System Design and Analysis”". One subdomain keeps both tools on one browser origin, so the POSIWID form's "Start a goal" handoff through local storage keeps working. The tools stay at `/posiwid/` and `/goals/` on that subdomain; `/` opens POSIWID. | adopted |  |
 | 2026-11-24 | SDEV-D-12 — The old app paths on sisyphusdev.com (`/posiwid/`, `/goals/`) redirect (301) to the app's subdomain, through a small Worker script; every other request is still a static file from `dist/` | Marc chose this option on 2026-11-24 ("Subdomains, paths redirect"). Existing links keep working. The script is `Workstreams/Sisyphusdev_Site/worker/index.mjs`, with tests in `worker/test/`. | adopted |  |
+| 2026-11-25 | SDEV-D-13 — Scheduled blog posts go live through a daily cron trigger on the site Worker (11:15 UTC) that reads `blog/schedule.json` and, only when a scheduled date has arrived, POSTs a Workers Builds deploy hook stored as the Worker secret `BLOG_DEPLOY_HOOK` | Serves BLOG-D-05. The site is static, so a dated post needs a rebuild on its date. Deploy hooks are Cloudflare's documented way to start a build without a commit. Rebuilding only when due avoids a deploy every day. Kept in Cloudflare: no GitHub Actions secret or API token. The hook URL works without other credentials, so it lives only in the secret. | proposed |  |
