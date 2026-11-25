@@ -22,9 +22,10 @@ Cloudflare Workers Builds watches `main` on `Sisyphusmfg/MFGDevOps_Pub`. On ever
 |---------|-----------------|---------------|
 | `sisyphusdev.com/` | `/` | `Workstreams/Sisyphusdev_Site/site/public/` |
 | `purpose.sisyphusdev.com/posiwid/` (System Design and Analysis → POSIWID) | `/posiwid/` | `Workstreams/POSIWID_Analysis/app/` |
+| `purpose.sisyphusdev.com/design/` (System Design and Analysis → POSIWID Design) | `/design/` | `Workstreams/POSIWID_Analysis/design-app/` |
 | `purpose.sisyphusdev.com/goals/` (System Design and Analysis → Goal) | `/goals/` | `Workstreams/Goal_Agent/app/` |
 
-The Worker script [`worker/index.mjs`](worker/index.mjs) runs before the static files (SDEV-D-12). On `sisyphusdev.com` and `www.sisyphusdev.com` it redirects `/posiwid/` and `/goals/` (301) to `purpose.sisyphusdev.com`. On `purpose.sisyphusdev.com` it sends `/` to `/posiwid/`. Every other request, including previews on `workers.dev`, is a static file from `dist/`. To add an app on its own subdomain: add its folder to `scripts/build-site.sh`, its subdomain and paths to `APPS` in the script, a custom-domain route in `wrangler.jsonc`, and a card in `apps.json`. Run the tests with `node --test Workstreams/Sisyphusdev_Site/worker/test/route.test.mjs`.
+The Worker script [`worker/index.mjs`](worker/index.mjs) runs before the static files (SDEV-D-12). On `sisyphusdev.com` and `www.sisyphusdev.com` it redirects `/posiwid/`, `/design/` and `/goals/` (301) to `purpose.sisyphusdev.com`. On `purpose.sisyphusdev.com` it sends `/` to `/posiwid/`. Every other request, including previews on `workers.dev`, is a static file from `dist/`. To add an app on its own subdomain: add its folder to `scripts/build-site.sh`, its subdomain and paths to `APPS` in the script, a custom-domain route in `wrangler.jsonc`, and a card in `apps.json`. Run the tests with `node --test Workstreams/Sisyphusdev_Site/worker/test/route.test.mjs`.
 
 **Merging to `main` publishes the site.** Treat every merge that touches these folders, `wrangler.jsonc` or `scripts/build-site.sh` as a publication (PUB-D-04).
 
