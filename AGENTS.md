@@ -33,6 +33,8 @@ This repository and sisyphusdev.com are public. Marc's private MFGDevOps reposit
 
 `AGENTS.md`, `INDEX.md`, `DECISIONS.md` and `README.md` are always `Status: Active`. Content maturity lives in the documents they route to.
 
+Every `DECISIONS.md` keeps its decisions in one table: `| Date | Decision | Rationale | Status | Superseded by |`. The Decision cell starts with an ID (`<PREFIX>-D-NN — title`). Status is one of `proposed`, `adopted`, `superseded`, `rejected`. `Superseded by` holds the replacing decision ID and is filled only when Status is `superseded`. Each row holds exactly one decision: when a later decision replaces part of an earlier one, split the earlier row first so the replaced part has its own row marked `superseded`. Open-work and unresolved-question tables are not decision tables (PUB-D-10, PUB-D-11).
+
 ## Routing order
 
 1. Root [`README.md`](README.md): find the domain.
@@ -61,7 +63,7 @@ Methods agents follow live in Persona (PUB-D-05): [`Persona/POSIWID_Method_Refer
 
 ## Agent activity log
 
-Before you start, read the newest 20 entries in [`Persona/Agent_Activity_Log.md`](Persona/Agent_Activity_Log.md). After acting, append one entry in the same pull request as the change it describes. Newest entries go last. Do not edit an entry. If one is wrong, append a correction. The log is `agent_grounding: false`.
+Each entry is its own file in `Persona/Agent_Activity_Log/`, named `YYYY-MM-DD_HHMM_<agent>_<topic>.md` in America/New_York time (PUB-D-08). Before you start, read the newest 20 entries: the last 20 files by name in that folder (if it has fewer than 20, read the tail of [`Persona/Agent_Activity_Log.md`](Persona/Agent_Activity_Log.md), which keeps older entries and the entry format, PUB-D-09). After acting, add one entry file in the same pull request as the change it describes. Do not edit an entry after it merges; a correction is a new entry file. Do not register entry files in an INDEX. The log is `agent_grounding: false`.
 
 ## Problem-solving format (POSIWID)
 
