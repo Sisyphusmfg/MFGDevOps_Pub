@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Root README / Router
 Topic: MFGDevOps_Pub — public manufacturing engineering and AI work
 Status: Active
@@ -17,7 +17,7 @@ The public, machine-first workspace for Sisyphus Manufacturing: tools, methods a
 - **Public by design:** everything in this tree can be read by anyone. Nothing here links to private repositories (PUB-D-03).
 - **Live site:** [sisyphusdev.com](https://sisyphusdev.com) is built from the repo by Cloudflare Workers Builds on every push to `main`. Routing and deploy: [`Workstreams/Sisyphusdev_Site/`](Workstreams/Sisyphusdev_Site/INDEX.md).
 
-**Agents:** read [`AGENTS.md`](AGENTS.md) first, then route **root README → domain INDEX → document** (two hops max). Before you act, read the newest entries in [`Persona/Agent_Activity_Log.md`](Persona/Agent_Activity_Log.md) (reached through [`Persona/INDEX.md`](Persona/INDEX.md)). Append one entry in the same pull request as your change. Every pull request states its rollback path before merge (PUB-D-04).
+**Agents:** read [`AGENTS.md`](AGENTS.md) first, then route **root README → domain INDEX → document** (two hops max). Before you act, read the newest entries: the last files in `Persona/Agent_Activity_Log/` (format and older entries in [`Persona/Agent_Activity_Log.md`](Persona/Agent_Activity_Log.md), reached through [`Persona/INDEX.md`](Persona/INDEX.md)). Add one entry file in the same pull request as your change. Every pull request states its rollback path before merge (PUB-D-04).
 
 ## Subfolder index
 

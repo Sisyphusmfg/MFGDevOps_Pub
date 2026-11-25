@@ -61,7 +61,7 @@ Methods agents follow live in Persona (PUB-D-05): [`Persona/POSIWID_Method_Refer
 
 ## Agent activity log
 
-Before you start, read the newest 20 entries in [`Persona/Agent_Activity_Log.md`](Persona/Agent_Activity_Log.md). After acting, append one entry in the same pull request as the change it describes. Newest entries go last. Do not edit an entry. If one is wrong, append a correction. The log is `agent_grounding: false`.
+Each entry is its own file in `Persona/Agent_Activity_Log/`, named `YYYY-MM-DD_HHMM_<agent>_<topic>.md` in America/New_York time (PUB-D-08). Before you start, read the newest 20 entries: the last 20 files by name in that folder (if it has fewer than 20, read the tail of [`Persona/Agent_Activity_Log.md`](Persona/Agent_Activity_Log.md), which keeps older entries and the entry format, PUB-D-09). After acting, add one entry file in the same pull request as the change it describes. Do not edit an entry after it merges; a correction is a new entry file. Do not register entry files in an INDEX. The log is `agent_grounding: false`.
 
 ## Problem-solving format (POSIWID)
 

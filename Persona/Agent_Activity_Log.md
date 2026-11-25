@@ -1,9 +1,9 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Record
 doc_type: record
-Topic: Shared agent activity log
+Topic: Agent activity log — format and entries before 2026-11-24
 Status: Active
 agent_grounding: false
 agent_maintenance: true
@@ -15,20 +15,43 @@ Record of what agents did in `Sisyphusmfg/MFGDevOps_Pub`. `agent_grounding: fals
 
 **Route:** root [`README.md`](../README.md) → [`INDEX.md`](INDEX.md) → this file.
 
+**Since 2026-11-24 each entry is its own file** in [`Agent_Activity_Log/`](Agent_Activity_Log/) (PUB-D-08). This file describes the format and keeps the entries written before then, unchanged (PUB-D-09). Nothing new is appended here.
+
 ## Entry format
 
-Add new entries at the end, below the last entry. Copy this block:
+One entry is one new file in `Persona/Agent_Activity_Log/`, named `YYYY-MM-DD_HHMM_<agent>_<topic>.md`:
+
+- `YYYY-MM-DD_HHMM` is the America/New_York time of the entry, so the newest entries sort last.
+- `<agent>` and `<topic>` are short lowercase words joined with hyphens, e.g. `claude`, `activity-log-per-entry`.
+
+Copy this block:
 
 ```
-### <timestamp> — <agent name>
+---
+Document Type: Agent Activity Entry
+doc_type: record
+Status: Active
+agent_grounding: false
+Agent: <name>
+Timestamp: "<ISO 8601 with numeric offset>"
+Pull Request: <URL or none>
+Decisions: <DOMAIN-D-NN or none>
+---
 
-- **Agent:** <name>
-- **Timestamp:** <ISO 8601 with numeric offset> (<America/New_York or UTC>)
-- **Action:** <what changed, files touched>. Rollback: <how to undo>.
-- **Links:** Pull request: <url>. Decision: <DOMAIN-D-NN or none>.
+# <timestamp> — <agent name>
+
+<What changed, files touched. Rollback: how to undo.>
 ```
 
-## Entries
+- The file name time and the Timestamp field are the same instant.
+- An entry file is not edited after it merges. A correction is a new entry file that names the earlier file.
+- The entry travels in the pull request that contains the change it describes.
+
+## Read and add
+
+Before acting, read the newest 20 entries: the last 20 files by name in `Persona/Agent_Activity_Log/`. When the folder holds fewer than 20, read the tail of this file for the rest. After acting, add one entry file in that same pull request. New files never conflict, so concurrent pull requests don't collide on the log. Do not register entry files in `INDEX.md` one by one.
+
+## Entries before 2026-11-24 (frozen)
 
 ### 2026-11-22T16:45:00-05:00 — Claude (claude.ai session)
 

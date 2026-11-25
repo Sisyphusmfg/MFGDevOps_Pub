@@ -2,7 +2,7 @@
 title: Persona — Decisions Log
 doc_type: decisions-log
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Record
 Status: Active
 agent_grounding: false
@@ -22,3 +22,5 @@ Human-in-the-loop rationale for decisions that apply to the whole repo. **Not** 
 | 2026-11-22 | PUB-D-05: The methods agents follow live in Persona, as in the private repo: `POSIWID_Method_Reference.md` and `POSIWID_Design_Goal_Agent.md`. Skills, agents, forms and domain pages carry them out and route back to Persona. | Marc: "It's the personas that contain the methods for POSIWID and Goals for agents." | active |
 | 2026-11-22 | PUB-D-06: POSIWID grounding is the same as in Marc's private repo. A diagnostic is citable by default for what it records, a design is citable once the owner approves it, and facilitation drafts and simulations are never citable. Written in `POSIWID_Diagnostic_Grounding.md`. | Brought across with the POSIWID skills at Marc's request, carrying over the rule he had already adopted privately. | active |
 | 2026-11-22 | PUB-D-07: `main` is protected by the GitHub ruleset "Protect main" (ID 27867792): restrict deletions, block force pushes, require a pull request (0 approvals, conversations resolved), require the `check` status, no bypass. Merged branches are deleted automatically. Dependabot alerts and the dependency graph are on. The Workers Builds check is not required. | Marc asked to protect `main` and had Claude apply it (2026-11-22). Approvals stay at 0 because agents work under Marc's account and he can't approve his own PRs. To change it: Settings → Rules → Rulesets → Protect main. | active |
+| 2026-11-24 | PUB-D-08: Each activity-log entry is its own file in `Persona/Agent_Activity_Log/`, named `YYYY-MM-DD_HHMM_<agent>_<topic>.md` (America/New_York time). Entries are not registered one by one in an INDEX. | Marc, 2026-11-24: "The agent log file fix needs to go there." Appends to one shared file make concurrent pull requests conflict; new files never do. | active |
+| 2026-11-24 | PUB-D-09: Entries written before 2026-11-24 stay in `Agent_Activity_Log.md` as frozen history. The file keeps the entry format; nothing new is appended to it. | Keeps the existing record unchanged instead of splitting it into one file per entry. | active |
