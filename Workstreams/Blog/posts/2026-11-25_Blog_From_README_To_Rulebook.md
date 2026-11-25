@@ -8,12 +8,12 @@ agent_grounding: false
 title: "From README to rulebook: turning engineering knowledge into guidance people and agents can follow"
 category: Systems
 date: 2026-11-25
-summary: "How a folder-of-READMEs habit became a machine-first repository that tells people and AI agents what a manufacturing system shall do, and what changed in one week of running it with many agents."
+summary: "How a folder-of-READMEs habit became a machine-first repository that tells people and AI agents what a manufacturing system shall be defined as, or how a workflow shall work."
 ---
 
-Every programming class teaches the same habit: put a README in each folder that says what the folder is for. It works when one person, or a small team, reads the folder from the top. It stops working when the readers are many people and several AI agents, all writing at once, and when the thing being described is a manufacturing system that has to behave the same way every shift.
+Every programming class teaches the same habit: put a README in each folder that says what the folder is for. If you want to watch a fight start between two engineers, just wait for one to ask where some knowledge source is and the other to answer with "It's in the SharePoint". To get ahead of that, I at least started dropping README files in folders provide some type of self sufficient bread crumb system.
 
-This post is about what replaced that habit in my repositories, and how much the structure changed in a single week of daily use.
+The arrival of generally accessible AI tools gave me the opportunity to not only leave a little bit of knowledge about what something is, but how to interact with what's in the folder. 
 
 ## What I was trying to do
 
@@ -37,7 +37,7 @@ I call the structure machine-first: organized so an agent finds the right docume
    - `DECISIONS.md` records why things are the way they are. A person makes or approves every decision.
    - `AGENTS.md` tells an agent how to behave in that folder: what it may write and what it must not do.
    - `README.md` is still there, for a person reading the folder for the first time. It no longer does the routing.
-3. **Two-hop routing.** Root README to domain INDEX to document. No searching file bodies until the route fails.
+3. **Two-hop routing.** Root README to domain INDEX to document. No searching file bodies until the route fails. Nothing like Copilot giving you 8 month old capacity findings to make a decision today. 
 4. **Front matter on every document**: what it is, its status, and whether an agent may rely on it.
 5. **Explicit authority.** A document can be cited only when its INDEX routes to it at rank 1 and its front matter says agents may ground on it. Drafts, notes and decision logs are context, not fact.
 
@@ -45,7 +45,7 @@ The README habit survives, but in its proper place: onboarding for people. Routi
 
 ## What changed in one week
 
-The base structure is about a month old. What changed this week is that it stopped being a set of written conventions and started acting like a system with controls. Each change came from something going wrong in daily use.
+The base structure is about four month old. What changed this week is that it stopped being a set of written conventions and started acting like a system with controls. Each change came from something going wrong in daily use.
 
 **Git became the only place to write.** Earlier in the month, the shared drive copy turned into a read-only backup, refreshed from git every hour. Every change now goes through a pull request, every pull request states how to undo it, and only I merge. Agents propose; a person decides.
 
