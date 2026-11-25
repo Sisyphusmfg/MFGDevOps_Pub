@@ -29,4 +29,7 @@ for entry in "${apps[@]}"; do
   cp -R "$src/." "$dest/"
 done
 
+# Blog -> /blog/ (BLOG-D-02): one page per published post in Workstreams/Blog/posts/
+node scripts/build-blog.mjs Workstreams/Blog/posts dist/blog
+
 echo "build-site: $(find dist -type f | wc -l | tr -d ' ') files in dist/"

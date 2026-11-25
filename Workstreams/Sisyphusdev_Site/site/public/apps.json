@@ -14,6 +14,17 @@
     "cta": "Open the app"
   },
   {
+    "name": "Blog",
+    "host": "blog.sisyphusdev.com",
+    "status": "Building",
+    "desc": "Notes on manufacturing, systems and AI. First posts are on the way.",
+    "tags": [
+      "Writing"
+    ],
+    "href": "https://blog.sisyphusdev.com/",
+    "cta": "Open the blog"
+  },
+  {
     "name": "MFGDevOps Public",
     "host": "github.com/Sisyphusmfg/MFGDevOps_Pub",
     "status": "Live",

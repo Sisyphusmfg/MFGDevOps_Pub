@@ -12,6 +12,13 @@ test("apex app paths move to the purpose subdomain", () => {
   assert.deepEqual(r("https://sisyphusdev.com/design/"), { redirect: "https://purpose.sisyphusdev.com/design/", status: 301 });
 });
 
+test("blog lives on its own subdomain", () => {
+  assert.deepEqual(r("https://sisyphusdev.com/blog/first-post/"), { redirect: "https://blog.sisyphusdev.com/blog/first-post/", status: 301 });
+  assert.deepEqual(r("https://blog.sisyphusdev.com/"), { redirect: "https://blog.sisyphusdev.com/blog/", status: 302 });
+  assert.equal(r("https://blog.sisyphusdev.com/blog/"), null);
+  assert.equal(r("https://blog.sisyphusdev.com/blog/blog.css"), null);
+});
+
 test("purpose root opens the first tool", () => {
   assert.deepEqual(r("https://purpose.sisyphusdev.com/"), { redirect: "https://purpose.sisyphusdev.com/posiwid/", status: 302 });
 });
