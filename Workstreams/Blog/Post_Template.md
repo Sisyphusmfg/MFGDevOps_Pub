@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Template
 doc_type: procedure
 Status: Active
@@ -15,6 +15,7 @@ authority_rank: 1
 2. Fill in the front matter and write the post below it.
 3. Add a row for the file to the post register in [`INDEX.md`](INDEX.md).
 4. Open a pull request. While `Status: Draft`, the post isn't built. Change it to `Status: Published` when it's ready; merging publishes it.
+5. To schedule a post (BLOG-D-05), set `Status: Published` and set `date` to the day it should appear. Merge any time before then. The site checks once a day, at about 6:15 AM New York time in winter (7:15 AM in summer), and rebuilds when a scheduled date has arrived. The post's Markdown is public in the repository from the merge.
 
 ```markdown
 ---
@@ -46,9 +47,11 @@ More text, with **bold**, *italic*, `code` and [a link](https://example.com).
 |-------|----------|-------|
 | `title` | Yes | Quote it if it contains `: ` |
 | `category` | Yes | Shown as the flag on the card. Keep a short list (e.g. Systems, Manufacturing, AI, Tools) |
-| `date` | Yes | `YYYY-MM-DD`. Newest post is featured at the top |
+| `date` | Yes | `YYYY-MM-DD`, New York time. Newest post is featured at the top. A Published post with a later date is scheduled and appears on that date |
 | `Status` | Yes | `Draft` or `Published` |
 | `summary` | No | Used in the page description |
 | `slug` | No | Lowercase words joined by hyphens |
 
 The build supports headings (`##`–`####`), paragraphs, bulleted and numbered lists, quotes, code blocks, inline code, links, bold and italic. HTML in a post is shown as text, not run. Images come later (BLOG-D-03).
+
+Preview every post, drafts and scheduled ones included: `node scripts/build-blog.mjs Workstreams/Blog/posts /tmp/blog --drafts`, then open `/tmp/blog/index.html`. Add `--today=YYYY-MM-DD` to see the blog as it will be on a given day.

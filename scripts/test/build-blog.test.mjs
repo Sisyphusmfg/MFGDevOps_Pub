@@ -58,3 +58,38 @@ test("empty blog renders a placeholder", () => {
   build(join(dir, "none"), join(dir, "out"));
   assert.match(readFileSync(join(dir, "out", "index.html"), "utf8"), /No posts yet/);
 });
+
+test("scheduled posts wait for their date (BLOG-D-05)", () => {
+  const dir = mkdtempSync(join(tmpdir(), "blog-sched-"));
+  const posts = join(dir, "posts");
+  mkdirSync(posts);
+  writeFileSync(join(posts, "2026-11-24_Blog_Now.md"), post(OK));
+  writeFileSync(join(posts, "2026-12-01_Blog_Later.md"), post(OK.replace("date: 2026-11-24", "date: 2026-12-01").replace("A: first post", "Later")));
+  writeFileSync(join(posts, "2026-12-05_Blog_Even_Later.md"), post(OK.replace("date: 2026-11-24", "date: 2026-12-05").replace("A: first post", "Even later")));
+
+  const before = build(posts, join(dir, "a"), { today: "2026-11-30" });
+  assert.deepEqual(before.map((p) => p.slug), ["now"]);
+  assert.deepEqual(before.scheduled.map((p) => p.slug), ["later", "even-later"]);
+  assert.ok(!existsSync(join(dir, "a", "later")));
+  assert.doesNotMatch(readFileSync(join(dir, "a", "index.html"), "utf8"), /Later/);
+  assert.deepEqual(JSON.parse(readFileSync(join(dir, "a", "schedule.json"), "utf8")), { built: "2026-11-30", next: "2026-12-01" });
+
+  const onDay = build(posts, join(dir, "b"), { today: "2026-12-01" });
+  assert.deepEqual(onDay.map((p) => p.slug), ["later", "now"]);
+  assert.ok(existsSync(join(dir, "b", "later", "index.html")));
+  assert.equal(JSON.parse(readFileSync(join(dir, "b", "schedule.json"), "utf8")).next, "2026-12-05");
+
+  const after = build(posts, join(dir, "c"), { today: "2026-12-31" });
+  assert.equal(after.length, 3);
+  assert.equal(JSON.parse(readFileSync(join(dir, "c", "schedule.json"), "utf8")).next, null);
+
+  const preview = build(posts, join(dir, "d"), { today: "2026-11-30", drafts: true });
+  assert.equal(preview.length, 3);
+});
+
+test("today is the America/New_York calendar day", async () => {
+  const { todayInNewYork } = await import("../build-blog.mjs");
+  // 03:00 UTC on Dec 1 is still Nov 30 in New York.
+  assert.equal(todayInNewYork(new Date("2026-12-01T03:00:00Z")), "2026-11-30");
+  assert.equal(todayInNewYork(new Date("2026-12-01T06:00:00Z")), "2026-12-01");
+});
