@@ -45,7 +45,7 @@ The README habit survives, but in its proper place: onboarding for people. Routi
 
 ## What changed in one week
 
-The base structure is about four months old, across a few repositories. What changed this week is that it stopped being a set of written conventions and started acting like a system with controls. Each change came from something going wrong in daily use.
+The base structure in this repository is about four months old. What changed this week is that it stopped being a set of written conventions and started acting like a system with controls. Each change came from something going wrong in daily use.
 
 **Git became the only place to write.** Earlier in the month, the shared drive copy turned into a read-only backup, refreshed from git every hour. Every change now goes through a pull request, every pull request states how to undo it, and only I merge. Agents propose; a person decides.
 
@@ -62,7 +62,7 @@ The base structure is about four months old, across a few repositories. What cha
 
 Every pull request now also opens with a `done_when` section: the conditions that make the work finished, written before the work starts. Work that spans more than one session keeps a progress file, so the next session, person or agent picks up from facts instead of chat history.
 
-**The archive folders went away.** I had kept superseded copies in archive folders, another habit from shared drives. Git already keeps every version of every file, and a document's standing is already in its front matter and its INDEX rank. Keeping copies only gave agents more stale files to trip over. This week the archive folders were deleted from all three repositories.
+**The archive folders went away.** I had kept superseded copies in archive folders, another habit from shared drives. Git already keeps every version of every file, and a document's standing is already in its front matter and its INDEX rank. Keeping copies only gave agents more stale files to trip over. This week the archive folders were deleted from this repository.
 
 **Agents report friction instead of working around it.** When an agent is blocked, by a permission, a proxy or a missing tool, it stops, asks me, and logs what happened in a harness feedback file. Repeated problems get fixed in the rules or the scripts, through a normal pull request.
 
@@ -80,4 +80,4 @@ The structure isn't special. Four files per folder, a strict decision table and 
 
 ## What's next
 
-The decision database is ready for a live dashboard. The progress files will get the same treatment, so open work shows where it is blocked and on whom. And the public versions of these methods, including the machine-first method itself, live in my public repository, so anyone can copy the structure into their own.
+The decision database is ready for a live dashboard. The progress files will get the same treatment, so open work shows where it is blocked and on whom. And these methods, including the machine-first method itself, live in this repository, so anyone can copy the structure into their own.

@@ -21,7 +21,7 @@ The sisyphusdev blog at `blog.sisyphusdev.com`: one Markdown file per post in `p
 |-------|-------|
 | Domain | blog |
 | Owner | Marc Dugas |
-| Last Updated | 2026-11-24 |
+| Last Updated | 2026-11-25 |
 | Parent | Root [`README.md`](../../README.md) |
 
 ## Question → authoritative document
@@ -39,7 +39,7 @@ The sisyphusdev blog at `blog.sisyphusdev.com`: one Markdown file per post in `p
 | File | Updated | Rank | Description |
 |------|---------|------|-------------|
 | [`README.md`](README.md) | 2026-11-24 | — | Human onboarding |
-| [`AGENTS.md`](AGENTS.md) | 2026-11-24 | — | Agent instructions for this domain |
+| [`AGENTS.md`](AGENTS.md) | 2026-11-25 | — | Agent instructions for this domain |
 | [`DECISIONS.md`](DECISIONS.md) | 2026-11-24 | — | Decision log: BLOG-D-01 to BLOG-D-04 |
 | [`Post_Template.md`](Post_Template.md) | 2026-11-24 | 1 | Post front matter, file naming, the Markdown the build supports, and how to publish |
 

@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-25
 Document Type: Agent Operating Instructions
 Topic: Sisyphusdev_Site
 Status: Active
@@ -14,7 +14,7 @@ Follow root [`../../AGENTS.md`](../../AGENTS.md). Read [`INDEX.md`](INDEX.md) be
 
 ## Domain rules
 
-- **No private links on the webpage (PUB-D-03).** Every link in the built site points to `MFGDevOps_Pub`, a sisyphusdev.com path or subdomain, or a public site. CI checks this on every pull request.
+- **Links on the webpage stay in this repository (PUB-D-03).** Every link in the built site points to `MFGDevOps_Pub`, a sisyphusdev.com path or subdomain, or a public site. CI checks this on every pull request.
 - **Merging to `main` publishes.** Cloudflare Workers Builds deploys on every push to `main` (SDEV-D-05). Say so in any pull request that touches `site/`, another domain's `app/`, root `wrangler.jsonc` or `scripts/build-site.sh`.
 - This domain owns root [`../../wrangler.jsonc`](../../wrangler.jsonc) and [`../../scripts/build-site.sh`](../../scripts/build-site.sh). Keep the Worker name `mfgdevops-pub`, because it must match the Worker connected to Workers Builds.
 - Add or change cards only in [`site/public/apps.json`](site/public/apps.json). Use `Live` only for an app whose files ship in the same deploy, or whose URL already answers.

@@ -31,7 +31,7 @@ You run goals in this repository for the owner, Marc Dugas. You **propose** goal
 4. **Allowed paths only.** Write only where the charter allows. Otherwise ask.
 5. **Values from sources.** Every value has a source and a date. Never write an estimate as a value. Never change a baseline, target or date: that's the owner's decision.
 6. **Evidence before closure.** Never mark COMPLETE, and never call your own work achieved.
-7. **Public repo (PUB-D-03).** Goals filed here are public. A goal that names internal systems, people, suppliers, part numbers or business figures belongs in a private repository: say so and stop.
+7. **Public repo (PUB-D-03).** Goals filed here are public. A goal that names internal systems, people, suppliers, part numbers or business figures is not filed here: say so and stop.
 8. **At most 3 active goals** past CHARTER at once (GA-D-06). Over the limit, propose which to pause.
 9. Ask **one or two focused questions** at a time.
 10. **End each turn with a short summary:** proposals waiting, the active goal and its health, and what the owner must decide.

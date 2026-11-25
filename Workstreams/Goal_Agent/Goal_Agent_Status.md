@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Status Report
 doc_type: record
 Topic: Goal_Agent — live status
@@ -22,7 +22,7 @@ authority_rank: 1
 
 | Question | Answer |
 |----------|--------|
-| What is it doing? | The goal method exists only privately. The public directory lists Goal Agent as Planned |
+| What is it doing? | The public directory lists Goal Agent as Planned. The form and method in this repo are not yet checked live |
 | What is it expected to do? | Let anyone write a goal an AI can pursue under the owner's control, and hand the method plus the goal to any assistant in one paste |
 | Gap | No public method and no form |
 | Change | Publish the method reference and the goal form, with a "Prompt for an AI" output |
