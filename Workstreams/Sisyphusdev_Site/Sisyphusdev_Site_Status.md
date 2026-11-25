@@ -16,8 +16,8 @@ Source: Cloudflare API output, 2026-11-22
 | Field | Value |
 |-------|-------|
 | Scope | sisyphusdev.com home page, app directory, and the build that mounts each app |
-| Overall status | Live (checked 2026-11-24): the home page and the apps at `/posiwid/` and `/goals/` load. Move to subdomains (SDEV-D-09, SDEV-D-11, SDEV-D-12) is in a pull request |
-| Next action | After Marc merges the subdomain pull request: check that Workers Builds attached `purpose.sisyphusdev.com`, that `https://purpose.sisyphusdev.com/posiwid/` and `/goals/` return `200`, and that `https://sisyphusdev.com/posiwid/` returns `301` to it. Record the results below |
+| Overall status | Live (checked 2026-11-24 after PR #9): System Design and Analysis serves POSIWID and Goal at `purpose.sisyphusdev.com`, and the old paths on sisyphusdev.com redirect there. POSIWID Design (`/design/`) is in PR #11 |
+| Next action | Confirm the redirect status code with `curl -sI https://sisyphusdev.com/posiwid/` (expect `301`). After PR #11 merges, check that `https://purpose.sisyphusdev.com/design/` returns `200` |
 
 ## POSIWID snapshot
 
@@ -40,6 +40,9 @@ Source: Cloudflare API output, 2026-11-22
 | 2026-11-22 | Cloudflare API `GET /accounts/{id}/workers/domains` | No custom domains attached |
 | 2026-11-24 | Fetch `https://sisyphusdev.com/posiwid/` | Loads: title "POSIWID Analysis — sisyphusdev" |
 | 2026-11-24 | Fetch `https://posiwid.sisyphusdev.com/` | Not reachable (no such subdomain yet) |
+| 2026-11-24 | After PR #9 merged (22:0x): fetch `https://purpose.sisyphusdev.com/posiwid/` | Loads: title "POSIWID — System Design and Analysis — sisyphusdev", menu POSIWID · Goal · All apps |
+| 2026-11-24 | Fetch `https://purpose.sisyphusdev.com/goals/` | Loads: title "Goal — System Design and Analysis — sisyphusdev" |
+| 2026-11-24 | Fetch `https://sisyphusdev.com/posiwid/?check=2205` | Redirects to `https://purpose.sisyphusdev.com/posiwid/?check=2205`. The fetch tool reported status 302; the Worker code sends 301. Re-check with `curl -sI` |
 
 ## Deploy log
 
