@@ -1,0 +1,65 @@
+---
+title: Blog — Domain Index
+doc_type: readme-index
+domain: blog
+Contributed By: Marc Dugas
+Last Updated: 2026-11-24
+Document Type: Domain Index
+Status: Active
+authority_rank: 1
+agent_grounding: true
+agent_maintenance: true
+---
+
+# Blog — Domain Index
+
+The sisyphusdev blog at `blog.sisyphusdev.com`: one Markdown file per post in `posts/`, built into static pages when the site deploys.
+
+## Document Control
+
+| Field | Value |
+|-------|-------|
+| Domain | blog |
+| Owner | Marc Dugas |
+| Last Updated | 2026-11-24 |
+| Parent | Root [`README.md`](../../README.md) |
+
+## Question → authoritative document
+
+| If the question is about… | Authoritative document | Rank |
+|---|---|---|
+| How to write and publish a post | [`Post_Template.md`](Post_Template.md) | 1 |
+| What a post page and the post list look like, and how posts are built | [`../../scripts/build-blog.mjs`](../../scripts/build-blog.mjs) | 1 |
+| Which posts exist | Post register, below | 1 |
+| Whether the blog is live | [`../Sisyphusdev_Site/Sisyphusdev_Site_Status.md`](../Sisyphusdev_Site/Sisyphusdev_Site_Status.md) | 1 |
+| Why the blog is built this way | [`DECISIONS.md`](DECISIONS.md) | — |
+
+## Document register (on-disk)
+
+| File | Updated | Rank | Description |
+|------|---------|------|-------------|
+| [`README.md`](README.md) | 2026-11-24 | — | Human onboarding |
+| [`AGENTS.md`](AGENTS.md) | 2026-11-24 | — | Agent instructions for this domain |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-24 | — | Decision log: BLOG-D-01 to BLOG-D-04 |
+| [`Post_Template.md`](Post_Template.md) | 2026-11-24 | 1 | Post front matter, file naming, the Markdown the build supports, and how to publish |
+
+## Post register
+
+Published posts appear on the blog; drafts don't. One row per file in `posts/`.
+
+| File | Date | Category | Status | Title |
+|------|------|----------|--------|-------|
+| [`posts/2026-11-24_Blog_System_Design_And_Analysis.md`](posts/2026-11-24_Blog_System_Design_And_Analysis.md) | 2026-11-24 | Tools | Draft | Example post: System Design and Analysis |
+
+## Agent layer register (outside this folder, owned here)
+
+| File | Date | authority_rank | Description |
+|------|------|----------------|-------------|
+| [`../../scripts/build-blog.mjs`](../../scripts/build-blog.mjs) | 2026-11-24 | 1 | Builds `dist/blog/` from `posts/`: post list with a featured latest post, category flags and filter, one page per post. No dependencies |
+| [`../../scripts/test/build-blog.test.mjs`](../../scripts/test/build-blog.test.mjs) | 2026-11-24 | — | Tests. Run `node --test scripts/test/build-blog.test.mjs` |
+
+## Cross-links
+
+| Domain | INDEX |
+|--------|-------|
+| Sisyphusdev_Site | [`../Sisyphusdev_Site/INDEX.md`](../Sisyphusdev_Site/INDEX.md) |

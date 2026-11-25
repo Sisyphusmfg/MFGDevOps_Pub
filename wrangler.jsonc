@@ -22,7 +22,9 @@
     { "pattern": "sisyphusdev.com", "custom_domain": true },
     { "pattern": "www.sisyphusdev.com", "custom_domain": true },
     // System Design and Analysis: POSIWID and Goal (SDEV-D-09).
-    { "pattern": "purpose.sisyphusdev.com", "custom_domain": true }
+    { "pattern": "purpose.sisyphusdev.com", "custom_domain": true },
+    // Blog (BLOG-D-01).
+    { "pattern": "blog.sisyphusdev.com", "custom_domain": true }
   ],
   // Turns on workers.dev Preview URLs, so each PR gets a link. It takes effect on the next production deploy.
   // workers.dev Preview URLs are public, and Cloudflare adds X-Robots-Tag: noindex.

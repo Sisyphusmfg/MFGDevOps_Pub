@@ -17,7 +17,7 @@ Source: Cloudflare API output, 2026-11-22
 |-------|-------|
 | Scope | sisyphusdev.com home page, app directory, and the build that mounts each app |
 | Overall status | Live (checked 2026-11-24 after PR #9): System Design and Analysis serves POSIWID and Goal at `purpose.sisyphusdev.com`, and the old paths on sisyphusdev.com redirect there. POSIWID Design (`/design/`) is in PR #11 |
-| Next action | Confirm the redirect status code with `curl -sI https://sisyphusdev.com/posiwid/` (expect `301`). After PR #11 merges, check that `https://purpose.sisyphusdev.com/design/` returns `200` |
+| Next action | After the blog pull request merges: check that Workers Builds attached `blog.sisyphusdev.com`, that `https://blog.sisyphusdev.com/` opens the blog (no posts yet, so the empty-state message), and that `https://sisyphusdev.com/blog/` redirects there. Confirm the redirect code with `curl -sI https://sisyphusdev.com/posiwid/` (expect `301`) |
 
 ## POSIWID snapshot
 
@@ -43,6 +43,7 @@ Source: Cloudflare API output, 2026-11-22
 | 2026-11-24 | After PR #9 merged (22:0x): fetch `https://purpose.sisyphusdev.com/posiwid/` | Loads: title "POSIWID — System Design and Analysis — sisyphusdev", menu POSIWID · Goal · All apps |
 | 2026-11-24 | Fetch `https://purpose.sisyphusdev.com/goals/` | Loads: title "Goal — System Design and Analysis — sisyphusdev" |
 | 2026-11-24 | Fetch `https://sisyphusdev.com/posiwid/?check=2205` | Redirects to `https://purpose.sisyphusdev.com/posiwid/?check=2205`. The fetch tool reported status 302; the Worker code sends 301. Re-check with `curl -sI` |
+| 2026-11-24 | After PR #11 merged: fetch `https://purpose.sisyphusdev.com/design/?check=2200` | Loads: title "POSIWID Design — System Design and Analysis — sisyphusdev", menu POSIWID · POSIWID Design · Goal · All apps |
 
 ## Deploy log
 

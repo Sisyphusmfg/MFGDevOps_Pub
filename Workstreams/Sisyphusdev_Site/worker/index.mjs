@@ -10,6 +10,11 @@ export const APPS = {
     paths: ["/posiwid/", "/design/", "/goals/"],
     home: "/posiwid/",
   },
+  "blog.sisyphusdev.com": {
+    name: "Blog",
+    paths: ["/blog/"],
+    home: "/blog/",
+  },
 };
 
 // Hosts that serve the home page and app directory.
