@@ -5,7 +5,7 @@ Status: Active
 agent_grounding: false
 Agent: Cursor Grok, cloud agent session
 Timestamp: "2026-11-25T18:02:00-05:00"
-Pull Request: this pull request
+Pull Request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/17
 Decisions: none
 ---
 
