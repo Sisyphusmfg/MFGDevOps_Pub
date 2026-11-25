@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Status Report
 doc_type: record
 Topic: Sisyphusdev_Site — live status
@@ -16,8 +16,8 @@ Source: Cloudflare API output, 2026-11-22
 | Field | Value |
 |-------|-------|
 | Scope | sisyphusdev.com home page, app directory, and the build that mounts each app |
-| Overall status | First Workers Builds deploy failed (no Wrangler config at repo root). Fix is in PR #2. The domain still serves a blank page |
-| Next action | Marc merges PR #2. Workers Builds deploys. Record the result below |
+| Overall status | Live (checked 2026-11-24): the home page and the apps at `/posiwid/` and `/goals/` load. Move to subdomains (SDEV-D-09, SDEV-D-11, SDEV-D-12) is in a pull request |
+| Next action | After Marc merges the subdomain pull request: check that Workers Builds attached `purpose.sisyphusdev.com`, that `https://purpose.sisyphusdev.com/posiwid/` and `/goals/` return `200`, and that `https://sisyphusdev.com/posiwid/` returns `301` to it. Record the results below |
 
 ## POSIWID snapshot
 
@@ -38,6 +38,8 @@ Source: Cloudflare API output, 2026-11-22
 | 2026-11-22 | Workers Builds trigger for `mfgdevops-pub` | Repo `MFGDevOps_Pub`, branch `main`, root `/`, deploy command `npx wrangler deploy`, no build command |
 | 2026-11-22 | Latest build (21:48 UTC) | `fail`. Wrangler: "Could not detect a directory containing static files" |
 | 2026-11-22 | Cloudflare API `GET /accounts/{id}/workers/domains` | No custom domains attached |
+| 2026-11-24 | Fetch `https://sisyphusdev.com/posiwid/` | Loads: title "POSIWID Analysis — sisyphusdev" |
+| 2026-11-24 | Fetch `https://posiwid.sisyphusdev.com/` | Not reachable (no such subdomain yet) |
 
 ## Deploy log
 

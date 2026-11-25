@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Status Report
 doc_type: record
 Topic: Goal_Agent — live status
@@ -32,7 +32,7 @@ authority_rank: 1
 
 | ID | Priority | Item | Detail |
 |----|----------|------|--------|
-| GA-OI-01 | High | First live check | After deploy: `curl -sI https://sisyphusdev.com/goals/` returns `200`. Record it here |
+| GA-OI-01 | High | First live check | After deploy: `curl -sI https://purpose.sisyphusdev.com/goals/` returns `200`. Record it here |
 | GA-OI-02 | Medium | Marc approves the method wording | Then set `agent_grounding: true` on the method reference |
 | GA-OI-04 | Medium | First goal run by an agent in this repo | Propose, APPROVE, CHARTER and one check-in, with an engagement file and register row |
 | GA-OI-03 | Closed 2026-11-22 | Import from a POSIWID file | Done in PR #4 (GA-D-04): upload on the Goal page, or "Start a goal" on the POSIWID page. Tested locally both ways |

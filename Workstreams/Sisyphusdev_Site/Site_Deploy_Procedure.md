@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Procedure
 doc_type: procedure
 Topic: Build, preview, deploy, add an app, and roll back sisyphusdev.com
@@ -18,11 +18,13 @@ Draft. Set `agent_grounding: true` after the first successful deploy is recorded
 
 Cloudflare Workers Builds watches `main` on `Sisyphusmfg/MFGDevOps_Pub`. On every push it runs `npx wrangler deploy` from the **repo root**. Wrangler reads [`../../wrangler.jsonc`](../../wrangler.jsonc) and runs its build command, `bash scripts/build-site.sh`. That script assembles `dist/` from each domain's web files, then Wrangler uploads `dist/` to the Worker `mfgdevops-pub`.
 
-| Site path | Source folder |
-|-----------|---------------|
-| `/` | `Workstreams/Sisyphusdev_Site/site/public/` |
-| `/posiwid/` | `Workstreams/POSIWID_Analysis/app/` |
-| `/goals/` | `Workstreams/Goal_Agent/app/` |
+| Address | Path in `dist/` | Source folder |
+|---------|-----------------|---------------|
+| `sisyphusdev.com/` | `/` | `Workstreams/Sisyphusdev_Site/site/public/` |
+| `purpose.sisyphusdev.com/posiwid/` (System Design and Analysis → POSIWID) | `/posiwid/` | `Workstreams/POSIWID_Analysis/app/` |
+| `purpose.sisyphusdev.com/goals/` (System Design and Analysis → Goal) | `/goals/` | `Workstreams/Goal_Agent/app/` |
+
+The Worker script [`worker/index.mjs`](worker/index.mjs) runs before the static files (SDEV-D-12). On `sisyphusdev.com` and `www.sisyphusdev.com` it redirects `/posiwid/` and `/goals/` (301) to `purpose.sisyphusdev.com`. On `purpose.sisyphusdev.com` it sends `/` to `/posiwid/`. Every other request, including previews on `workers.dev`, is a static file from `dist/`. To add an app on its own subdomain: add its folder to `scripts/build-site.sh`, its subdomain and paths to `APPS` in the script, a custom-domain route in `wrangler.jsonc`, and a card in `apps.json`. Run the tests with `node --test Workstreams/Sisyphusdev_Site/worker/test/route.test.mjs`.
 
 **Merging to `main` publishes the site.** Treat every merge that touches these folders, `wrangler.jsonc` or `scripts/build-site.sh` as a publication (PUB-D-04).
 
@@ -60,7 +62,7 @@ npx wrangler deploy
 
 ```bash
 curl -sI https://sisyphusdev.com | head -1
-curl -sI https://sisyphusdev.com/posiwid/ | head -1
+curl -sI https://purpose.sisyphusdev.com/posiwid/ | head -1
 ```
 
 Expected: `HTTP/2 200` for both. Add a deploy-log row to [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) with the date, the version ID and both `curl` lines.

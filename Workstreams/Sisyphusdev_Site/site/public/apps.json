@@ -1,37 +1,38 @@
 [
   {
-    "name": "POSIWID Analysis",
-    "host": "sisyphusdev.com/posiwid",
+    "name": "System Design and Analysis",
+    "host": "purpose.sisyphusdev.com",
     "status": "Live",
-    "desc": "A guided form for a POSIWID analysis: what the system is doing, what it should do, the gaps, the changes, and the measurable change. Runs in your browser; download the result as Markdown.",
-    "tags": ["Method", "Analysis"],
-    "href": "/posiwid/",
-    "cta": "Start an analysis"
+    "desc": "Two tools in one app. POSIWID: work out what a system actually does, what it should do, the gaps and the measurable change. Goal: turn a gap into a goal an AI can pursue with you. Switch between them from the menu. Runs in your browser.",
+    "tags": [
+      "Method",
+      "Analysis",
+      "Planning"
+    ],
+    "href": "https://purpose.sisyphusdev.com/",
+    "cta": "Open the app"
   },
   {
     "name": "MFGDevOps Public",
     "host": "github.com/Sisyphusmfg/MFGDevOps_Pub",
     "status": "Live",
     "desc": "The public side of my machine-first work: the methods, skills and tools I share openly.",
-    "tags": ["Repo", "Open source"],
+    "tags": [
+      "Repo",
+      "Open source"
+    ],
     "href": "https://github.com/Sisyphusmfg/MFGDevOps_Pub",
     "cta": "Open repository"
-  },
-  {
-    "name": "Goal Agent",
-    "host": "sisyphusdev.com/goals",
-    "status": "Live",
-    "desc": "Write a goal an AI can pursue with you: source, measurable change, guardrails, milestones and limits. Copy one prompt that gives any AI the method and your goal.",
-    "tags": ["AI agent", "Planning"],
-    "href": "/goals/",
-    "cta": "Set a goal"
   },
   {
     "name": "IOED Explainer",
     "host": "ioed.sisyphusdev.com",
     "status": "Planned",
     "desc": "Ask how something really works and get it explained mechanism by mechanism, or be quizzed on it.",
-    "tags": ["AI agent", "Learning"],
+    "tags": [
+      "AI agent",
+      "Learning"
+    ],
     "href": "",
     "cta": "Coming soon"
   },
@@ -40,7 +41,10 @@
     "host": "lab.sisyphusdev.com",
     "status": "Planned",
     "desc": "Self-hosted model experiments: what runs, on what hardware, at what cost per answer.",
-    "tags": ["Models", "Research"],
+    "tags": [
+      "Models",
+      "Research"
+    ],
     "href": "",
     "cta": "Coming soon"
   }
