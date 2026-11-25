@@ -14,7 +14,7 @@ authority_rank: 1
 
 Sign-in for `purpose.sisyphusdev.com` (POSIWID, POSIWID Design, Goal) that saves a person's input to a Neon Postgres database. An account is either an individual or an organization with teams. Saved work is split the same way: what a person saves belongs to their personal space or to one team, and nobody outside that space can read it. Method: [`../../Persona/POSIWID_Method_Reference.md`](../../Persona/POSIWID_Method_Reference.md).
 
-Status: Draft. Marc decided D1, D2, D3 and D5 on 2026-11-25 (SDEV-D-15 to SDEV-D-18), and that he approves every new account (SDEV-D-19). D4 and D6 stay open.
+Status: Draft. Marc decided D1, D2, D3 and D5 on 2026-11-25 (SDEV-D-15 to SDEV-D-18), that he approves every new account (SDEV-D-19), and that he is told about each request by email (SDEV-D-20). D4 stays open.
 
 ## 0. What the system does today
 
@@ -107,7 +107,7 @@ Row-level security on `record` uses it for select, insert, update and delete. `s
 Approval decides who gets an account, separately from signing in:
 
 1. **Neon Auth sign-up is closed**: `disable_sign_up` is on and there are no social providers. A new email can't create an account by itself. Set on 2026-11-25.
-2. A person fills in **Request access**. The Worker stores an `access_request` (pending) and tells Marc (D6).
+2. A person fills in **Request access**. The Worker stores an `access_request` (pending) and emails Marc (SDEV-D-20) through a `send_email` binding on Cloudflare Email Routing for sisyphusdev.com. The email goes to his verified address. That address is kept in the Worker secret `APPROVER_EMAIL`, never in this public repository. The email holds the requester's name and email and a link to the approvals page.
 3. Marc opens the **approvals page**, signed in as a platform admin, and approves or declines.
 4. On approval, the Worker creates the user through Neon Auth's Admin plugin, from Marc's admin session. The Worker also creates the personal space and any requested organization membership, then tells the person they can sign in with an email code.
 5. A declined request keeps its row for the record. No account is created.
@@ -128,7 +128,7 @@ To check in P3, before building on it: that the Admin plugin can create a user w
 | D2 *(decided: email code only, SDEV-D-16)* | Sign-in methods | Email code (works on Neon's shared mail for testing) · Google · GitHub · email and password | Email code plus Google. Production needs our own mail server and our own Google OAuth app (Neon production checklist) |
 | D3 *(decided: yes, SDEV-D-17)* | Can organization owners and admins read every team's records? | Yes (admin oversight) · No (team members only) | Your call. It changes the `can_access` rule |
 | D4 | Is there an organization-wide space, besides teams? | Yes · No (organizations work only through teams) | No for the first version. Add later as a third space kind |
-| D6 | How Marc hears about a new access request | **a.** Email from the Worker to his verified address through Cloudflare Email Routing's send-email binding. **b.** Only a pending count on the approvals page. **c.** A webhook to Zapier | **a.** It needs no mail service beyond Cloudflare, and it sends only to a verified address |
+| D6 *(decided: a, email, SDEV-D-20)* | How Marc hears about a new access request | **a.** Email from the Worker to his verified address through Cloudflare Email Routing's send-email binding. **b.** Only a pending count on the approvals page. **c.** A webhook to Zapier | **a.** It needs no mail service beyond Cloudflare, and it sends only to a verified address |
 | D5 *(decided: new project, Hyperdrive, SDEV-D-18)* | Database home and connection | A new Neon project (e.g. `sisyphusdev-apps`, AWS us-east region; Neon Auth needs AWS and no IP allowlist) or a new database in an existing project · Hyperdrive or the serverless HTTP driver | New project, kept apart from `MFGDevOps_DB` (that one holds the repository index). Hyperdrive |
 
 ## 6. Build order
