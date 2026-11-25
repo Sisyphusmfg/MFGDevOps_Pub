@@ -26,6 +26,7 @@ P2: schema, `can_access` and row-level security as an up/down migration on a Neo
 
 ## Done
 
+- 2026-11-25 — Email Routing enabled on sisyphusdev.com (MX, SPF, DKIM added) and Marc's destination verified, on his instruction. Left for P5: `APPROVER_EMAIL` secret and the `send_email` binding
 - 2026-11-25 — SDEV-D-20: Marc chose email notification (D6 a). His address stays out of the repo (Worker secret `APPROVER_EMAIL`)
 - 2026-11-25 — SDEV-D-19 (Marc approves every account). Neon Auth sign-up closed (`disable_sign_up: true`), Google provider removed, 0 users (Neon API and SQL output). Design gains O8, the `access_request` and `platform_admin` tables, and D6
 - 2026-11-25 — P1: Neon project `sisyphusdev-apps` (`little-silence-14430370`, aws-us-east-1, branch `br-cool-mud-bbp8240c`), Neon Auth enabled, trusted origin purpose.sisyphusdev.com, app name set. Neon's default sign-in methods (password, shared Google, Organization plugin) are still on, to be narrowed in P3
@@ -35,7 +36,6 @@ P2: schema, `can_access` and row-level security as an up/down migration on a Neo
 ## Blocked on
 
 - D4 (organization-wide space) is open; the first version builds without one.
-- Email Routing setup for SDEV-D-20 (SDEV-OI-07): the agent's Cloudflare API call was blocked by the session safety check; Marc does it in the dashboard.
 - Package installs are refused in the claude.ai cloud session (shell network is off). P3 and P4 need `@neondatabase/auth` and a JWT library such as `jose`. Workers Builds installs them at deploy, but local tests in that session can't. Run those phases on the Surface or in a session with installs allowed.
 
 ## Next step
