@@ -6,17 +6,23 @@
   // Owner domain: Workstreams/Sisyphusdev_Site/ (see its INDEX.md).
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "mfgdevops-pub",
+  // Routes app paths to their subdomain (SDEV-D-09); every other request is a static file from dist/.
+  "main": "Workstreams/Sisyphusdev_Site/worker/index.mjs",
   "compatibility_date": "2026-11-01",
   "build": {
     "command": "bash scripts/build-site.sh"
   },
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
   },
   "routes": [
     { "pattern": "sisyphusdev.com", "custom_domain": true },
-    { "pattern": "www.sisyphusdev.com", "custom_domain": true }
+    { "pattern": "www.sisyphusdev.com", "custom_domain": true },
+    // System Design and Analysis: POSIWID and Goal (SDEV-D-09).
+    { "pattern": "purpose.sisyphusdev.com", "custom_domain": true }
   ],
   // Turns on workers.dev Preview URLs, so each PR gets a link. It takes effect on the next production deploy.
   // workers.dev Preview URLs are public, and Cloudflare adds X-Robots-Tag: noindex.

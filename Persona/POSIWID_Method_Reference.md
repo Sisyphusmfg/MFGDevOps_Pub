@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Method Reference
 Status: Draft
 doc_type: canonical-spec
@@ -14,7 +14,7 @@ Source: Stafford Beer, The Heart of Enterprise (1979), Diagnosing the System for
 
 **POSIWID: the purpose of a system is what it does.** Judge a system by what it reliably does, not by what it was designed, said or meant to do. When a system keeps producing an outcome, that outcome is, in practice, what the system is for, until something changes it.
 
-This is the method authority for POSIWID work by people and by agents in this repo (PUB-D-05). The agent layer ([`posiwid-facilitator`](../.agents/agents/posiwid-facilitator.md), [`posiwid-analyst`](../.agents/agents/posiwid-analyst.md), and the skills [`posiwid-analysis`](../.agents/skills/posiwid-analysis/SKILL.md) and [`posiwid-measurement-simulator`](../.agents/skills/posiwid-measurement-simulator/SKILL.md)) and the form at [sisyphusdev.com/posiwid](https://sisyphusdev.com/posiwid/) carry it out. Whether an analysis can be cited is set by [`POSIWID_Diagnostic_Grounding.md`](POSIWID_Diagnostic_Grounding.md).
+This is the method authority for POSIWID work by people and by agents in this repo (PUB-D-05). The agent layer ([`posiwid-facilitator`](../.agents/agents/posiwid-facilitator.md), [`posiwid-analyst`](../.agents/agents/posiwid-analyst.md), and the skills [`posiwid-analysis`](../.agents/skills/posiwid-analysis/SKILL.md) and [`posiwid-measurement-simulator`](../.agents/skills/posiwid-measurement-simulator/SKILL.md)) and the form at [purpose.sisyphusdev.com/posiwid](https://purpose.sisyphusdev.com/posiwid/) carry it out. Whether an analysis can be cited is set by [`POSIWID_Diagnostic_Grounding.md`](POSIWID_Diagnostic_Grounding.md).
 
 ## Credit and background
 
@@ -174,5 +174,5 @@ Before adopting a step 4 change, you can predict what an observer would record i
 
 ## Tools
 
-- The guided form at [sisyphusdev.com/posiwid](https://sisyphusdev.com/posiwid/) walks through the five questions and produces a Markdown file, or a prompt that gives any AI this method plus your analysis.
+- The guided form at [purpose.sisyphusdev.com/posiwid](https://purpose.sisyphusdev.com/posiwid/) walks through the five questions and produces a Markdown file, or a prompt that gives any AI this method plus your analysis.
 - An AI agent working in this repo uses `posiwid-facilitator` for facilitation and `posiwid-analyst` for designs, diagnostics, promotion and simulations.

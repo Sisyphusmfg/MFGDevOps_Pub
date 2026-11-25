@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: POSIWID Design
 Topic: POSIWID design — goal agent (how AI manages goals)
 Status: Draft
@@ -15,7 +15,7 @@ Source: Public version of Marc's goal-agent design
 
 How an AI manages a goal with a person, written as a POSIWID design (see [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md)). The person owns the goal and judges it. The AI checks, plans, tracks and reports, and never approves its own work.
 
-This is the method authority for goals. The agent layer ([`goal-agent`](../.agents/agents/goal-agent.md) and its five skills) and the form at [sisyphusdev.com/goals](https://sisyphusdev.com/goals/) carry it out.
+This is the method authority for goals. The agent layer ([`goal-agent`](../.agents/agents/goal-agent.md) and its five skills) and the form at [purpose.sisyphusdev.com/goals](https://purpose.sisyphusdev.com/goals/) carry it out.
 
 ## 1. What the goal agent is expected to do
 
@@ -118,7 +118,7 @@ To close: take a final measurement, write a short POSIWID look back (what the sy
 | Who uses it | File |
 |-------------|------|
 | An AI agent working in this repo | [`.agents/agents/goal-agent.md`](../.agents/agents/goal-agent.md), with skills [`goal-execution`](../.agents/skills/goal-execution/SKILL.md), [`goal-plan`](../.agents/skills/goal-plan/SKILL.md), [`goal-checkin`](../.agents/skills/goal-checkin/SKILL.md), [`goal-review`](../.agents/skills/goal-review/SKILL.md), [`goal-close`](../.agents/skills/goal-close/SKILL.md) |
-| Any AI assistant, by paste | The "Prompt for an AI" output of the form at [sisyphusdev.com/goals](https://sisyphusdev.com/goals/) |
+| Any AI assistant, by paste | The "Prompt for an AI" output of the form at [purpose.sisyphusdev.com/goals](https://purpose.sisyphusdev.com/goals/) |
 | People | This page, and the form |
 
-A POSIWID analysis from [sisyphusdev.com/posiwid](https://sisyphusdev.com/posiwid/) is the best source for a goal: press **Start a goal** there, or upload the saved file on the goals page.
+A POSIWID analysis from [purpose.sisyphusdev.com/posiwid](https://purpose.sisyphusdev.com/posiwid/) is the best source for a goal: press **Start a goal** there, or upload the saved file on the goals page.
