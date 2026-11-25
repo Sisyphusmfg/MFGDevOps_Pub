@@ -3,7 +3,7 @@ Contributed By: Marc Dugas
 Last Updated: 2026-11-25
 Document Type: Blog Post
 doc_type: record
-Status: Draft
+Status: Published
 agent_grounding: false
 title: "From README to rulebook: turning engineering knowledge into guidance people and agents can follow"
 category: Systems
@@ -45,7 +45,7 @@ The README habit survives, but in its proper place: onboarding for people. Routi
 
 ## What changed in one week
 
-The base structure is about four months old. What changed this week is that it stopped being a set of written conventions and started acting like a system with controls. Each change came from something going wrong in daily use.
+The base structure is about four months old, across a few repositories. What changed this week is that it stopped being a set of written conventions and started acting like a system with controls. Each change came from something going wrong in daily use.
 
 **Git became the only place to write.** Earlier in the month, the shared drive copy turned into a read-only backup, refreshed from git every hour. Every change now goes through a pull request, every pull request states how to undo it, and only I merge. Agents propose; a person decides.
 
