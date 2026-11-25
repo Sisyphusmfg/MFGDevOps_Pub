@@ -22,22 +22,28 @@ Design: [`../../Workstreams/Sisyphusdev_Site/POSIWID_Design_Purpose_Accounts.md`
 
 ## Current step
 
-P1: create the new Neon project and enable Neon Auth. Waiting on Marc's go-ahead to create the resource and his choice of project name.
+P2: schema, `can_access` and row-level security as an up/down migration on a Neon branch of `sisyphusdev-apps`, plus the low-privilege app role and the isolation tests.
 
 ## Done
 
+- 2026-11-25 — P1: Neon project `sisyphusdev-apps` (`little-silence-14430370`, aws-us-east-1, branch `br-cool-mud-bbp8240c`), Neon Auth enabled, trusted origin purpose.sisyphusdev.com, app name set. Neon's default sign-in methods (password, shared Google, Organization plugin) are still on, to be narrowed in P3
 - 2026-11-25 — Marc decided D1 (own tables), D2 (email code), D3 (admins see all teams), D5 (new Neon project, Hyperdrive): SDEV-D-15 to SDEV-D-18
 - 2026-11-25 — POSIWID design, this file, SDEV-D-14 (proposed) and SDEV-OI-06 (https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/18)
 
 ## Blocked on
 
 - D4 (organization-wide space) is open; the first version builds without one.
-- P1 resource creation needs Marc's go-ahead.
 - Package installs are refused in the claude.ai cloud session (shell network is off). P3 and P4 need `@neondatabase/auth` and a JWT library such as `jose`. Workers Builds installs them at deploy, but local tests in that session can't. Run those phases on the Surface or in a session with installs allowed.
 
 ## Next step
 
-P1: create the Neon project (AWS us-east), enable Neon Auth with email OTP, add trusted domains `https://purpose.sisyphusdev.com` and the workers.dev preview origin, and create a Hyperdrive config. Record the outputs in the site status file, without connection strings.
+P2 on a Neon branch (not `main`). Then Marc creates the Hyperdrive config for the app role (`npx wrangler hyperdrive create sisyphusdev-apps --connection-string="<app role connection string>"`, run on the Surface so the string never enters a file or chat).
+
+## To do later (from P1)
+
+- P3: turn off email and password, shared Google and the Organization plugin once email-code sign-in is tested (SDEV-D-15, -16).
+- P3: trust the workers.dev preview origin, or test previews against a Neon branch with its own Auth URL.
+- P6: turn off localhost origins; own mail server.
 
 ## Dead ends
 
