@@ -26,7 +26,7 @@ P0: Marc decides D1–D5 (design § 5).
 
 ## Done
 
-- 2026-11-25 — POSIWID design, this file, SDEV-D-14 (proposed) and SDEV-OI-06 (pull request purpose-accounts-design)
+- 2026-11-25 — POSIWID design, this file, SDEV-D-14 (proposed) and SDEV-OI-06 (https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/18)
 
 ## Blocked on
 

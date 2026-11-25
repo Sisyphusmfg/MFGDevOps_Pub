@@ -5,7 +5,7 @@ Status: Active
 agent_grounding: false
 Agent: Claude Opus 5.5, claude.ai session
 Timestamp: "2026-11-25T18:36:00-05:00"
-Pull Request: pending
+Pull Request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/18
 Decisions: SDEV-D-14
 ---
 
