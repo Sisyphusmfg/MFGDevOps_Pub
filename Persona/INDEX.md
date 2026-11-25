@@ -31,6 +31,7 @@ Repo-wide rules for `MFGDevOps_Pub`: the methods that agents follow (POSIWID and
 | How to run POSIWID work: origin, five questions, design executable, two-container facilitation, root expectations, diagnostic executable and loop, constant-failure test, simulations, sources | [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md) *(Draft)* | 1 |
 | Which POSIWID files (diagnostics, designs, drafts, simulations) an agent may cite | [`POSIWID_Diagnostic_Grounding.md`](POSIWID_Diagnostic_Grounding.md) | 1 |
 | How AI manages goals: gates, AI rules, limits, pace and health, reviews, closing | [`POSIWID_Design_Goal_Agent.md`](POSIWID_Design_Goal_Agent.md) *(Draft)* | 1 |
+| How machine-first works, and how to scaffold a new domain (four files, routing, front matter, decision table) | [`../.agents/skills/machine-first-scaffold/SKILL.md`](../.agents/skills/machine-first-scaffold/SKILL.md) | 1 |
 | Front matter, file naming, decision IDs, and what may be published | [`Artifact_Metadata_Standard.md`](Artifact_Metadata_Standard.md) | 1 |
 | Why this repo exists, the public-only rule, who merges, where methods live, the grounding rule | [`DECISIONS.md`](DECISIONS.md) PUB-D-01 to PUB-D-07 *(HITL — not for grounding)* | — |
 | What an agent did recently | [`Agent_Activity_Log.md`](Agent_Activity_Log.md) (format and entries before 2026-11-24) → newest entries are the last files in `Agent_Activity_Log/` | — |
@@ -48,6 +49,13 @@ Repo-wide rules for `MFGDevOps_Pub`: the methods that agents follow (POSIWID and
 | [`POSIWID_Design_Goal_Agent.md`](POSIWID_Design_Goal_Agent.md) | 2026-11-24 | 1 | POSIWID design of the goal agent: expectations, outputs, gates, AI rules, limits and cadence, goal parts, pace and health, reviews, closing, measurable change, where it is carried out. Replaces Workstreams/Goal_Agent/Goal_Method_Reference.md (PUB-D-05). Draft, `agent_grounding: false` |
 | [`Artifact_Metadata_Standard.md`](Artifact_Metadata_Standard.md) | 2026-11-22 | 1 | Public edition of the metadata standard: fields, naming, public-only content, never-stored list |
 | [`Agent_Activity_Log.md`](Agent_Activity_Log.md) | 2026-11-24 | — | Agent log format and the 15 entries written before 2026-11-24 (PUB-D-09). New entries are one file each in `Agent_Activity_Log/` (PUB-D-08). `agent_grounding: false`. |
+
+## Agent layer register (outside this folder, owned here)
+
+| File | Date | authority_rank | Description |
+|------|------|----------------|-------------|
+| [`../.agents/skills/machine-first-scaffold/SKILL.md`](../.agents/skills/machine-first-scaffold/SKILL.md) | 2026-11-24 | 1 | Self-contained machine-first method and domain scaffold (PUB-D-12). Pointers in `.claude/skills/` and `.cursor/skills/` |
+| [`../.agents/skills/machine-first-scaffold/references/templates.md`](../.agents/skills/machine-first-scaffold/references/templates.md) | 2026-11-24 | 1 | Templates for INDEX, DECISIONS, AGENTS and README |
 
 ## Cross-links
 
