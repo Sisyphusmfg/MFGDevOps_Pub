@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Root README / Router
 Topic: MFGDevOps_Pub — public manufacturing engineering and AI work
 Status: Active
@@ -33,7 +33,6 @@ The public, machine-first workspace for Sisyphus Manufacturing: tools, methods a
 | `wrangler.jsonc` · `scripts/` | Cloudflare Worker config and the build that assembles the site. Merging to `main` deploys (SDEV-D-05) | [`Workstreams/Sisyphusdev_Site/INDEX.md`](Workstreams/Sisyphusdev_Site/INDEX.md) |
 | `.github/workflows/` | CI: the check that blocks links to private repositories (PUB-D-03) | [`public-link-check.yml`](.github/workflows/public-link-check.yml) |
 | `Inbox/` | Unsorted drops waiting to be filed (not grounding) | [`Inbox/README.md`](Inbox/README.md) |
-| `Archive/` | Superseded and legacy material (not grounding) | [`Archive/README.md`](Archive/README.md) |
 
 ## Rules of the road
 

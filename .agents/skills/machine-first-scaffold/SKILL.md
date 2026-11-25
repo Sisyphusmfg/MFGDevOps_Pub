@@ -27,7 +27,7 @@ Copy the four templates from [`references/templates.md`](references/templates.md
 
 ## Phase B — Fill the INDEX
 
-1. List every file already in the folder (skip `Archive/`). Add each to the document register with its date, `authority_rank` and a one-line description.
+1. List every file already in the folder. Add each to the document register with its date, `authority_rank` and a one-line description.
 2. Write the question rows: for each question a reader is likely to ask, name the one document that answers it.
 3. Mark any file the routes name that isn't on disk as `⚠️ Missing on disk`.
 
