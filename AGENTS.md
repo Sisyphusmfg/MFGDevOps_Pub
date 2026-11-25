@@ -101,13 +101,12 @@ Design artifacts use `doc_type: posiwid-design`. Diagnostics use `doc_type: fore
 
 - Never write passwords, passphrases, API keys or tokens, SSNs, government ID numbers, or bank, card or account numbers into any file. CI scans each pull request's commits for secrets and fails it on a find (`.github/workflows/secret-scan.yml`, PUB-D-15).
 - **Work that spans sessions keeps a progress file (PUB-D-16).** Before starting, list `Persona/Progress/PROGRESS_*.md` and read any `Status: Active` file that matches the task. When work will not finish in one session or one pull request, create `Persona/Progress/PROGRESS_<Topic>.md` from [`Persona/Progress_Template.md`](Persona/Progress_Template.md) and update it in every pull request of that work. Set `Status: Closed` with an Outcome when it ends.
-- Edit files in place in git. Git history replaces copying old versions to `Archive/`.
+- **No archive folders (PUB-D-17, Marc 2026-11-25).** Edit files in place in git. Old versions live in git history (`git log -p <file>`, or the file's history on GitHub); a document's standing comes from its front matter (`Status`, `agent_grounding`) and its INDEX row (`authority_rank`). Don't create `Archive/`, `archive/` or `_vN` copies. To retire a file, delete it in a pull request (git keeps it) or mark it `Status: Superseded` and drop its INDEX route.
 - When a file changes, update its row in the domain `INDEX.md` register (date, description).
 - Every `.md` artifact needs front matter per [`Persona/Artifact_Metadata_Standard.md`](Persona/Artifact_Metadata_Standard.md). Non-markdown files get a register row in their domain INDEX.
 - Each operated workstream keeps a `*_Status.md`. Update it at the end of every session, and record system state from live output, not from memory.
 - `Inbox/` is a drop zone. File each item into a domain and register it in that domain's INDEX.
-- `Archive/` is never grounding.
-- Cite an artifact only when an INDEX row routes to it at `authority_rank: 1`. Do not cite `DECISIONS.md` or `Archive/`.
+- Cite an artifact only when an INDEX row routes to it at `authority_rank: 1`. Do not cite `DECISIONS.md`.
 - Run scripts as `bash script.sh`.
 
 Live write paths: `Persona/`, `Reference/`, `Workstreams/Sisyphusdev_Site/`, `Workstreams/POSIWID_Analysis/`, `Workstreams/Goal_Agent/`, `Workstreams/Blog/`, `.agents/`, `.claude/`, `.cursor/`, `scripts/`, root `wrangler.jsonc`, `.github/`, root `README.md`, root `AGENTS.md`.

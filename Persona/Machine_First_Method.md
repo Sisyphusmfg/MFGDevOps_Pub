@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Method Reference
 Status: Active
 doc_type: canonical-spec
@@ -53,4 +53,4 @@ Every `DECISIONS.md` keeps its decisions in one table (PUB-D-10, PUB-D-11):
 - A file named in an INDEX that isn't on disk is marked `⚠️ Missing on disk`, not silently dropped.
 - An operated system (a site, a service, a running process) gets a `<Domain>_Status.md` with its live state, written from command output, not from memory.
 - Agents add one activity-log entry per change (PUB-D-08), and every pull request states its rollback path (PUB-D-04).
-- `Archive/` holds the past. It is never cited.
+- There are no archive folders. Git history holds every earlier version of a file; a document's standing comes from its front matter and its INDEX `authority_rank`. A retired file is deleted in a pull request or marked `Status: Superseded` (PUB-D-17).
