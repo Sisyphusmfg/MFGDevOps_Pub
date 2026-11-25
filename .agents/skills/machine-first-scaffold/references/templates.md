@@ -11,7 +11,7 @@ authority_rank: 1
 
 # Machine-first domain templates
 
-Templates for the four files of a machine-first domain, used by the `machine-first-scaffold` skill. Replace every `[placeholder]`. Dates are `YYYY-MM-DD`.
+Templates for the four files of a machine-first domain, used by the `machine-first-scaffold` skill. The rules they follow are in [`Persona/Machine_First_Method.md`](../../../../Persona/Machine_First_Method.md). Replace every `[placeholder]`. Dates are `YYYY-MM-DD`.
 
 ## INDEX.md
 
