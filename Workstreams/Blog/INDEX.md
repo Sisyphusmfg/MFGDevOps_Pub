@@ -28,7 +28,7 @@ The sisyphusdev blog at `blog.sisyphusdev.com`: one Markdown file per post in `p
 
 | If the question is about… | Authoritative document | Rank |
 |---|---|---|
-| How to write and publish a post | [`Post_Template.md`](Post_Template.md) | 1 |
+| How to write, publish and schedule a post, and why a draft is not filed here | [`Post_Template.md`](Post_Template.md) | 1 |
 | What a post page and the post list look like, and how posts are built | [`../../scripts/build-blog.mjs`](../../scripts/build-blog.mjs) | 1 |
 | Which posts exist | Post register, below | 1 |
 | Whether the blog is live | [`../Sisyphusdev_Site/Sisyphusdev_Site_Status.md`](../Sisyphusdev_Site/Sisyphusdev_Site_Status.md) | 1 |
@@ -38,26 +38,25 @@ The sisyphusdev blog at `blog.sisyphusdev.com`: one Markdown file per post in `p
 
 | File | Updated | Rank | Description |
 |------|---------|------|-------------|
-| [`README.md`](README.md) | 2026-11-24 | — | Human onboarding |
+| [`README.md`](README.md) | 2026-11-25 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-25 | — | Agent instructions for this domain |
-| [`DECISIONS.md`](DECISIONS.md) | 2026-11-24 | — | Decision log: BLOG-D-01 to BLOG-D-04 |
-| [`Post_Template.md`](Post_Template.md) | 2026-11-24 | 1 | Post front matter, file naming, the Markdown the build supports, and how to publish |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-25 | — | Decision log: BLOG-D-01 to BLOG-D-06 |
+| [`Post_Template.md`](Post_Template.md) | 2026-11-25 | 1 | Post front matter, file naming, the Markdown the build supports, how to publish and how to schedule a post (BLOG-D-05); a draft is not filed here (BLOG-D-06) |
 
 ## Post register
 
-Published posts appear on the blog; drafts don't. One row per file in `posts/`.
+Published posts appear on the blog from their date. A draft is not filed in this repository (BLOG-D-06). One row per file in `posts/`.
 
 | File | Date | Category | Status | Title |
 |------|------|----------|--------|-------|
-| [`posts/2026-11-24_Blog_System_Design_And_Analysis.md`](posts/2026-11-24_Blog_System_Design_And_Analysis.md) | 2026-11-24 | Tools | Draft | Example post: System Design and Analysis |
 | [`posts/2026-11-25_Blog_From_README_To_Rulebook.md`](posts/2026-11-25_Blog_From_README_To_Rulebook.md) | 2026-11-25 | Systems | Published | From README to rulebook: turning engineering knowledge into guidance people and agents can follow |
 
 ## Agent layer register (outside this folder, owned here)
 
 | File | Date | authority_rank | Description |
 |------|------|----------------|-------------|
-| [`../../scripts/build-blog.mjs`](../../scripts/build-blog.mjs) | 2026-11-24 | 1 | Builds `dist/blog/` from `posts/`: post list with a featured latest post, category flags and filter, one page per post. No dependencies |
-| [`../../scripts/test/build-blog.test.mjs`](../../scripts/test/build-blog.test.mjs) | 2026-11-24 | — | Tests. Run `node --test scripts/test/build-blog.test.mjs` |
+| [`../../scripts/build-blog.mjs`](../../scripts/build-blog.mjs) | 2026-11-25 | 1 | Builds `dist/blog/` from `posts/`: post list with a featured latest post, category flags and filter, one page per post. Leaves out Published posts dated after today (New York) and writes `schedule.json` with the next scheduled date (BLOG-D-05). Stops on a `Status: Draft` post (BLOG-D-06). No dependencies |
+| [`../../scripts/test/build-blog.test.mjs`](../../scripts/test/build-blog.test.mjs) | 2026-11-25 | — | Tests. Run `node --test scripts/test/build-blog.test.mjs` |
 
 ## Cross-links
 

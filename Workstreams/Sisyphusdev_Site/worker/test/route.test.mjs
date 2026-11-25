@@ -1,4 +1,4 @@
-// Run: node --test Workstreams/Sisyphusdev_Site/worker/test/
+// Run: node --test Workstreams/Sisyphusdev_Site/worker/test/route.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import worker, { route } from "../index.mjs";
@@ -43,4 +43,36 @@ test("fetch hands non-redirects to ASSETS", async () => {
   const red = await worker.fetch(new Request("https://sisyphusdev.com/posiwid/"), env);
   assert.equal(red.status, 301);
   assert.equal(red.headers.get("location"), "https://purpose.sisyphusdev.com/posiwid/");
+});
+
+// Scheduled blog posts (BLOG-D-05, SDEV-D-13)
+import { rebuildDue, checkSchedule } from "../index.mjs";
+
+test("rebuild is due only when the next scheduled date has arrived", () => {
+  assert.equal(rebuildDue({ next: "2026-12-01" }, "2026-11-30"), false);
+  assert.equal(rebuildDue({ next: "2026-12-01" }, "2026-12-01"), true);
+  assert.equal(rebuildDue({ next: "2026-12-01" }, "2026-12-02"), true);
+  assert.equal(rebuildDue({ next: null }, "2026-12-02"), false);
+  assert.equal(rebuildDue(null, "2026-12-02"), false);
+});
+
+test("checkSchedule posts the deploy hook only when due and configured", async () => {
+  const assets = (body, status = 200) => ({ fetch: async () => new Response(JSON.stringify(body), { status }) });
+  const calls = [];
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async (url, init) => { calls.push([url, init.method]); return new Response("{}", { status: 200 }); };
+  const quiet = console.log, loud = console.error;
+  console.log = () => {}; console.error = () => {};
+  try {
+    // 12:00 UTC on Dec 1 = Dec 1 in New York.
+    const at = new Date("2026-12-01T12:00:00Z");
+    assert.equal((await checkSchedule({ ASSETS: assets({ next: "2026-12-02" }), BLOG_DEPLOY_HOOK: "https://hook.test/x" }, at)).rebuilt, false);
+    assert.equal((await checkSchedule({ ASSETS: assets({ next: "2026-12-01" }) }, at)).reason, "no hook");
+    assert.equal((await checkSchedule({ ASSETS: assets({}, 404), BLOG_DEPLOY_HOOK: "https://hook.test/x" }, at)).reason, "schedule.json 404");
+    assert.equal(calls.length, 0);
+    assert.equal((await checkSchedule({ ASSETS: assets({ next: "2026-12-01" }), BLOG_DEPLOY_HOOK: "https://hook.test/x" }, at)).rebuilt, true);
+    assert.deepEqual(calls, [["https://hook.test/x", "POST"]]);
+  } finally {
+    globalThis.fetch = realFetch; console.log = quiet; console.error = loud;
+  }
 });

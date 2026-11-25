@@ -26,6 +26,13 @@
     // Blog (BLOG-D-01).
     { "pattern": "blog.sisyphusdev.com", "custom_domain": true }
   ],
+  // Scheduled blog posts (BLOG-D-05, SDEV-D-13): once a day the Worker checks
+  // blog/schedule.json and, when a post's date has arrived, calls the Workers Builds
+  // deploy hook in the BLOG_DEPLOY_HOOK secret. Cron times are UTC:
+  // 11:15 UTC is 6:15 AM in New York in winter, 7:15 AM in summer.
+  "triggers": {
+    "crons": ["15 11 * * *"]
+  },
   // Turns on workers.dev Preview URLs, so each PR gets a link. It takes effect on the next production deploy.
   // workers.dev Preview URLs are public, and Cloudflare adds X-Robots-Tag: noindex.
   "preview_urls": true,

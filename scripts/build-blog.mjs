@@ -1,10 +1,15 @@
-// Build the blog for blog.sisyphusdev.com (BLOG-D-02, BLOG-D-03).
+// Build the blog for blog.sisyphusdev.com (BLOG-D-02, BLOG-D-03, BLOG-D-05).
 // Reads one Markdown file per post from Workstreams/Blog/posts/ and writes
 // static pages under dist/blog/. No dependencies: Node 18+ only.
 //
-//   node scripts/build-blog.mjs [postsDir] [outDir] [--drafts]
+//   node scripts/build-blog.mjs [postsDir] [outDir] [--drafts] [--today=YYYY-MM-DD]
 //
-// Published posts only, unless --drafts is given (local preview).
+// Published posts dated today or earlier (America/New_York) only. A Published
+// post with a later date is scheduled and appears at the first build on or
+// after that date. A post with Status: Draft stops the build: drafts are kept
+// out of this public repository until they are ready (BLOG-D-06).
+// --drafts allows drafts and includes scheduled posts, for previewing posts
+// kept elsewhere; --today sets the date the build treats as today.
 // A post with bad front matter stops the build with a message.
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from "node:fs";
@@ -288,22 +293,39 @@ footer { border-top: 1px solid var(--line); }
 footer .wrap { padding-top: 20px; padding-bottom: 20px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 13px; color: var(--ink-3); }
 `;
 
-export function build(postsDir, outDir, { drafts = false } = {}) {
+// Today's date in America/New_York as YYYY-MM-DD (BLOG-D-05: posts go live by
+// Marc's calendar day, not UTC).
+export function todayInNewYork(now = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(now);
+}
+
+// A post is live when it is Published and its date is today or earlier.
+// A Published post with a later date is scheduled: it is left out until a
+// build runs on or after that date (BLOG-D-05). --drafts shows everything.
+export function build(postsDir, outDir, { drafts = false, today = todayInNewYork() } = {}) {
   const files = existsSync(postsDir) ? readdirSync(postsDir).filter((f) => f.endsWith(".md")).sort() : [];
   const posts = [];
+  const scheduled = [];
   const problems = [];
   for (const f of files) {
     const p = readPost(f, readFileSync(join(postsDir, f), "utf8"));
     if (p.errors.length) { problems.push(`${f}: ${p.errors.join("; ")}`); continue; }
-    if (p.status === "Published" || drafts) posts.push(p);
+    if (p.status === "Draft" && !drafts) {
+      problems.push(`${f}: Status is Draft. Drafts stay out of this public repository until they are ready (BLOG-D-06); set Status: Published when it is ready, or remove the file`);
+      continue;
+    }
+    const isScheduled = p.status === "Published" && p.date > today;
+    if (isScheduled) scheduled.push(p);
+    if ((p.status === "Published" && !isScheduled) || drafts) posts.push(p);
   }
   const slugs = new Map();
-  for (const p of posts) {
+  for (const p of [...posts, ...scheduled.filter((s) => !posts.includes(s))]) {
     if (slugs.has(p.slug)) problems.push(`${p.file}: slug "${p.slug}" is also used by ${slugs.get(p.slug)}`);
     slugs.set(p.slug, p.file);
   }
   if (problems.length) throw new Error("build-blog: fix these posts:\n  " + problems.join("\n  "));
   posts.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.title.localeCompare(b.title)));
+  scheduled.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, "blog.css"), CSS);
   writeFileSync(join(outDir, "index.html"), renderIndex(posts));
@@ -311,16 +333,24 @@ export function build(postsDir, outDir, { drafts = false } = {}) {
     mkdirSync(join(outDir, p.slug), { recursive: true });
     writeFileSync(join(outDir, p.slug, "index.html"), renderPost(p));
   }
+  // The Worker's daily check reads this to decide whether a rebuild is due
+  // (SDEV-D-13). Only the date is written; titles stay out of the built site.
+  writeFileSync(join(outDir, "schedule.json"), JSON.stringify({ built: today, next: scheduled.length ? scheduled[0].date : null }) + "\n");
+  posts.scheduled = scheduled;
   return posts;
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const args = process.argv.slice(2);
   const drafts = args.includes("--drafts");
+  const todayArg = args.find((a) => a.startsWith("--today="));
+  const today = todayArg ? todayArg.slice("--today=".length) : todayInNewYork();
   const [postsDir = "Workstreams/Blog/posts", outDir = "dist/blog"] = args.filter((a) => !a.startsWith("--"));
   try {
-    const posts = build(postsDir, outDir, { drafts });
-    console.log(`build-blog: ${posts.length} post(s) in ${outDir}${drafts ? " (drafts included)" : ""}`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(today)) throw new Error(`build-blog: --today must be YYYY-MM-DD, got "${today}"`);
+    const posts = build(postsDir, outDir, { drafts, today });
+    console.log(`build-blog: ${posts.length} post(s) in ${outDir}${drafts ? " (drafts and scheduled included)" : ""}, today ${today} (America/New_York)`);
+    for (const p of posts.scheduled) console.log(`build-blog: scheduled ${p.date} ${p.file}`);
   } catch (e) {
     console.error(e.message);
     process.exit(1);
