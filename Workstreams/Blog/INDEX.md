@@ -3,7 +3,7 @@ title: Blog — Domain Index
 doc_type: readme-index
 domain: blog
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Domain Index
 Status: Active
 authority_rank: 1
@@ -50,6 +50,7 @@ Published posts appear on the blog; drafts don't. One row per file in `posts/`.
 | File | Date | Category | Status | Title |
 |------|------|----------|--------|-------|
 | [`posts/2026-11-24_Blog_System_Design_And_Analysis.md`](posts/2026-11-24_Blog_System_Design_And_Analysis.md) | 2026-11-24 | Tools | Draft | Example post: System Design and Analysis |
+| [`posts/2026-11-25_Blog_From_README_To_Rulebook.md`](posts/2026-11-25_Blog_From_README_To_Rulebook.md) | 2026-11-25 | Systems | Published | From README to rulebook: turning engineering knowledge into guidance people and agents can follow |
 
 ## Agent layer register (outside this folder, owned here)
 
