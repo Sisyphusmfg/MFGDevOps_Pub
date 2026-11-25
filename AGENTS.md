@@ -10,6 +10,7 @@ These are behavioral instructions for agents working in `MFGDevOps_Pub`. This fi
 
 - Commit messages are one line saying what changed and why. Reference decision IDs (e.g. `PUB-D-03`). Pull before you start (`git pull --rebase`). Never force-push `main`.
 - Marc merges every pull request (PUB-D-04).
+- Every pull request description follows [`.github/pull_request_template.md`](.github/pull_request_template.md). Write its `done_when` section before the work: the checkable conditions that make the pull request finished (PUB-D-14). Report each one under Checks run.
 - **`main` is protected** by the GitHub ruleset "Protect main" (PUB-D-07): no deletion, no force push, changes only through a pull request, and the `check` status (public-link check) must pass. A direct push to `main` is refused. Work on a branch and open a pull request.
 
 ## Public-only rule (PUB-D-03)
@@ -64,7 +65,7 @@ Methods agents follow live in Persona (PUB-D-05): [`Persona/Machine_First_Method
 
 ## Agent activity log
 
-Each entry is its own file in `Persona/Agent_Activity_Log/`, named `YYYY-MM-DD_HHMM_<agent>_<topic>.md` in America/New_York time (PUB-D-08). Before you start, read the newest 20 entries: the last 20 files by name in that folder (if it has fewer than 20, read the tail of [`Persona/Agent_Activity_Log.md`](Persona/Agent_Activity_Log.md), which keeps older entries and the entry format, PUB-D-09). After acting, add one entry file in the same pull request as the change it describes. Do not edit an entry after it merges; a correction is a new entry file. Do not register entry files in an INDEX. The log is `agent_grounding: false`.
+Each entry is its own file in `Persona/Agent_Activity_Log/`, named `YYYY-MM-DD_HHMM_<agent>_<topic>.md` in America/New_York time (PUB-D-08). Before you start, read the newest 20 entries: the last 20 files by name in that folder (if it has fewer than 20, read the tail of [`Persona/Agent_Activity_Log.md`](Persona/Agent_Activity_Log.md), which keeps older entries and the entry format, PUB-D-09). After acting, add one entry file in the same pull request as the change it describes; CI (`.github/workflows/activity-log-entry.yml`) fails a pull request without one or with a malformed one (PUB-D-13). Do not edit an entry after it merges; a correction is a new entry file. Do not register entry files in an INDEX. The log is `agent_grounding: false`.
 
 ## Problem-solving format (POSIWID)
 
@@ -98,7 +99,8 @@ Design artifacts use `doc_type: posiwid-design`. Diagnostics use `doc_type: fore
 
 ## Hard rules
 
-- Never write passwords, passphrases, API keys or tokens, SSNs, government ID numbers, or bank, card or account numbers into any file.
+- Never write passwords, passphrases, API keys or tokens, SSNs, government ID numbers, or bank, card or account numbers into any file. CI scans each pull request's commits for secrets and fails it on a find (`.github/workflows/secret-scan.yml`, PUB-D-15).
+- **Work that spans sessions keeps a progress file (PUB-D-16).** Before starting, list `Persona/Progress/PROGRESS_*.md` and read any `Status: Active` file that matches the task. When work will not finish in one session or one pull request, create `Persona/Progress/PROGRESS_<Topic>.md` from [`Persona/Progress_Template.md`](Persona/Progress_Template.md) and update it in every pull request of that work. Set `Status: Closed` with an Outcome when it ends.
 - Edit files in place in git. Git history replaces copying old versions to `Archive/`.
 - When a file changes, update its row in the domain `INDEX.md` register (date, description).
 - Every `.md` artifact needs front matter per [`Persona/Artifact_Metadata_Standard.md`](Persona/Artifact_Metadata_Standard.md). Non-markdown files get a register row in their domain INDEX.
