@@ -1,7 +1,7 @@
 // Run: node --test scripts/test/build-blog.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync, readFileSync, existsSync, mkdirSync } from "node:fs";
+import { mkdtempSync, writeFileSync, readFileSync, existsSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { markdownToHtml, readPost, slugFromFile, formatDate, build } from "../build-blog.mjs";
@@ -33,12 +33,15 @@ test("front matter, slug and date", () => {
   assert.equal(bad.errors.length, 3);
 });
 
-test("build: published only, newest first, drafts on request, bad post stops the build", () => {
+test("build: published only, newest first, a draft stops the build unless --drafts, bad post stops the build", () => {
   const dir = mkdtempSync(join(tmpdir(), "blog-"));
   const posts = join(dir, "posts"); mkdirSync(posts);
   writeFileSync(join(posts, "2026-11-20_Blog_Older.md"), post(OK.replace("2026-11-24\n", "2026-11-24\n").replace("date: 2026-11-24", "date: 2026-11-20").replace('"A: first post"', "Older")));
   writeFileSync(join(posts, "2026-11-24_Blog_Newer.md"), post(OK.replace('"A: first post"', "Newer").replace("category: Systems", "category: AI")));
   writeFileSync(join(posts, "2026-11-25_Blog_Draft.md"), post(OK.replace("Status: Published", "Status: Draft").replace('"A: first post"', "Draft")));
+  assert.throws(() => build(posts, join(dir, "out0")), /2026-11-25_Blog_Draft\.md: Status is Draft.*BLOG-D-06/);
+  assert.equal(build(posts, join(dir, "out2"), { drafts: true }).length, 3);
+  rmSync(join(posts, "2026-11-25_Blog_Draft.md"));
   const out = join(dir, "out");
   const built = build(posts, out);
   assert.deepEqual(built.map((p) => p.title), ["Newer", "Older"]);
@@ -48,7 +51,6 @@ test("build: published only, newest first, drafts on request, bad post stops the
   assert.match(index, /class="card featured"[^>]*data-cat="AI"/);
   assert.ok(existsSync(join(out, "newer", "index.html")));
   assert.ok(!existsSync(join(out, "draft")));
-  assert.equal(build(posts, join(dir, "out2"), { drafts: true }).length, 3);
   writeFileSync(join(posts, "2026-11-26_Blog_Broken.md"), post("title: Broken"));
   assert.throws(() => build(posts, join(dir, "out3")), /Broken/);
 });

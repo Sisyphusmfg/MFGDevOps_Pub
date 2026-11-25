@@ -6,8 +6,10 @@
 //
 // Published posts dated today or earlier (America/New_York) only. A Published
 // post with a later date is scheduled and appears at the first build on or
-// after that date. --drafts includes drafts and scheduled posts (local
-// preview); --today sets the date the build treats as today.
+// after that date. A post with Status: Draft stops the build: drafts are kept
+// out of this public repository until they are ready (BLOG-D-06).
+// --drafts allows drafts and includes scheduled posts, for previewing posts
+// kept elsewhere; --today sets the date the build treats as today.
 // A post with bad front matter stops the build with a message.
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from "node:fs";
@@ -308,6 +310,10 @@ export function build(postsDir, outDir, { drafts = false, today = todayInNewYork
   for (const f of files) {
     const p = readPost(f, readFileSync(join(postsDir, f), "utf8"));
     if (p.errors.length) { problems.push(`${f}: ${p.errors.join("; ")}`); continue; }
+    if (p.status === "Draft" && !drafts) {
+      problems.push(`${f}: Status is Draft. Drafts stay out of this public repository until they are ready (BLOG-D-06); set Status: Published when it is ready, or remove the file`);
+      continue;
+    }
     const isScheduled = p.status === "Published" && p.date > today;
     if (isScheduled) scheduled.push(p);
     if ((p.status === "Published" && !isScheduled) || drafts) posts.push(p);
