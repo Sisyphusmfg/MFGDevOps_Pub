@@ -26,6 +26,7 @@ P2: schema, `can_access` and row-level security as an up/down migration on a Neo
 
 ## Done
 
+- 2026-11-25 — SDEV-D-19 (Marc approves every account). Neon Auth sign-up closed (`disable_sign_up: true`), Google provider removed, 0 users (Neon API and SQL output). Design gains O8, the `access_request` and `platform_admin` tables, and D6
 - 2026-11-25 — P1: Neon project `sisyphusdev-apps` (`little-silence-14430370`, aws-us-east-1, branch `br-cool-mud-bbp8240c`), Neon Auth enabled, trusted origin purpose.sisyphusdev.com, app name set. Neon's default sign-in methods (password, shared Google, Organization plugin) are still on, to be narrowed in P3
 - 2026-11-25 — Marc decided D1 (own tables), D2 (email code), D3 (admins see all teams), D5 (new Neon project, Hyperdrive): SDEV-D-15 to SDEV-D-18
 - 2026-11-25 — POSIWID design, this file, SDEV-D-14 (proposed) and SDEV-OI-06 (https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/18)
@@ -33,6 +34,7 @@ P2: schema, `can_access` and row-level security as an up/down migration on a Neo
 ## Blocked on
 
 - D4 (organization-wide space) is open; the first version builds without one.
+- D6 (how Marc hears about access requests) is open.
 - Package installs are refused in the claude.ai cloud session (shell network is off). P3 and P4 need `@neondatabase/auth` and a JWT library such as `jose`. Workers Builds installs them at deploy, but local tests in that session can't. Run those phases on the Surface or in a session with installs allowed.
 
 ## Next step
@@ -41,7 +43,8 @@ P2 on a Neon branch (not `main`). Then Marc creates the Hyperdrive config for th
 
 ## To do later (from P1)
 
-- P3: turn off email and password, shared Google and the Organization plugin once email-code sign-in is tested (SDEV-D-15, -16).
+- P3: check that the Admin plugin can create a user who signs in by email code, and that code sign-in works while sign-up is closed (design § Account approval). Then turn off password sign-in and the Organization plugin (SDEV-D-15, -16). Google is already removed.
+- P3: bootstrap Marc as the first user and platform admin. Needs his sign-in email, given by him at that step and never written to the repository.
 - P3: trust the workers.dev preview origin, or test previews against a Neon branch with its own Auth URL.
 - P6: turn off localhost origins; own mail server.
 
