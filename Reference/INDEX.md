@@ -3,7 +3,7 @@ title: Reference — Domain Index
 doc_type: readme-index
 domain: reference
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Domain Index
 Status: Active
 authority_rank: 1
@@ -37,7 +37,7 @@ Public method references: POSIWID, machine-first indexing, systems thinking and 
 | [`INDEX.md`](INDEX.md) | 2026-11-22 | 1 | This file — domain router |
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
-| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. No decisions yet |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-24 | — | HITL *(not for grounding)*. No decisions yet |
 
 ## Cross-links
 

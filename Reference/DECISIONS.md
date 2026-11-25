@@ -2,7 +2,7 @@
 title: Reference — Decisions Log
 doc_type: decisions-log
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Record
 Status: Active
 agent_grounding: false
@@ -13,6 +13,5 @@ agent_maintenance: true
 
 Human-in-the-loop rationale. **Not** for answering-agent grounding.
 
-| Date | Decision | Rationale | Status |
-|------|----------|-----------|--------|
-| — | No decisions yet | — | — |
+| Date | Decision | Rationale | Status | Superseded by |
+|------|----------|-----------|--------|---------------|

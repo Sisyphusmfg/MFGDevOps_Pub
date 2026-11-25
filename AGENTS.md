@@ -33,6 +33,8 @@ This repository and sisyphusdev.com are public. Marc's private MFGDevOps reposit
 
 `AGENTS.md`, `INDEX.md`, `DECISIONS.md` and `README.md` are always `Status: Active`. Content maturity lives in the documents they route to.
 
+Every `DECISIONS.md` keeps its decisions in one table: `| Date | Decision | Rationale | Status | Superseded by |`. The Decision cell starts with an ID (`<PREFIX>-D-NN — title`). Status is one of `proposed`, `adopted`, `superseded`, `rejected`. `Superseded by` holds the replacing decision ID and is filled only when Status is `superseded`. Each row holds exactly one decision: when a later decision replaces part of an earlier one, split the earlier row first so the replaced part has its own row marked `superseded`. Open-work and unresolved-question tables are not decision tables (PUB-D-10, PUB-D-11).
+
 ## Routing order
 
 1. Root [`README.md`](README.md): find the domain.

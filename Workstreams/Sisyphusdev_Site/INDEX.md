@@ -3,7 +3,7 @@ title: Sisyphusdev_Site — Domain Index
 doc_type: readme-index
 domain: sisyphusdev-site
 Contributed By: Marc Dugas
-Last Updated: 2026-11-22
+Last Updated: 2026-11-24
 Document Type: Domain Index
 Status: Active
 authority_rank: 1
@@ -43,7 +43,7 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | [`INDEX.md`](INDEX.md) | 2026-11-22 | 1 | This file — domain router |
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
-| [`DECISIONS.md`](DECISIONS.md) | 2026-11-22 | — | HITL *(not for grounding)*. SDEV-D-01 to -03 site basics; SDEV-D-04 one Worker, apps at paths, build step (proposed); SDEV-D-05 root config, Worker `mfgdevops-pub`; SDEV-D-06 logo in `site/public/`, PNG for now; SDEV-D-07 PR preview builds |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-24 | — | HITL *(not for grounding)*. SDEV-D-01 to -03 site basics; SDEV-D-04 one Worker, apps at paths, build step (proposed); SDEV-D-05 root config, Worker `mfgdevops-pub`; SDEV-D-06 logo in `site/public/`, PNG for now; SDEV-D-07 PR preview builds |
 | [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) | 2026-11-22 | 1 | Live state: first Workers Builds deploy failed (no root config); fix in PR #2. Open items SDEV-OI-01 to -03 |
 | [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) | 2026-11-22 | 1 | Procedure: how Workers Builds deploys, path map, preview, private-link check, verify, add an app, roll back. Draft |
 | [`../../wrangler.jsonc`](../../wrangler.jsonc) | 2026-11-22 | 1 | Worker config at repo root (owned here): name `mfgdevops-pub`, build `bash scripts/build-site.sh`, assets `./dist`, custom domains `sisyphusdev.com`, `www.sisyphusdev.com`, `previews` block and `preview_urls: true` for PR preview builds and links (SDEV-D-07) |
