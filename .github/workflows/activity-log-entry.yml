@@ -1,0 +1,29 @@
+name: Activity log entry
+
+# MFGDevOps_Pub check (PUB-D-13). Fails a pull request that adds no new entry
+# file in Persona/Agent_Activity_Log/, or adds one with malformed front matter.
+# Rollback: revert the pull request that added this workflow and
+# scripts/check_activity_entry.py.
+
+on:
+  pull_request:
+
+jobs:
+  activity-entry:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install PyYAML
+        run: pip install 'PyYAML==6.0.1'
+
+      - name: Check for a new activity-log entry
+        run: python3 scripts/check_activity_entry.py "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"

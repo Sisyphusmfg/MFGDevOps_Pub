@@ -3,7 +3,7 @@ title: Sisyphusdev_Site — Domain Index
 doc_type: readme-index
 domain: sisyphusdev-site
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Domain Index
 Status: Active
 authority_rank: 1
@@ -44,7 +44,7 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-22 | — | Domain agent instructions |
 | [`DECISIONS.md`](DECISIONS.md) | 2026-11-24 | — | HITL *(not for grounding)*. SDEV-D-01 to -03 site basics; SDEV-D-04 one Worker and build step; SDEV-D-05 root config, Worker `mfgdevops-pub`; SDEV-D-06 logo in `site/public/`, PNG for now; SDEV-D-07 PR preview builds; SDEV-D-09 each app its own subdomain; SDEV-D-11 POSIWID and Goal as System Design and Analysis at `purpose.sisyphusdev.com`; SDEV-D-12 old paths redirect |
-| [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) | 2026-11-24 | 1 | Live state: site serves home page and apps at paths (checked 2026-11-24); subdomain move (SDEV-D-09, -11, -12) pending merge. Open items SDEV-OI-01 to -03 |
+| [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) | 2026-11-25 | 1 | Live state: home page, System Design and Analysis at `purpose.sisyphusdev.com` (POSIWID, POSIWID Design, Goal) and the blog at `blog.sisyphusdev.com` (no posts yet), checked 2026-11-24 and 2026-11-25. Open items SDEV-OI-01 to -03 |
 | [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) | 2026-11-24 | 1 | Procedure: how Workers Builds deploys, path and subdomain map, routing Worker, preview, private-link check, verify, add an app, roll back. Draft |
 | [`../../wrangler.jsonc`](../../wrangler.jsonc) | 2026-11-24 | 1 | Worker config at repo root (owned here): name `mfgdevops-pub`, script `Workstreams/Sisyphusdev_Site/worker/index.mjs`, build `bash scripts/build-site.sh`, assets `./dist` (binding `ASSETS`, Worker runs first), custom domains `sisyphusdev.com`, `www.sisyphusdev.com`, `purpose.sisyphusdev.com`, `blog.sisyphusdev.com`, previews |
 | [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 2026-11-24 | 1 | Build script (owned here): copies `site/public/` to `dist/` and each listed app folder to `dist/<path>/` (`/posiwid`, `/design`, `/goals`); then runs `scripts/build-blog.mjs` for `/blog` (BLOG-D-02) |

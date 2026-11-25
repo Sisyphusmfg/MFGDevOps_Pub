@@ -3,7 +3,7 @@ title: Persona — Domain Index
 doc_type: readme-index
 domain: persona
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Domain Index
 Status: Active
 authority_rank: 1
@@ -35,6 +35,7 @@ Repo-wide rules for `MFGDevOps_Pub`: the methods that agents follow (POSIWID and
 | How to scaffold a new domain | [`../.agents/skills/machine-first-scaffold/SKILL.md`](../.agents/skills/machine-first-scaffold/SKILL.md) | 1 |
 | Front matter, file naming, decision IDs, and what may be published | [`Artifact_Metadata_Standard.md`](Artifact_Metadata_Standard.md) | 1 |
 | Why this repo exists, the public-only rule, who merges, where methods live, the grounding rule | [`DECISIONS.md`](DECISIONS.md) PUB-D-01 to PUB-D-07 *(HITL — not for grounding)* | — |
+| How to keep the state of work that spans more than one session (PROGRESS files) | [`Progress_Template.md`](Progress_Template.md) | 1 |
 | What an agent did recently | [`Agent_Activity_Log.md`](Agent_Activity_Log.md) (format and entries before 2026-11-24) → newest entries are the last files in `Agent_Activity_Log/` | — |
 
 ## Document register (on-disk)
@@ -44,13 +45,14 @@ Repo-wide rules for `MFGDevOps_Pub`: the methods that agents follow (POSIWID and
 | [`INDEX.md`](INDEX.md) | 2026-11-22 | 1 | This file — domain router |
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-24 | — | Domain agent instructions |
-| [`DECISIONS.md`](DECISIONS.md) | 2026-11-24 | — | HITL *(not for grounding)*. PUB-D-01 repo created; PUB-D-02 public versions, not copies; PUB-D-03 no private links (CI); PUB-D-04 same machine-first format, Marc merges; PUB-D-05 agent methods live in Persona; PUB-D-06 POSIWID grounding rule; PUB-D-07 `main` protected by ruleset |
+| [`DECISIONS.md`](DECISIONS.md) | 2026-11-25 | — | HITL *(not for grounding)*. PUB-D-01 repo created; PUB-D-02 public versions, not copies; PUB-D-03 no private links (CI); PUB-D-04 same machine-first format, Marc merges; PUB-D-05 agent methods live in Persona; PUB-D-06 POSIWID grounding rule; PUB-D-07 `main` protected by ruleset |
 | [`POSIWID_Method_Reference.md`](POSIWID_Method_Reference.md) | 2026-11-24 | 1 | POSIWID method, credited to Stafford Beer (*The Heart of Enterprise*, 1979): background, five questions, design executable with mechanism check, two-container facilitation, root expectations, prompt swaps, diagnostic executable and loop, constant-failure test, diagnostic sequence, adoption, simulations, common mistakes, sources. Moved from Workstreams/POSIWID_Analysis and expanded (PUB-D-05). Draft, `agent_grounding: false` |
 | [`POSIWID_Diagnostic_Grounding.md`](POSIWID_Diagnostic_Grounding.md) | 2026-11-22 | 1 | Which POSIWID files can be cited: diagnostics true by default, designs after approval, drafts and simulations never (PUB-D-06) |
 | [`POSIWID_Design_Goal_Agent.md`](POSIWID_Design_Goal_Agent.md) | 2026-11-24 | 1 | POSIWID design of the goal agent: expectations, outputs, gates, AI rules, limits and cadence, goal parts, pace and health, reviews, closing, measurable change, where it is carried out. Replaces Workstreams/Goal_Agent/Goal_Method_Reference.md (PUB-D-05). Draft, `agent_grounding: false` |
 | [`Machine_First_Method.md`](Machine_First_Method.md) | 2026-11-24 | 1 | Machine-first method: domains, four files, two-hop routing, front matter, authority, decision table, keeping it true (PUB-D-12) |
 | [`Artifact_Metadata_Standard.md`](Artifact_Metadata_Standard.md) | 2026-11-22 | 1 | Public edition of the metadata standard: fields, naming, public-only content, never-stored list |
 | [`Agent_Activity_Log.md`](Agent_Activity_Log.md) | 2026-11-24 | — | Agent log format and the 15 entries written before 2026-11-24 (PUB-D-09). New entries are one file each in `Agent_Activity_Log/` (PUB-D-08). `agent_grounding: false`. |
+| [`Progress_Template.md`](Progress_Template.md) | 2026-11-25 | 1 | Progress file template and rules for work that spans sessions (PUB-D-16). Active files in `Progress/` are registered here when created |
 
 ## Agent layer register (outside this folder, owned here)
 
@@ -58,6 +60,10 @@ Repo-wide rules for `MFGDevOps_Pub`: the methods that agents follow (POSIWID and
 |------|------|----------------|-------------|
 | [`../.agents/skills/machine-first-scaffold/SKILL.md`](../.agents/skills/machine-first-scaffold/SKILL.md) | 2026-11-24 | 1 | Repository scaffolding for a new domain, applying `Machine_First_Method.md` (PUB-D-12). Pointers in `.claude/skills/` and `.cursor/skills/` |
 | [`../.agents/skills/machine-first-scaffold/references/templates.md`](../.agents/skills/machine-first-scaffold/references/templates.md) | 2026-11-24 | 1 | Templates for INDEX, DECISIONS, AGENTS and README |
+| [`../scripts/check_activity_entry.py`](../scripts/check_activity_entry.py) | 2026-11-25 | 1 | Fails a pull request with no new, well-formed activity-log entry (PUB-D-13). Run `python3 scripts/check_activity_entry.py <base-sha> [<head-sha>]` |
+| [`../.github/workflows/activity-log-entry.yml`](../.github/workflows/activity-log-entry.yml) | 2026-11-25 | — | Runs the activity-entry check on every pull request |
+| [`../.github/workflows/secret-scan.yml`](../.github/workflows/secret-scan.yml) | 2026-11-25 | — | gitleaks scan of each pull request's commits, redacted; fails on a find (PUB-D-15) |
+| [`../.github/pull_request_template.md`](../.github/pull_request_template.md) | 2026-11-25 | 1 | Pull request description: Summary, `done_when` (PUB-D-14), Checks run, Rollback, Activity log, Concerns |
 
 ## Cross-links
 

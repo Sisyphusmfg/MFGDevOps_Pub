@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-24
+Last Updated: 2026-11-25
 Document Type: Status Report
 doc_type: record
 Topic: Sisyphusdev_Site — live status
@@ -16,8 +16,8 @@ Source: Cloudflare API output, 2026-11-22
 | Field | Value |
 |-------|-------|
 | Scope | sisyphusdev.com home page, app directory, and the build that mounts each app |
-| Overall status | Live (checked 2026-11-24 after PR #9): System Design and Analysis serves POSIWID and Goal at `purpose.sisyphusdev.com`, and the old paths on sisyphusdev.com redirect there. POSIWID Design (`/design/`) is in PR #11 |
-| Next action | After the blog pull request merges: check that Workers Builds attached `blog.sisyphusdev.com`, that `https://blog.sisyphusdev.com/` opens the blog (no posts yet, so the empty-state message), and that `https://sisyphusdev.com/blog/` redirects there. Confirm the redirect code with `curl -sI https://sisyphusdev.com/posiwid/` (expect `301`) |
+| Overall status | Live (checked 2026-11-24 after PR #9): System Design and Analysis serves POSIWID and Goal at `purpose.sisyphusdev.com`, and the old paths on sisyphusdev.com redirect there. POSIWID Design is live at `/design/`, and the blog is live at `blog.sisyphusdev.com` with no posts yet |
+| Next action | Confirm the redirect codes with `curl -sI https://sisyphusdev.com/posiwid/` and `curl -sI https://sisyphusdev.com/blog/` (expect `301`). Publish the first blog post (Blog domain, `Post_Template.md`) |
 
 ## POSIWID snapshot
 
@@ -44,6 +44,7 @@ Source: Cloudflare API output, 2026-11-22
 | 2026-11-24 | Fetch `https://purpose.sisyphusdev.com/goals/` | Loads: title "Goal — System Design and Analysis — sisyphusdev" |
 | 2026-11-24 | Fetch `https://sisyphusdev.com/posiwid/?check=2205` | Redirects to `https://purpose.sisyphusdev.com/posiwid/?check=2205`. The fetch tool reported status 302; the Worker code sends 301. Re-check with `curl -sI` |
 | 2026-11-24 | After PR #11 merged: fetch `https://purpose.sisyphusdev.com/design/?check=2200` | Loads: title "POSIWID Design — System Design and Analysis — sisyphusdev", menu POSIWID · POSIWID Design · Goal · All apps |
+| 2026-11-25 | After PR #12 merged: fetch `https://blog.sisyphusdev.com/?check=1025` and `/blog/?check=1025` | Both load: title "Blog — sisyphusdev", heading "Notes from the shop floor and the lab", "No posts yet. The first one is on its way." Workers Builds attached `blog.sisyphusdev.com` |
 
 ## Deploy log
 
