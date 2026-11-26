@@ -35,6 +35,8 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | Which folder is served at which path | [`../../scripts/build-site.sh`](../../scripts/build-site.sh) | 1 |
 | Worker name, custom domains, build command | [`../../wrangler.jsonc`](../../wrangler.jsonc) | 1 |
 | Sign-in, organizations and teams, and saved work for purpose.sisyphusdev.com: what it must do and the build plan | [`POSIWID_Design_Purpose_Accounts.md`](POSIWID_Design_Purpose_Accounts.md) | 1 |
+| The purpose database schema, access rule and row-level security | [`db/migrations/0001_spaces.up.sql`](db/migrations/0001_spaces.up.sql) | 1 |
+| Proving one space can't see another's data | [`db/test/isolation.sql`](db/test/isolation.sql) | 1 |
 | Why one Worker, why paths, why the config is at the root, where the logo lives | [`DECISIONS.md`](DECISIONS.md) SDEV-D-01 to SDEV-D-07 *(HITL — not for grounding)* | — |
 
 ## Document register (on-disk)
@@ -45,6 +47,10 @@ sisyphusdev.com is the active place to use the apps Marc builds. This domain hol
 | [`README.md`](README.md) | 2026-11-22 | — | Human onboarding |
 | [`AGENTS.md`](AGENTS.md) | 2026-11-25 | — | Domain agent instructions |
 | [`POSIWID_Design_Purpose_Accounts.md`](POSIWID_Design_Purpose_Accounts.md) | 2026-11-25 | 1 | Draft POSIWID design: optional sign-in (Neon Auth), personal and team spaces, Neon Postgres with row-level security, Worker `/api/*`, account approval by Marc (SDEV-D-19), decisions D1–D6 (all but D4 decided), phases P0–P6, measurable change |
+| [`db/migrations/0001_spaces.up.sql`](db/migrations/0001_spaces.up.sql) | 2026-11-25 | 1 | Migration up: role `app_api`, schema `app` (organizations, members, teams, spaces, records, access requests, platform admins, audit), `can_access`, guard triggers, row-level security, least grants |
+| [`db/migrations/0001_spaces.down.sql`](db/migrations/0001_spaces.down.sql) | 2026-11-25 | — | Migration down: drops schema `app` and role `app_api` (deletes data) |
+| [`db/test/isolation.sql`](db/test/isolation.sql) | 2026-11-25 | 1 | Isolation tests T1–T10: personal, team, admin and anonymous access; role and last-owner guards; access requests |
+| [`db/run.sh`](db/run.sh) | 2026-11-25 | — | Runs up, down or test with psql against a branch (`DATABASE_URL` from the shell) |
 | [`DECISIONS.md`](DECISIONS.md) | 2026-11-25 | — | HITL *(not for grounding)*. SDEV-D-01 to -03 site basics; SDEV-D-04 one Worker and build step; SDEV-D-05 root config, Worker `mfgdevops-pub`; SDEV-D-06 logo in `site/public/`, PNG for now; SDEV-D-07 PR preview builds; SDEV-D-09 each app its own subdomain; SDEV-D-11 POSIWID and Goal as System Design and Analysis at `purpose.sisyphusdev.com`; SDEV-D-12 old paths redirect; SDEV-D-13 daily check publishes scheduled blog posts through a deploy hook; SDEV-D-14 sign-in and saved work for purpose (proposed); SDEV-D-15 to -18 own org/team tables, email code, admins see all teams, new Neon project with Hyperdrive; SDEV-D-19 Marc approves every account; SDEV-D-20 request emails to Marc |
 | [`Sisyphusdev_Site_Status.md`](Sisyphusdev_Site_Status.md) | 2026-11-25 | 1 | Live state: home page, System Design and Analysis at `purpose.sisyphusdev.com` (POSIWID, POSIWID Design, Goal) and the blog at `blog.sisyphusdev.com` (no posts yet), checked 2026-11-24 and 2026-11-25. Open items SDEV-OI-01 to -07 |
 | [`Site_Deploy_Procedure.md`](Site_Deploy_Procedure.md) | 2026-11-25 | 1 | Procedure: how Workers Builds deploys, path and subdomain map, routing Worker, preview, link check, verify, add an app, roll back. Draft |

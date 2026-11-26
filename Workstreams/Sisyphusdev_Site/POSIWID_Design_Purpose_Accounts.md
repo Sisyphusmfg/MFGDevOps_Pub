@@ -80,16 +80,18 @@ Neon Postgres: row-level security on every app table checks app.user_id against 
 
 ### Data model (one record, one space)
 
+Built in P2 as schema `app`: [`db/migrations/0001_spaces.up.sql`](db/migrations/0001_spaces.up.sql) (back path `0001_spaces.down.sql`), tested by [`db/test/isolation.sql`](db/test/isolation.sql). Run either with [`db/run.sh`](db/run.sh).
+
 | Table | Holds | Key columns |
 |-------|-------|-------------|
 | `neon_auth.*` | Users and sessions (managed by Neon Auth) | user id |
 | `organization` | An organization account | `id`, `name`, `created_by` |
-| `org_member` | Who is in an organization, and their role | `org_id`, `user_id` (or `invited_email` until first sign-in), `role` ∈ owner, admin, member |
+| `org_member` | Who is in an organization, and their role | `org_id`, `user_id`, `role` ∈ owner, admin, member. Someone without an account is added through an `access_request` with `org_id` and `org_role`; the membership row is created when Marc approves |
 | `team` | A team inside one organization | `id`, `org_id`, `name` |
 | `team_member` | Who is on a team | `team_id`, `user_id` |
 | `space` | Where records live: one personal space per user, one space per team | `id`, `kind` ∈ personal, team, `user_id` (personal), `team_id` (team); exactly one of the two is set |
 | `record` | A saved POSIWID analysis, design or goal | `id`, `space_id`, `app` ∈ posiwid, design, goal, `title`, `data` (JSONB, the same shape the app keeps in local storage today), `created_by`, `updated_by`, `updated_at`, `version` |
-| `access_request` | Who asked for an account and what Marc decided | `id`, `email`, `name`, `org_name` (optional), `reason`, `requested_by` (an org admin's user id when they asked on someone's behalf), `status` ∈ pending, approved, declined, `decided_by`, `decided_at` |
+| `access_request` | Who asked for an account and what Marc decided | `id`, `email`, `name`, `org_name` (optional), `reason`, `org_id` and `org_role` (when an org admin asks on someone's behalf), `requested_by`, `status` ∈ pending, approved, declined, `decided_by`, `decided_at`. One pending request per email |
 | `platform_admin` | Who approves accounts: Marc | `user_id` |
 | `audit` | Membership, role and approval changes | who, what, when |
 
@@ -98,7 +100,7 @@ The access rule, written once as a SQL function `can_access(space_id)`, is true 
 - the space is a team and `app.user_id` is in `team_member` for that team, and is still a member of the team's organization, or
 - the space is a team and `app.user_id` is an owner or admin of that team's organization (D3: admins see every team's records).
 
-Row-level security on `record` uses it for select, insert, update and delete. `space`, `team` and the membership tables get matching policies: you see your own memberships, and owners and admins see their organization's.
+Row-level security on `record` uses it for select, insert, update and delete. Triggers also guard the rules a policy can't express: an organization keeps at least one owner, only an owner grants the owner role, a team member must belong to the team's organization, and leaving an organization removes that person's team memberships. `space`, `team` and the membership tables get matching policies: you see your own memberships, and owners and admins see their organization's.
 
 `version` gives optimistic locking. A save sends the version it opened. If someone on the team saved in between, the API returns a conflict instead of overwriting their work.
 

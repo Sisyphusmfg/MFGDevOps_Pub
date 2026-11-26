@@ -22,10 +22,11 @@ Design: [`../../Workstreams/Sisyphusdev_Site/POSIWID_Design_Purpose_Accounts.md`
 
 ## Current step
 
-P2: schema, `can_access` and row-level security as an up/down migration on a Neon branch of `sisyphusdev-apps`, plus the low-privilege app role and the isolation tests.
+P2 built and tested on branch `p2-schema-test`. Next: Marc merges the P2 pull request; then apply `0001_spaces.up.sql` to `main` and create the API login role and Hyperdrive.
 
 ## Done
 
+- 2026-11-25 — P2 on Neon branch `p2-schema-test` (`br-silent-haze-bb5kmch1`). Ran up (75 statements), then isolation tests: all 10 checks pass. A deliberately broken `can_access` (returns true) failed T1 ("A sees 2 records") and was rolled back. Then down (schema and role gone), up, and tests: all passed, 0 leftover rows. `main` not migrated yet
 - 2026-11-25 — Email Routing enabled on sisyphusdev.com (MX, SPF, DKIM added) and Marc's destination verified, on his instruction. Marc added the `APPROVER_EMAIL` Worker secret (18:58, listed by the Cloudflare API). Left for P5: the `send_email` binding
 - 2026-11-25 — SDEV-D-20: Marc chose email notification (D6 a). His address stays out of the repo (Worker secret `APPROVER_EMAIL`)
 - 2026-11-25 — SDEV-D-19 (Marc approves every account). Neon Auth sign-up closed (`disable_sign_up: true`), Google provider removed, 0 users (Neon API and SQL output). Design gains O8, the `access_request` and `platform_admin` tables, and D6
@@ -40,7 +41,7 @@ P2: schema, `can_access` and row-level security as an up/down migration on a Neo
 
 ## Next step
 
-P2 on a Neon branch (not `main`). Then Marc creates the Hyperdrive config for the app role (`npx wrangler hyperdrive create sisyphusdev-apps --connection-string="<app role connection string>"`, run on the Surface so the string never enters a file or chat).
+After merge: (1) apply `0001_spaces.up.sql` to `main`, on Marc's go-ahead. (2) Marc creates a login role in the Neon Console (e.g. `app_api_login`), and the agent runs `GRANT app_api TO app_api_login` so the role logs in with no privileges of its own. (3) Marc runs `npx wrangler hyperdrive create sisyphusdev-apps --connection-string="<app_api_login connection string>"` on the Surface, so the string never enters a file or chat. (4) Delete branch `p2-schema-test`.
 
 ## To do later (from P1)
 
@@ -50,6 +51,8 @@ P2 on a Neon branch (not `main`). Then Marc creates the Hyperdrive config for th
 - P6: turn off localhost origins; own mail server.
 
 ## Dead ends
+
+- None in P2. Note: CI can't run the isolation tests yet, because GitHub has no database credentials. P6 adds a CI job against a per-run Neon branch.
 
 - Managed Neon Auth's Organization plugin has no teams (Beta, checked 2026-11-25 against the Neon Auth skill's plugin table). That is why D1 recommends our own organization and team tables.
 
