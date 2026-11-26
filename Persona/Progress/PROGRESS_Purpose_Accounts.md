@@ -22,7 +22,7 @@ Design: [`../../Workstreams/Sisyphusdev_Site/POSIWID_Design_Purpose_Accounts.md`
 
 ## Current step
 
-P2 done. Hyperdrive ready with caching off. Next: P3, the Worker API.
+P3, the Worker API. It runs in Claude Code on the Surface (Marc, 2026-11-26), because the claude.ai cloud session can't install npm packages. Brief below.
 
 ## Done
 
@@ -47,7 +47,63 @@ P2 done. Hyperdrive ready with caching off. Next: P3, the Worker API.
 
 ## Next step
 
-P3: add the Hyperdrive binding to `wrangler.jsonc`; build the Worker `/api/*` (JWT check against the JWKS, `SET LOCAL app.user_id` per transaction); add the email-code sign-in test (design § Account approval).
+P3, following the brief below.
+
+## P3 brief (for the Claude Code session on the Surface)
+
+**Goal:** a signed-in, approved user can save and load records through `/api/*` on purpose.sisyphusdev.com, and the database's row-level security decides what they see. The design is `Workstreams/Sisyphusdev_Site/POSIWID_Design_Purpose_Accounts.md` (§ 4 request path, § Account approval, § 6 P3 row).
+
+**Live state (2026-11-26, from tool output):**
+- Neon project `sisyphusdev-apps` (`little-silence-14430370`), branch `main` (`br-cool-mud-bbp8240c`), database `neondb`. Schema `app` from `db/migrations/0001_spaces.up.sql` is applied.
+- API role `app_api_web`: created by SQL, member of `app_api` only, no bypassrls. Never use a role created in the Neon Console: those are `neon_superuser` members.
+- Hyperdrive `sisyphusdev-apps`, ID `e8716c8b72064bc19275b1b631e4c3f4`, connects as `app_api_web`, caching off.
+- Neon Auth (Better Auth) on `main`:
+  - Auth URL `https://ep-long-flower-bbdjyj10.neonauth.c-15.us-east-1.aws.neon.tech/neondb/auth`, JWKS at `…/auth/.well-known/jwks.json`.
+  - Sign-up closed (`disable_sign_up: true`), no social providers.
+  - Password sign-in and the Organization plugin are still on: narrow them in step 1.
+  - Trusted origin: `https://purpose.sisyphusdev.com`. 0 users.
+- Worker `mfgdevops-pub` has secret `APPROVER_EMAIL`. Email Routing is on for sisyphusdev.com, with Marc's destination address verified.
+
+**Steps:**
+1. **Check the approval mechanics on a Neon branch first.** Neon Auth branches with the database, and each branch gets its own Auth URL.
+   - Confirm that a user created by an admin (Admin plugin, or Neon's create-auth-user API) can sign in with an email code while sign-up is closed.
+   - Confirm that a new, unknown email can't.
+   - Then on `main`: turn off password sign-in and the Organization plugin, and turn on email OTP (SDEV-D-15, -16).
+   - If the check fails, stop and ask Marc. The fallback weakens SDEV-D-19.
+2. **Make Marc the first user** on `main`, with the Better Auth admin role. Ask Marc for his sign-in address in the session; never write it into this repository. Add his user id to `app.platform_admin`.
+3. **Worker `/api/*`** in `Workstreams/Sisyphusdev_Site/worker/`:
+   - Dependencies: `postgres` (postgres.js works with Hyperdrive) and `jose`.
+   - Check the bearer JWT with `createRemoteJWKSet(JWKS URL)`. Issuer comes from the Auth URL. The user id is `sub`.
+   - Every request runs one transaction: `BEGIN; SELECT set_config('app.user_id', $sub, true); …; COMMIT`. Parameterized queries only.
+   - Routes:
+     - `GET /api/me`: calls `app.ensure_personal_space()`; returns spaces and the platform-admin flag.
+     - `GET /api/spaces`.
+     - `GET/POST /api/records?space=&app=`.
+     - `GET/PUT/DELETE /api/records/:id`: PUT carries `version` and returns 409 on mismatch.
+     - `POST /api/access-requests`: anonymous allowed; Turnstile comes in P5.
+   - A request with no token or a bad token gets 401 (except access requests). Another space's record gets 404.
+   - Keep the existing redirect routing and the scheduled blog check working.
+4. **wrangler.jsonc:**
+   - `hyperdrive` binding `DB` with the ID above.
+   - Plain vars `NEON_AUTH_BASE_URL` and `NEON_AUTH_JWKS_URL`. These are public.
+   - No secrets or personal addresses in the file.
+5. **Tests:**
+   - `node --test` for the routes, using a local Postgres in Docker with `db/migrations/0001_spaces.up.sql` applied, and a test JWKS signed with a throwaway Ed25519 key.
+   - Run `db/test/isolation.sql` on a fresh Neon branch, then delete the branch.
+6. **Records:**
+   - Update the design (O1–O3 status), this file, `Sisyphusdev_Site_Status.md` (SDEV-OI-06) and the Sisyphusdev_Site INDEX.
+   - Add an activity entry.
+   - The PR uses the template with `done_when` written first.
+   - Merging deploys the site (SDEV-D-05). Storing real users' data starts in P4/P5, and those PRs carry the `IRREVERSIBLE` flag for data.
+
+**Constraints:**
+- Marc merges every pull request (PUB-D-04).
+- State a rollback path in every PR.
+- No secrets or personal email addresses in files or chat. Set connection strings with `read -rs`.
+- Public repository: no links to private repos (PUB-D-03).
+- One activity entry per PR (PUB-D-13).
+- Update this progress file in every PR (PUB-D-16).
+- If access is blocked, stop and ask Marc.
 
 ## To do later (from P1)
 
