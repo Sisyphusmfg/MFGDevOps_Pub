@@ -22,10 +22,16 @@ Design: [`../../Workstreams/Sisyphusdev_Site/POSIWID_Design_Purpose_Accounts.md`
 
 ## Current step
 
-P2 built and tested on branch `p2-schema-test`. Next: Marc merges the P2 pull request; then apply `0001_spaces.up.sql` to `main` and create the API login role and Hyperdrive.
+P2 done. Hyperdrive ready with caching off. Next: P3, the Worker API.
 
 ## Done
 
+- 2026-11-25 20:26 — Deleted Neon branch `p2-schema-test` (`br-silent-haze-bb5kmch1`) on Marc's instruction; the API returned it as deleted (storage_deleted)
+- 2026-11-25 20:24 — Marc turned off Hyperdrive caching for `sisyphusdev-apps`; the Cloudflare API shows `caching.disabled: true`
+- 2026-11-25 20:18 — Marc set the `app_api_web` password (without displaying it) and created Hyperdrive `sisyphusdev-apps` (ID `e8716c8b72064bc19275b1b631e4c3f4`): user `app_api_web`, direct host `ep-long-flower-bbdjyj10.c-15.us-east-1.aws.neon.tech`, database `neondb` (Cloudflare API). Query caching is on by default; the agent asked Marc to turn it off, because cached reads could cross users under row-level security
+- 2026-11-25 20:01 — Marc deleted the Console roles `app_api_login` and his Console-made `app_api_web`. The agent recreated `app_api_web` by SQL: member of `app_api` only, no bypassrls, no password; verified 0 rows visible and `neon_auth.user` denied. Neon docs: SQL roles need plain-text passwords (no hashed `\password`), set with `ALTER ROLE ... WITH PASSWORD`
+- 2026-11-25 — Created `app_api_web` by SQL on `main`: login, no superuser, no bypassrls, no createrole or createdb, member of `app_api` only, connection limit 50, no password yet. As `app_api_web`: 0 records and 0 requests visible; reading `neon_auth.user` is denied
+- 2026-11-25 — `0001_spaces.up.sql` applied to `main` (pull request #19 merged, Marc's go-ahead 19:31). 9 tables with row-level security, 21 policies, 5 triggers; `app_api` can't log in or bypass row-level security; 0 rows visible to an anonymous API session
 - 2026-11-25 — P2 on Neon branch `p2-schema-test` (`br-silent-haze-bb5kmch1`). Ran up (75 statements), then isolation tests: all 10 checks pass. A deliberately broken `can_access` (returns true) failed T1 ("A sees 2 records") and was rolled back. Then down (schema and role gone), up, and tests: all passed, 0 leftover rows. `main` not migrated yet
 - 2026-11-25 — Email Routing enabled on sisyphusdev.com (MX, SPF, DKIM added) and Marc's destination verified, on his instruction. Marc added the `APPROVER_EMAIL` Worker secret (18:58, listed by the Cloudflare API). Left for P5: the `send_email` binding
 - 2026-11-25 — SDEV-D-20: Marc chose email notification (D6 a). His address stays out of the repo (Worker secret `APPROVER_EMAIL`)
@@ -41,7 +47,7 @@ P2 built and tested on branch `p2-schema-test`. Next: Marc merges the P2 pull re
 
 ## Next step
 
-After merge: (1) apply `0001_spaces.up.sql` to `main`, on Marc's go-ahead. (2) Marc creates a login role in the Neon Console (e.g. `app_api_login`), and the agent runs `GRANT app_api TO app_api_login` so the role logs in with no privileges of its own. (3) Marc runs `npx wrangler hyperdrive create sisyphusdev-apps --connection-string="<app_api_login connection string>"` on the Surface, so the string never enters a file or chat. (4) Delete branch `p2-schema-test`.
+P3: add the Hyperdrive binding to `wrangler.jsonc`; build the Worker `/api/*` (JWT check against the JWKS, `SET LOCAL app.user_id` per transaction); add the email-code sign-in test (design § Account approval).
 
 ## To do later (from P1)
 
@@ -51,6 +57,8 @@ After merge: (1) apply `0001_spaces.up.sql` to `main`, on Marc's go-ahead. (2) M
 - P6: turn off localhost origins; own mail server.
 
 ## Dead ends
+
+- A role created in the Neon Console (`app_api_login`, 2026-11-25) is a member of `neon_superuser`, with bypassrls, createrole and createdb, so it ignores row-level security. Don't use Console-created roles for the API. Use `app_api_web`, created by SQL. Marc to delete `app_api_login`.
 
 - None in P2. Note: CI can't run the isolation tests yet, because GitHub has no database credentials. P6 adds a CI job against a per-run Neon branch.
 
