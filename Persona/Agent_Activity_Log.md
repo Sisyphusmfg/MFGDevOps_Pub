@@ -160,3 +160,10 @@ Before acting, read the newest 20 entries: the last 20 files by name in `Persona
 - **Timestamp:** 2026-11-22T21:00:00-05:00 (America/New_York)
 - **Action:** The PR #7 preview build passed but reported "No Preview URL". Added `"preview_urls": true` to `wrangler.jsonc`, which applies from the next production deploy, and updated SDEV-D-07, the Sisyphusdev_Site INDEX and SDEV-OI-04. Rollback: revert PR #7.
 - **Links:** Pull request: https://github.com/Sisyphusmfg/MFGDevOps_Pub/pull/7. Decision: SDEV-D-07.
+
+### 2026-11-26T13:55:00-05:00 — Claude (claude.ai session)
+
+- **Agent:** Claude Opus 5.5 (claude.ai session)
+- **Timestamp:** 2026-11-26T13:55:00-05:00 (America/New_York)
+- **Action:** Added the `observability` block (Workers Logs and traces, full sampling, persisted; issue detection off) to root `wrangler.jsonc`, matching what Marc turned on in the dashboard (SDEV-D-21). Rollback: revert this pull request; the next deploy then turns observability off.
+- **Links:** Pull request: (this pull request). Decision: SDEV-D-21.

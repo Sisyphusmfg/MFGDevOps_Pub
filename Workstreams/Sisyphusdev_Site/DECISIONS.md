@@ -2,7 +2,7 @@
 title: Sisyphusdev_Site — Decisions Log
 doc_type: decisions-log
 Contributed By: Marc Dugas
-Last Updated: 2026-11-25
+Last Updated: 2026-11-26
 Document Type: Record
 Status: Active
 agent_grounding: false
@@ -35,3 +35,4 @@ Human-in-the-loop rationale. **Not** for answering-agent grounding.
 | 2026-11-25 | SDEV-D-18 — The data lives in a new Neon project for sisyphusdev apps (AWS us-east region, no IP allowlist, so Neon Auth can be enabled), separate from the repository index database. The Worker connects through Hyperdrive | Marc chose "New Neon project" on 2026-11-25 (design D5). Keeps app user data apart from the index copy. | adopted |  |
 | 2026-11-25 | SDEV-D-19 — Marc approves every new account on purpose.sisyphusdev.com. Nobody can create an account by signing up: a person requests access, and the account is created only when Marc approves. This includes members an organization admin asks to add | Marc, 2026-11-25: "I want to be the approver of anyone that tries to sign in and create an account." Neon Auth sign-up was closed the same day (password sign-up off, Google removed; 0 users) until the approval flow exists. | adopted |  |
 | 2026-11-25 | SDEV-D-20 — Marc is told about each new access request by email, sent by the site Worker through Cloudflare Email Routing (`send_email` binding) to his verified address. The address is kept in the Worker secret `APPROVER_EMAIL`, not in the repository | Marc, 2026-11-25: "Email me." (design D6, option a). It needs no mail service beyond Cloudflare. This repository is public, so the address stays out of it. | adopted |  |
+| 2026-11-26 | SDEV-D-21 — Workers Logs and traces are on for `mfgdevops-pub`, at full sampling (`head_sampling_rate: 1`), with invocation logs and persistence; issue detection off. The settings live in root `wrangler.jsonc` `observability`, because each deploy applies that file and a dashboard-only change would be turned off by the next merge. | Marc turned observability on in the Cloudflare dashboard and was told to add this block to the Wrangler configuration. | Adopted |

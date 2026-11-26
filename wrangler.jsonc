@@ -37,5 +37,24 @@
   // workers.dev Preview URLs are public, and Cloudflare adds X-Robots-Tag: noindex.
   "preview_urls": true,
   // Previews reuse the top-level settings. Production routes are never added here.
-  "previews": {}
+  "previews": {},
+  // Workers Logs and traces (SDEV-D-21). Marc turned these on in the dashboard 2026-11-26;
+  // they live here because every deploy applies this file and would otherwise turn them off.
+  // head_sampling_rate 1 keeps every request. persist keeps logs and traces in the dashboard.
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true
+    },
+    "issue_detection": {
+      "enabled": false
+    }
+  }
 }
