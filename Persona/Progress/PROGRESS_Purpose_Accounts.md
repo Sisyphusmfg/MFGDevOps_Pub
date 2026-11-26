@@ -26,6 +26,7 @@ P2 done. Hyperdrive ready with caching off. Next: P3, the Worker API.
 
 ## Done
 
+- 2026-11-25 20:26 — Deleted Neon branch `p2-schema-test` (`br-silent-haze-bb5kmch1`) on Marc's instruction; the API returned it as deleted (storage_deleted)
 - 2026-11-25 20:24 — Marc turned off Hyperdrive caching for `sisyphusdev-apps`; the Cloudflare API shows `caching.disabled: true`
 - 2026-11-25 20:18 — Marc set the `app_api_web` password (without displaying it) and created Hyperdrive `sisyphusdev-apps` (ID `e8716c8b72064bc19275b1b631e4c3f4`): user `app_api_web`, direct host `ep-long-flower-bbdjyj10.c-15.us-east-1.aws.neon.tech`, database `neondb` (Cloudflare API). Query caching is on by default; the agent asked Marc to turn it off, because cached reads could cross users under row-level security
 - 2026-11-25 20:01 — Marc deleted the Console roles `app_api_login` and his Console-made `app_api_web`. The agent recreated `app_api_web` by SQL: member of `app_api` only, no bypassrls, no password; verified 0 rows visible and `neon_auth.user` denied. Neon docs: SQL roles need plain-text passwords (no hashed `\password`), set with `ALTER ROLE ... WITH PASSWORD`
@@ -46,7 +47,7 @@ P2 done. Hyperdrive ready with caching off. Next: P3, the Worker API.
 
 ## Next step
 
-P3: add the Hyperdrive binding to `wrangler.jsonc`; build the Worker `/api/*` (JWT check against the JWKS, `SET LOCAL app.user_id` per transaction); add the email-code sign-in test (design § Account approval). Delete branch `p2-schema-test` once Marc agrees.
+P3: add the Hyperdrive binding to `wrangler.jsonc`; build the Worker `/api/*` (JWT check against the JWKS, `SET LOCAL app.user_id` per transaction); add the email-code sign-in test (design § Account approval).
 
 ## To do later (from P1)
 
