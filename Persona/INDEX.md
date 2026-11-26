@@ -53,6 +53,7 @@ Repo-wide rules for `MFGDevOps_Pub`: the methods that agents follow (POSIWID and
 | [`Artifact_Metadata_Standard.md`](Artifact_Metadata_Standard.md) | 2026-11-25 | 1 | Metadata standard: fields, naming, what may be published, never-stored list |
 | [`Agent_Activity_Log.md`](Agent_Activity_Log.md) | 2026-11-25 | — | Agent log format and the 15 entries written before 2026-11-24 (PUB-D-09). Wording of those entries speaks only about this repository. New entries are one file each in `Agent_Activity_Log/` (PUB-D-08). `agent_grounding: false`. |
 | [`Progress_Template.md`](Progress_Template.md) | 2026-11-25 | 1 | Progress file template and rules for work that spans sessions (PUB-D-16). Active files in `Progress/` are registered here when created |
+| [`Progress/PROGRESS_Purpose_Accounts.md`](Progress/PROGRESS_Purpose_Accounts.md) | 2026-11-25 | — | Active: accounts and saved work for purpose.sisyphusdev.com (SDEV-D-14) |
 
 ## Agent layer register (outside this folder, owned here)
 
