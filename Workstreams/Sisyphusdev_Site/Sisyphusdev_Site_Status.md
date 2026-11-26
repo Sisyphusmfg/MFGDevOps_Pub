@@ -53,6 +53,7 @@ Source: Cloudflare API output, 2026-11-22
 | Date | Version | Command output summary | `curl -I` |
 |------|---------|------------------------|-----------|
 | 2026-11-22 | — | Workers Builds failed: no Wrangler config at repo root | — |
+| 2026-11-26 | pending merge | Observability block added to `wrangler.jsonc` (SDEV-D-21). Takes effect on the deploy after merge; check Workers & Pages → `mfgdevops-pub` → Observability shows logs and traces | — |
 
 ## Open items
 
