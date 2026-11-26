@@ -26,6 +26,7 @@ P2 done, including on `main`. API login role `app_api_web` created by SQL (no pa
 
 ## Done
 
+- 2026-11-25 20:01 — Marc deleted the Console roles `app_api_login` and his Console-made `app_api_web`. The agent recreated `app_api_web` by SQL: member of `app_api` only, no bypassrls, no password; verified 0 rows visible and `neon_auth.user` denied. Neon docs: SQL roles need plain-text passwords (no hashed `\password`), set with `ALTER ROLE ... WITH PASSWORD`
 - 2026-11-25 — Created `app_api_web` by SQL on `main`: login, no superuser, no bypassrls, no createrole or createdb, member of `app_api` only, connection limit 50, no password yet. As `app_api_web`: 0 records and 0 requests visible; reading `neon_auth.user` is denied
 - 2026-11-25 — `0001_spaces.up.sql` applied to `main` (pull request #19 merged, Marc's go-ahead 19:31). 9 tables with row-level security, 21 policies, 5 triggers; `app_api` can't log in or bypass row-level security; 0 rows visible to an anonymous API session
 - 2026-11-25 — P2 on Neon branch `p2-schema-test` (`br-silent-haze-bb5kmch1`). Ran up (75 statements), then isolation tests: all 10 checks pass. A deliberately broken `can_access` (returns true) failed T1 ("A sees 2 records") and was rolled back. Then down (schema and role gone), up, and tests: all passed, 0 leftover rows. `main` not migrated yet
@@ -43,7 +44,7 @@ P2 done, including on `main`. API login role `app_api_web` created by SQL (no pa
 
 ## Next step
 
-(1) Marc sets the `app_api_web` password with psql `\password app_api_web`, connected as `neondb_owner`. (2) Marc deletes the Console role `app_api_login`. (3) Marc creates Hyperdrive on the Surface with `read -rs` so the connection string never enters a file, the shell history or chat. (3) Delete branch `p2-schema-test` once Marc agrees. Then P3: the Worker API.
+(1) Marc sets the `app_api_web` password in psql as `neondb_owner` with history off (`\set HISTFILE /dev/null`, then `ALTER ROLE app_api_web WITH PASSWORD '...'`). (2) Marc creates Hyperdrive on the Surface with `read -rs` so the connection string never enters a file, the shell history or chat. (3) Delete branch `p2-schema-test` once Marc agrees. Then P3: the Worker API.
 
 ## To do later (from P1)
 
