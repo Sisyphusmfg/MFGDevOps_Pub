@@ -3,7 +3,7 @@ title: Goal_Agent — Domain Index
 doc_type: readme-index
 domain: goal-agent
 Contributed By: Marc Dugas
-Last Updated: 2026-11-25
+Last Updated: 2026-11-26
 Document Type: Domain Index
 Status: Active
 authority_rank: 1
@@ -22,7 +22,7 @@ How AI manages goals in this repo, and in public. It has three layers: the metho
 |-------|-------|
 | Authority | Domain INDEX — canonical routing |
 | Owner | Marc Dugas |
-| Last Updated | 2026-11-25 |
+| Last Updated | 2026-11-26 |
 
 ## Question → authoritative document
 
@@ -53,7 +53,7 @@ How AI manages goals in this repo, and in public. It has three layers: the metho
 | [`Goal_Proposal_Template.md`](Goal_Proposal_Template.md) | 2026-11-22 | 1 | Template for `Engagements/GOAL-PROP-YYYYMMDD-topic.md`: source lineage, proposal, APPROVE |
 | [`Goal_Engagement_Template.md`](Goal_Engagement_Template.md) | 2026-11-22 | 1 | Template for `Engagements/GOAL-YYYYMMDD-topic.md`: approval, charter, POSIWID snapshot, backlog, measurable change, guardrails, milestones, health, check-ins, reviews, open stops, evidence, trace, closure, COMPLETE |
 | [`Goal_Agent_Status.md`](Goal_Agent_Status.md) | 2026-11-25 | 1 | Live state: form written, not deployed; open items GA-OI-01 and -02; GA-OI-03 POSIWID import done |
-| [`app/index.html`](app/index.html) | 2026-11-24 | 1 | Goal form: goal, source, measurable change, guardrails and kill criteria, milestones, AI limits, gates. Two outputs: "Prompt for an AI" (method + goal) and "Goal record". Copy or download. Fills from a POSIWID analysis, by upload or by the POSIWID page's "Start a goal" button. Draft kept in local storage only |
+| [`app/index.html`](app/index.html) | 2026-11-26 | 1 | Goal form: goal, source, measurable change, guardrails and kill criteria, milestones, AI limits, gates. Two outputs: "Prompt for an AI" (method + goal) and "Goal record". Copy or download. Fills from a POSIWID analysis, by upload or by the POSIWID page's "Start a goal" button. Draft kept in local storage only. Footer links to `/privacy` |
 
 ## Agent layer register (outside this folder, owned here)
 

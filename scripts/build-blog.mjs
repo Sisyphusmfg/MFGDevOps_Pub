@@ -164,7 +164,7 @@ const HEAD = (title, desc) => `<!doctype html>
 const FOOT = `<footer>
   <div class="wrap">
     <span>© Sisyphus Manufacturing · Anderson, SC</span>
-    <span>Source: <a href="https://github.com/Sisyphusmfg/MFGDevOps_Pub/tree/main/Workstreams/Blog">MFGDevOps_Pub/Workstreams/Blog</a></span>
+    <span><a href="/privacy">Privacy</a> · Source: <a href="https://github.com/Sisyphusmfg/MFGDevOps_Pub/tree/main/Workstreams/Blog">MFGDevOps_Pub/Workstreams/Blog</a></span>
   </div>
 </footer>
 </body>

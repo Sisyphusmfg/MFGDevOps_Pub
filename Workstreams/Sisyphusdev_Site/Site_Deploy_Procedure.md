@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-25
+Last Updated: 2026-11-26
 Document Type: Procedure
 doc_type: procedure
 Topic: Build, preview, deploy, add an app, and roll back sisyphusdev.com
@@ -25,8 +25,9 @@ Cloudflare Workers Builds watches `main` on `Sisyphusmfg/MFGDevOps_Pub`. On ever
 | `purpose.sisyphusdev.com/design/` (System Design and Analysis → POSIWID Design) | `/design/` | `Workstreams/POSIWID_Analysis/design-app/` |
 | `purpose.sisyphusdev.com/goals/` (System Design and Analysis → Goal) | `/goals/` | `Workstreams/Goal_Agent/app/` |
 | `blog.sisyphusdev.com/blog/` (Blog) | `/blog/` | Built from `Workstreams/Blog/posts/` by `scripts/build-blog.mjs` |
+| `/privacy` on every host the Worker serves (apex, www, purpose, blog, and preview hosts) | `/privacy/index.html` | `Workstreams/Sisyphusdev_Site/site/public/privacy/index.html` |
 
-The Worker script [`worker/index.mjs`](worker/index.mjs) runs before the static files (SDEV-D-12). On `sisyphusdev.com` and `www.sisyphusdev.com` it redirects `/posiwid/`, `/design/` and `/goals/` (301) to `purpose.sisyphusdev.com`. On `purpose.sisyphusdev.com` it sends `/` to `/posiwid/`. Every other request, including previews on `workers.dev`, is a static file from `dist/`. To add an app on its own subdomain: add its folder to `scripts/build-site.sh`, its subdomain and paths to `APPS` in the script, a custom-domain route in `wrangler.jsonc`, and a card in `apps.json`. Run the tests with `node --test Workstreams/Sisyphusdev_Site/worker/test/route.test.mjs`.
+The Worker script [`worker/index.mjs`](worker/index.mjs) runs before the static files (SDEV-D-12). On `sisyphusdev.com` and `www.sisyphusdev.com` it redirects `/posiwid/`, `/design/` and `/goals/` (301) to `purpose.sisyphusdev.com`. On `purpose.sisyphusdev.com` it sends `/` to `/posiwid/`. On every host, `/privacy` and `/privacy/` are read from `/privacy/index.html` and returned with status 200, so the notice is the response body rather than a redirect. Every other request, including previews on `workers.dev`, is a static file from `dist/`. To add an app on its own subdomain: add its folder to `scripts/build-site.sh`, its subdomain and paths to `APPS` in the script, a custom-domain route in `wrangler.jsonc`, and a card in `apps.json`. Run the tests with `node --test Workstreams/Sisyphusdev_Site/worker/test/route.test.mjs`.
 
 **Merging to `main` publishes the site.** Treat every merge that touches these folders, `wrangler.jsonc` or `scripts/build-site.sh` as a publication (PUB-D-04).
 

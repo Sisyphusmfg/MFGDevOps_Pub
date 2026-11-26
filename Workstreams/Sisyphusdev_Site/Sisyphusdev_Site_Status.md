@@ -1,6 +1,6 @@
 ---
 Contributed By: Marc Dugas
-Last Updated: 2026-11-25
+Last Updated: 2026-11-26
 Document Type: Status Report
 doc_type: record
 Topic: Sisyphusdev_Site — live status
@@ -45,6 +45,7 @@ Source: Cloudflare API output, 2026-11-22
 | 2026-11-24 | Fetch `https://sisyphusdev.com/posiwid/?check=2205` | Redirects to `https://purpose.sisyphusdev.com/posiwid/?check=2205`. The fetch tool reported status 302; the Worker code sends 301. Re-check with `curl -sI` |
 | 2026-11-24 | After PR #11 merged: fetch `https://purpose.sisyphusdev.com/design/?check=2200` | Loads: title "POSIWID Design — System Design and Analysis — sisyphusdev", menu POSIWID · POSIWID Design · Goal · All apps |
 | 2026-11-25 | After PR #12 merged: fetch `https://blog.sisyphusdev.com/?check=1025` and `/blog/?check=1025` | Both load: title "Blog — sisyphusdev", heading "Notes from the shop floor and the lab", "No posts yet. The first one is on its way." Workers Builds attached `blog.sisyphusdev.com` |
+| 2026-11-26 | `curl` of HTML on sisyphusdev.com, www, purpose (`/posiwid/`, `/design/`, `/goals/`) and blog, plus a fetch of the served HTML | From this environment, `curl` of those HTML URLs returned HTTP 403 with `cf-mitigated: challenge`, script `/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1`, header `server: cloudflare`, and no `Set-Cookie`. `https://sisyphusdev.com/robots.txt` returned 200 (that file is not in this repo). Fetched HTML of the real pages includes Google Fonts (`fonts.googleapis.com`), a Cloudflare Web Analytics beacon (`static.cloudflareinsights.com/beacon.min.js`), and `/cdn-cgi/challenge-platform/scripts/jsd/main.js`. `wrangler.jsonc` has no observability or logpush block. A privacy notice is not deployed yet |
 
 ## Deploy log
 

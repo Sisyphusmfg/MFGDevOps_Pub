@@ -1,7 +1,8 @@
 // Worker for sisyphusdev.com and its app subdomains (SDEV-D-09).
-// Static files come from dist/ through the ASSETS binding. This script only
-// sends app paths to the subdomain that owns them, and opens the app at its
-// first tool. Owner domain: Workstreams/Sisyphusdev_Site/ (see its INDEX.md).
+// Static files come from dist/ through the ASSETS binding. This script sends
+// app paths to the subdomain that owns them, opens the app at its first tool,
+// and serves /privacy from the notice file on every host.
+// Owner domain: Workstreams/Sisyphusdev_Site/ (see its INDEX.md).
 
 // Subdomain -> the app paths it serves and the path "/" opens.
 export const APPS = {
@@ -42,6 +43,13 @@ export function route(url) {
     }
   }
   // Every other host (workers.dev previews included) and path serves files as-is.
+  return null;
+}
+
+// /privacy and /privacy/ both return the notice file. A redirect would hide
+// the page from a client that does not follow redirects.
+export function privacyAssetPath(pathname) {
+  if (pathname === "/privacy" || pathname === "/privacy/") return "/privacy/index.html";
   return null;
 }
 
@@ -86,8 +94,14 @@ export async function checkSchedule(env, now = new Date()) {
 
 export default {
   async fetch(request, env) {
-    const r = route(new URL(request.url));
+    const url = new URL(request.url);
+    const r = route(url);
     if (r) return Response.redirect(r.redirect, r.status);
+    const privacy = privacyAssetPath(url.pathname);
+    if (privacy) {
+      url.pathname = privacy;
+      return env.ASSETS.fetch(new Request(url, request));
+    }
     return env.ASSETS.fetch(request);
   },
   async scheduled(event, env, ctx) {
