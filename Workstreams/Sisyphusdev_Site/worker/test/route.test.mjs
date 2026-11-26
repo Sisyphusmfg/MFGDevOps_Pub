@@ -1,7 +1,7 @@
 // Run: node --test Workstreams/Sisyphusdev_Site/worker/test/route.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import worker, { route } from "../index.mjs";
+import worker, { privacyAssetPath, route } from "../index.mjs";
 
 const r = (u) => route(new URL(u));
 
@@ -33,7 +33,33 @@ test("everything else is served as-is", () => {
     "https://purpose.sisyphusdev.com/design/",
     "https://purpose.sisyphusdev.com/logo-small.png",
     "https://abc-mfgdevops-pub.example.workers.dev/posiwid/",
+    "https://sisyphusdev.com/privacy",
+    "https://www.sisyphusdev.com/privacy/",
+    "https://purpose.sisyphusdev.com/privacy",
+    "https://blog.sisyphusdev.com/privacy",
+    "https://abc-mfgdevops-pub.example.workers.dev/privacy",
   ]) assert.equal(r(u), null, u);
+});
+
+test("privacy is the notice file on every host, with no redirect", async () => {
+  assert.equal(privacyAssetPath("/privacy"), "/privacy/index.html");
+  assert.equal(privacyAssetPath("/privacy/"), "/privacy/index.html");
+  assert.equal(privacyAssetPath("/privacy/index.html"), null);
+  const env = {
+    ASSETS: { fetch: async (req) => new Response("privacy:" + new URL(req.url).pathname, { status: 200 }) },
+  };
+  for (const u of [
+    "https://sisyphusdev.com/privacy",
+    "https://www.sisyphusdev.com/privacy/",
+    "https://purpose.sisyphusdev.com/privacy",
+    "https://blog.sisyphusdev.com/privacy",
+    "https://preview.example.workers.dev/privacy",
+  ]) {
+    const res = await worker.fetch(new Request(u), env);
+    assert.equal(res.status, 200, u);
+    assert.equal(res.headers.get("location"), null, u);
+    assert.equal(await res.text(), "privacy:/privacy/index.html", u);
+  }
 });
 
 test("fetch hands non-redirects to ASSETS", async () => {

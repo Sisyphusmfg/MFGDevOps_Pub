@@ -3,7 +3,7 @@ title: POSIWID_Analysis — Domain Index
 doc_type: readme-index
 domain: posiwid-analysis
 Contributed By: Marc Dugas
-Last Updated: 2026-11-25
+Last Updated: 2026-11-26
 Document Type: Domain Index
 Status: Active
 authority_rank: 1
@@ -22,7 +22,7 @@ POSIWID work in public: the agent layer (posiwid-facilitator, posiwid-analyst an
 |-------|-------|
 | Authority | Domain INDEX — canonical routing |
 | Owner | Marc Dugas |
-| Last Updated | 2026-11-25 |
+| Last Updated | 2026-11-26 |
 
 ## Question → authoritative document
 
@@ -50,8 +50,8 @@ POSIWID work in public: the agent layer (posiwid-facilitator, posiwid-analyst an
 | [`DECISIONS.md`](DECISIONS.md) | 2026-11-25 | — | HITL *(not for grounding)*. POS-D-01 public domain; POS-D-02 browser-only form; POS-D-03 served at `/posiwid`; POS-D-04 agent layer; POS-D-05 public analyses only (active) |
 | [`POSIWID_Facilitation_Session_Template.md`](POSIWID_Facilitation_Session_Template.md) | 2026-11-22 | 1 | Template for `Sessions/POSIW-FAC-*` drafts: intake, problem container, de-facto definition (C1), expectations, gap table (C2), outputs, mechanism check (C-MECH), controls, handoff (C3), concerns |
 | [`POSIWID_Analysis_Status.md`](POSIWID_Analysis_Status.md) | 2026-11-25 | 1 | Live state: form written, not deployed; open items POS-OI-01 to -03 |
-| [`app/index.html`](app/index.html) | 2026-11-24 | 1 | Guided form, crediting Stafford Beer, with the site logo (`/logo-small.png`) and tab icon: system details, questions 1–5, repeatable gaps and changes, progress checklist, live output with two tabs, "Analysis" (Markdown with front matter) and "Prompt for an AI" (method + analysis, GA-D-02), copy and download, and a "Start a goal" button that opens the Goal form filled from this analysis (GA-D-04). Draft kept in the browser's local storage only |
-| [`design-app/index.html`](design-app/index.html) | 2026-11-24 | 1 | POSIWID Design form (POS-D-06), served at `purpose.sisyphusdev.com/design/` in System Design and Analysis: expectations E1…, each with many expected outputs (O1.1…, with evidence) and many controls (K1.1…, naming the output they act on, with frequency); progress checks; Markdown or AI-prompt output; draft kept in local storage |
+| [`app/index.html`](app/index.html) | 2026-11-26 | 1 | Guided form, crediting Stafford Beer, with the site logo (`/logo-small.png`) and tab icon: system details, questions 1–5, repeatable gaps and changes, progress checklist, live output with two tabs, "Analysis" (Markdown with front matter) and "Prompt for an AI" (method + analysis, GA-D-02), copy and download, and a "Start a goal" button that opens the Goal form filled from this analysis (GA-D-04). Draft kept in the browser's local storage only. Footer links to `/privacy` |
+| [`design-app/index.html`](design-app/index.html) | 2026-11-26 | 1 | POSIWID Design form (POS-D-06), served at `purpose.sisyphusdev.com/design/` in System Design and Analysis: expectations E1…, each with many expected outputs (O1.1…, with evidence) and many controls (K1.1…, naming the output they act on, with frequency); progress checks; Markdown or AI-prompt output; draft kept in local storage. Footer links to `/privacy` |
 
 ## Agent layer register (outside this folder, owned here)
 

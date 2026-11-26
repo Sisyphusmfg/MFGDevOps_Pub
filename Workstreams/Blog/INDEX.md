@@ -3,7 +3,7 @@ title: Blog — Domain Index
 doc_type: readme-index
 domain: blog
 Contributed By: Marc Dugas
-Last Updated: 2026-11-25
+Last Updated: 2026-11-26
 Document Type: Domain Index
 Status: Active
 authority_rank: 1
@@ -21,7 +21,7 @@ The sisyphusdev blog at `blog.sisyphusdev.com`: one Markdown file per post in `p
 |-------|-------|
 | Domain | blog |
 | Owner | Marc Dugas |
-| Last Updated | 2026-11-25 |
+| Last Updated | 2026-11-26 |
 | Parent | Root [`README.md`](../../README.md) |
 
 ## Question → authoritative document
@@ -55,7 +55,7 @@ Published posts appear on the blog from their date. A draft is not filed in this
 
 | File | Date | authority_rank | Description |
 |------|------|----------------|-------------|
-| [`../../scripts/build-blog.mjs`](../../scripts/build-blog.mjs) | 2026-11-25 | 1 | Builds `dist/blog/` from `posts/`: post list with a featured latest post, category flags and filter, one page per post. Leaves out Published posts dated after today (New York) and writes `schedule.json` with the next scheduled date (BLOG-D-05). Stops on a `Status: Draft` post (BLOG-D-06). No dependencies |
+| [`../../scripts/build-blog.mjs`](../../scripts/build-blog.mjs) | 2026-11-26 | 1 | Builds `dist/blog/` from `posts/`: post list with a featured latest post, category flags and filter, one page per post. Leaves out Published posts dated after today (New York) and writes `schedule.json` with the next scheduled date (BLOG-D-05). Stops on a `Status: Draft` post (BLOG-D-06). Footer on the index and each post links to `/privacy`. No dependencies |
 | [`../../scripts/test/build-blog.test.mjs`](../../scripts/test/build-blog.test.mjs) | 2026-11-25 | — | Tests. Run `node --test scripts/test/build-blog.test.mjs` |
 
 ## Cross-links
