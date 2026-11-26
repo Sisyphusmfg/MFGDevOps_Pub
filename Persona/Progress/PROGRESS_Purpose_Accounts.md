@@ -22,10 +22,11 @@ Design: [`../../Workstreams/Sisyphusdev_Site/POSIWID_Design_Purpose_Accounts.md`
 
 ## Current step
 
-P2 done. Hyperdrive exists. Waiting on Marc's answer about turning Hyperdrive caching off. Then P3: the Worker API.
+P2 done. Hyperdrive ready with caching off. Next: P3, the Worker API.
 
 ## Done
 
+- 2026-11-25 20:24 — Marc turned off Hyperdrive caching for `sisyphusdev-apps`; the Cloudflare API shows `caching.disabled: true`
 - 2026-11-25 20:18 — Marc set the `app_api_web` password (without displaying it) and created Hyperdrive `sisyphusdev-apps` (ID `e8716c8b72064bc19275b1b631e4c3f4`): user `app_api_web`, direct host `ep-long-flower-bbdjyj10.c-15.us-east-1.aws.neon.tech`, database `neondb` (Cloudflare API). Query caching is on by default; the agent asked Marc to turn it off, because cached reads could cross users under row-level security
 - 2026-11-25 20:01 — Marc deleted the Console roles `app_api_login` and his Console-made `app_api_web`. The agent recreated `app_api_web` by SQL: member of `app_api` only, no bypassrls, no password; verified 0 rows visible and `neon_auth.user` denied. Neon docs: SQL roles need plain-text passwords (no hashed `\password`), set with `ALTER ROLE ... WITH PASSWORD`
 - 2026-11-25 — Created `app_api_web` by SQL on `main`: login, no superuser, no bypassrls, no createrole or createdb, member of `app_api` only, connection limit 50, no password yet. As `app_api_web`: 0 records and 0 requests visible; reading `neon_auth.user` is denied
@@ -45,7 +46,7 @@ P2 done. Hyperdrive exists. Waiting on Marc's answer about turning Hyperdrive ca
 
 ## Next step
 
-Turn off Hyperdrive caching (on Marc's word). Then P3: add the Hyperdrive binding to `wrangler.jsonc`; build the Worker `/api/*` (JWT check against the JWKS, `SET LOCAL app.user_id` per transaction); add the email-code sign-in test (design § Account approval). Delete branch `p2-schema-test` once Marc agrees.
+P3: add the Hyperdrive binding to `wrangler.jsonc`; build the Worker `/api/*` (JWT check against the JWKS, `SET LOCAL app.user_id` per transaction); add the email-code sign-in test (design § Account approval). Delete branch `p2-schema-test` once Marc agrees.
 
 ## To do later (from P1)
 
