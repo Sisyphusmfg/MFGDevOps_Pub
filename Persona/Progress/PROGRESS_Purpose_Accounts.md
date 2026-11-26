@@ -22,10 +22,11 @@ Design: [`../../Workstreams/Sisyphusdev_Site/POSIWID_Design_Purpose_Accounts.md`
 
 ## Current step
 
-P2 built and tested on branch `p2-schema-test`. Next: Marc merges the P2 pull request; then apply `0001_spaces.up.sql` to `main` and create the API login role and Hyperdrive.
+P2 done, including on `main`. Waiting on Marc: create the API login role in the Neon Console, then Hyperdrive on the Surface.
 
 ## Done
 
+- 2026-11-25 — `0001_spaces.up.sql` applied to `main` (pull request #19 merged, Marc's go-ahead 19:31). 9 tables with row-level security, 21 policies, 5 triggers; `app_api` can't log in or bypass row-level security; 0 rows visible to an anonymous API session
 - 2026-11-25 — P2 on Neon branch `p2-schema-test` (`br-silent-haze-bb5kmch1`). Ran up (75 statements), then isolation tests: all 10 checks pass. A deliberately broken `can_access` (returns true) failed T1 ("A sees 2 records") and was rolled back. Then down (schema and role gone), up, and tests: all passed, 0 leftover rows. `main` not migrated yet
 - 2026-11-25 — Email Routing enabled on sisyphusdev.com (MX, SPF, DKIM added) and Marc's destination verified, on his instruction. Marc added the `APPROVER_EMAIL` Worker secret (18:58, listed by the Cloudflare API). Left for P5: the `send_email` binding
 - 2026-11-25 — SDEV-D-20: Marc chose email notification (D6 a). His address stays out of the repo (Worker secret `APPROVER_EMAIL`)
@@ -41,7 +42,7 @@ P2 built and tested on branch `p2-schema-test`. Next: Marc merges the P2 pull re
 
 ## Next step
 
-After merge: (1) apply `0001_spaces.up.sql` to `main`, on Marc's go-ahead. (2) Marc creates a login role in the Neon Console (e.g. `app_api_login`), and the agent runs `GRANT app_api TO app_api_login` so the role logs in with no privileges of its own. (3) Marc runs `npx wrangler hyperdrive create sisyphusdev-apps --connection-string="<app_api_login connection string>"` on the Surface, so the string never enters a file or chat. (4) Delete branch `p2-schema-test`.
+(1) Marc creates a login role in the Neon Console (e.g. `app_api_login`), and the agent runs `GRANT app_api TO app_api_login` so the role logs in with no privileges of its own. (2) Marc runs `npx wrangler hyperdrive create sisyphusdev-apps --connection-string="<app_api_login connection string>"` on the Surface, so the string never enters a file or chat. (3) Delete branch `p2-schema-test` once Marc agrees. Then P3: the Worker API.
 
 ## To do later (from P1)
 
