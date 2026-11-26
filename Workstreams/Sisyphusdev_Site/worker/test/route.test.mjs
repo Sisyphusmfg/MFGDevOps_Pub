@@ -1,7 +1,7 @@
 // Run: node --test Workstreams/Sisyphusdev_Site/worker/test/route.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import worker, { privacyAssetPath, route } from "../index.mjs";
+import worker, { route } from "../index.mjs";
 
 const r = (u) => route(new URL(u));
 
@@ -41,12 +41,12 @@ test("everything else is served as-is", () => {
   ]) assert.equal(r(u), null, u);
 });
 
-test("privacy is the notice file on every host, with no redirect", async () => {
-  assert.equal(privacyAssetPath("/privacy"), "/privacy/index.html");
-  assert.equal(privacyAssetPath("/privacy/"), "/privacy/index.html");
-  assert.equal(privacyAssetPath("/privacy/index.html"), null);
+test("privacy reaches assets unchanged so /privacy can return the notice", async () => {
+  // dist/privacy.html is served at /privacy by assets HTML handling (200).
+  // Rewriting the request to /privacy/index.html makes assets redirect back
+  // to /privacy, and the Worker would loop.
   const env = {
-    ASSETS: { fetch: async (req) => new Response("privacy:" + new URL(req.url).pathname, { status: 200 }) },
+    ASSETS: { fetch: async (req) => new Response("asset:" + new URL(req.url).pathname, { status: 200 }) },
   };
   for (const u of [
     "https://sisyphusdev.com/privacy",
@@ -58,7 +58,7 @@ test("privacy is the notice file on every host, with no redirect", async () => {
     const res = await worker.fetch(new Request(u), env);
     assert.equal(res.status, 200, u);
     assert.equal(res.headers.get("location"), null, u);
-    assert.equal(await res.text(), "privacy:/privacy/index.html", u);
+    assert.equal(await res.text(), "asset:" + new URL(u).pathname, u);
   }
 });
 
